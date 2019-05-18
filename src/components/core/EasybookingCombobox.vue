@@ -45,8 +45,8 @@ export default {
     display: flex;
     border: 1px solid #0FB8D3;
     box-sizing: border-box;
-		border-radius: 4px;
-		margin-top: 6px;
+    border-radius: 4px;
+    margin-top: 6px;
   }
 
   .easybooking-combobox-field input {
@@ -80,8 +80,9 @@ export default {
   .easybooking-combobox-field .last {
     text-align: right;
     padding-left: 5px !important;
-	}
-	.combobox-icon-btn{
-		height: 30px;
-	}
+  }
+
+  .combobox-icon-btn {
+    height: 30px;
+  }
 </style>

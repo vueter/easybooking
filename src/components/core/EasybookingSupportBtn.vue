@@ -5,13 +5,13 @@
 </template>
 <script>
 export default {
-    name: 'EasybookingSupportBtn',
-    props: {
-        text: {
-            type: String,
-            default: () => { return 'Подписаться' }
-        }
+  name: 'EasybookingSupportBtn',
+  props: {
+    text: {
+      type: String,
+      default: () => { return 'Подписаться' }
     }
+  }
 }
 </script>
 

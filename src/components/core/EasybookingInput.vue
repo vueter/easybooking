@@ -1,26 +1,25 @@
 <template>
-	<div class="easybooking-input">
-		<input type="text" :placeholder="placeholder" />
-	</div>
+  <div class="easybooking-input">
+    <input type="text" :placeholder="placeholder" />
+  </div>
 </template>
 <script>
 export default {
-	name: 'EasybookingInput',
-	props: {
-		placeholder: {
-			type: String,
-			default: () => {
-				return ''
-			}
-		}
-	}
+  name: 'EasybookingInput',
+  props: {
+    placeholder: {
+      type: String,
+      default: () => {
+        return ''
+      }
+    }
+  }
 }
 </script>
 
-
 <style>
-.easybooking-input input{
-	  border-radius: 4px;
+  .easybooking-input input {
+    border-radius: 4px;
     outline: none;
     height: 40px;
     width: 100%;
@@ -30,14 +29,15 @@ export default {
     box-shadow: none;
     transition: box-shadow .3s, border .3s;
     font-family: "Roboto";
-		padding-right: 36px;
-		border: 1px solid white !important;
+    padding-right: 36px;
+    border: 1px solid white !important;
     background-color: transparent !important;
     color: white !important;
-		flex: 2;
-		color: white;
-}
-.easybooking-input input::placeholder {
-    color: white; 
-} 
+    flex: 2;
+    color: white;
+  }
+
+  .easybooking-input input::placeholder {
+    color: white;
+  }
 </style>

@@ -27,7 +27,12 @@ export default {
     }
   },
   components: {
-    EasybookingNavbar, EasybookingSearchThumbnail, EasybookingCarousel, EasybookingOffers, EasybookingSupportBlock, EasybookingFooter,
+    EasybookingNavbar,
+    EasybookingSearchThumbnail,
+    EasybookingCarousel,
+    EasybookingOffers,
+    EasybookingSupportBlock,
+    EasybookingFooter,
     EasybookingReviewsBlock
   }
 }
