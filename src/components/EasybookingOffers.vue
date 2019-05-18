@@ -10,7 +10,7 @@
                 Something
               </v-flex>
               <v-flex xs5>
-                <img src="../assets/images/moscow.png" style="float:right" height="300px"/>
+                <img src="../assets/images/moscow.png" style="float:right; width: 100%"/>
               </v-flex>
             </v-layout>
           </v-card>
