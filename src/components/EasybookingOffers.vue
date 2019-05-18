@@ -112,6 +112,9 @@ export default {
   float: left;
   margin-bottom: 12px;
 }
+.offers-list a:hover{
+  color: #0FB8D3 !important;
+}
 .offers-item{
   width: 100%;
 }
