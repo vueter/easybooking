@@ -1,18 +1,18 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js Easybooking App"/>
+    <EasybookingNavbar />
+    <EasybookingSearchThumbnail />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import EasybookingNavbar from '@/components/EasybookingNavbar'
+import EasybookingSearchThumbnail from '@/components/EasybookingSearchThumbnail'
 
 export default {
   name: 'home',
   components: {
-    HelloWorld
+    EasybookingNavbar, EasybookingSearchThumbnail
   }
 }
 </script>
