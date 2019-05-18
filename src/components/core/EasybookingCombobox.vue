@@ -3,7 +3,7 @@
     <v-flex class="easybooking-combobox-field">
       <input type="text" :placeholder="from" class="first">
     </v-flex>
-    <v-btn icon>
+    <v-btn icon class="combobox-icon-btn">
       <v-icon color="#0FB8D3">{{icon}}</v-icon>
     </v-btn>
     <v-flex class="easybooking-combobox-field">
@@ -45,7 +45,8 @@ export default {
     display: flex;
     border: 1px solid #0FB8D3;
     box-sizing: border-box;
-    border-radius: 4px;
+		border-radius: 4px;
+		margin-top: 6px;
   }
 
   .easybooking-combobox-field input {
@@ -79,5 +80,8 @@ export default {
   .easybooking-combobox-field .last {
     text-align: right;
     padding-left: 5px !important;
-  }
+	}
+	.combobox-icon-btn{
+		height: 30px;
+	}
 </style>
