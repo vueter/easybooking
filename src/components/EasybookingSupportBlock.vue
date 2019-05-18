@@ -8,17 +8,17 @@
           <h3 class="support-title">Подписка на рассылку</h3>
           <p class="support">Подпишитесь, чтобы быть в курсе всех важных новостей,
             полезных статей из нашего блога и выгодных предложений!</p>
-          <v-form>
-            <v-layout row>
-              <v-flex md6>
-                <v-text-field outline color="white" class="support-input"/>
+          <div>
+            <v-layout row wrap>
+              <v-flex md7 xs12 class="support-tools">
+                <EasybookingInput placeholder="E-Mail"/>
               </v-flex>
               <v-spacer/>
-              <v-flex md5>
-                <v-btn class="subscripb-btn" block>Subscrib</v-btn>
+              <v-flex md5 xs12 class="support-tools">
+                <EasybookingSupportBtn />
               </v-flex>
             </v-layout>
-          </v-form>
+          </div>
         </v-flex>
       </v-layout>
     </v-container>
@@ -26,8 +26,11 @@
 </template>
 
 <script>
+import EasybookingInput from '@/components/core/EasybookingInput'
+import EasybookingSupportBtn from '@/components/core/EasybookingSupportBtn'
 export default {
-  name: 'EasybookingSupportBlock'
+  name: 'EasybookingSupportBlock',
+  components: { EasybookingInput, EasybookingSupportBtn }
 }
 </script>
 <style>
@@ -40,5 +43,11 @@ export default {
 }
 .subscripb-btn.v-btn .v-btn__content{
   color: #0FB8D3;
+}
+.support-title{
+  font-weight: bold;
+}
+.support-tools{
+  margin-top: 10px;
 }
 </style>
