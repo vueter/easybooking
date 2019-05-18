@@ -17,6 +17,11 @@ import EasybookingSupportBlock from '@/components/EasybookingSupportBlock'
 
 export default {
   name: 'home',
+  data: () => {
+    return {
+      response: null
+    }
+  },
   components: {
     EasybookingNavbar, EasybookingSearchThumbnail, EasybookingCarousel, EasybookingOffers, EasybookingSupportBlock
   }

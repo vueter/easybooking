@@ -1,8 +1,9 @@
+
 @import url(./toolbar.css);
 @import url(./media.css);
 
-.support-block{
-    background-image: url(../images/support-bg.png);
-    background-size: cover;
-    height: 300px;
+.support-block {
+  background-image: url(../images/support-bg.png);
+  background-size: cover;
+  height: 300px;
 }

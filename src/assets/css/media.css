@@ -1,11 +1,20 @@
 @media only screen and (min-width: 1264px){
     .container {
-        max-width: 1285px;
+        max-width: 1140px;
+    }
+    .v-toolbar__content{
+        max-width: 1140px;
+        margin: auto;
     }
 }
 
 @media only screen and (min-width: 1904px){
     .container {
-        max-width: 1385px;
+        max-width: 1140px;
+    }
+    .v-toolbar__content{
+        max-width: 1140px;
+        margin: auto;
     }
 }
+
