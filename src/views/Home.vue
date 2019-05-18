@@ -5,6 +5,7 @@
     <EasybookingCarousel />
     <EasybookingOffers />
     <EasybookingSupportBlock />
+    <EasybookingFooter />
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import EasybookingSearchThumbnail from '@/components/EasybookingSearchThumbnail'
 import EasybookingCarousel from '@/components/EasybookingCarousel'
 import EasybookingOffers from '@/components/EasybookingOffers'
 import EasybookingSupportBlock from '@/components/EasybookingSupportBlock'
+import EasybookingFooter from '@/components/EasybookingFooter'
 
 export default {
   name: 'home',
@@ -23,7 +25,7 @@ export default {
     }
   },
   components: {
-    EasybookingNavbar, EasybookingSearchThumbnail, EasybookingCarousel, EasybookingOffers, EasybookingSupportBlock
+    EasybookingNavbar, EasybookingSearchThumbnail, EasybookingCarousel, EasybookingOffers, EasybookingSupportBlock, EasybookingFooter
   }
 }
 </script>
