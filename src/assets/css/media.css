@@ -17,4 +17,12 @@
         margin: auto;
     }
 }
-
+@media only screen and (max-width: 959px){
+    .container {
+        max-width: 500px;
+    }
+    .v-toolbar__content{
+        max-width: 500px;
+        margin: auto;
+    }
+}

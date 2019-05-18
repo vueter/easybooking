@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer-top">
       <v-container>
-        <v-layout row>
+        <v-layout row wrap>
           <v-flex lg2 md4 sm6>
             <a href="#"><img class="mt-20" src="image/logo-white.svg" alt=""></a>
             <ul class="social tc">
@@ -87,13 +87,13 @@
         </v-layout>
       </v-container>
     </div>
-    <div class="footer-bottom valign-wrapper">
+    <div class="footer-bottom">
       <div class="container">
-        <v-layout row>
+        <v-layout row wrap>
           <div class="col-lg-3">
             <div class="footer-copyright">© 2017-2019 Easybooking.uz</div>
           </div>
-          <div class="col-lg-6 valign-wrapper" style="justify-content:center">
+          <div class="col-lg-6" style="justify-content:center">
             <div class="footer-payment">
               <span>Мы принимаем к оплате:</span>
               <img src="image/payme.png" alt="payme">
