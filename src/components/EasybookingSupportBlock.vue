@@ -50,4 +50,7 @@ export default {
 .support-tools{
   margin-top: 10px;
 }
+.support-block{
+  margin-top: 70px;
+}
 </style>

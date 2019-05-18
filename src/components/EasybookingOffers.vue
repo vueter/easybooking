@@ -2,7 +2,7 @@
   <div class="easybooking-offers">
     <v-container>
       <h2>Популярные направления</h2>
-      <v-layout row wrap style="margin-top: 100px">
+      <v-layout row wrap style="margin-top: 25px">
         <v-flex md6 pa-3 v-for="(offer, index) in offers" v-bind:key="index">
           <v-card>
             <v-layout row>
