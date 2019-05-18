@@ -52,5 +52,8 @@ export default {
   .basic-searching h1{
     margin-bottom: 10px;
   }
+  .hide-on-sm{
+    display: none;
+  }
 }
 </style>

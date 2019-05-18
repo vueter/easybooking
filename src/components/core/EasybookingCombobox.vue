@@ -19,23 +19,23 @@ export default {
     target: {
       type: String,
       default: () => {
-				return 'location'
+        return 'location'
       }
     }
-	},
-	data: () => {
-		return {
-			icon: 'swap_horiz',
-			from: 'Прибытие',
-			to: 'Прибытие'
-		}
-	},
+  },
+  data: () => {
+    return {
+      icon: 'swap_horiz',
+      from: 'Прибытие',
+      to: 'Прибытие'
+    }
+  },
   mounted () {
-    if(this.target === 'date'){
-			this.icon = 'date_range'
-			this.from = 'Туда'
-			this.to = 'Обратно'
-		}
+    if (this.target === 'date') {
+      this.icon = 'date_range'
+      this.from = 'Туда'
+      this.to = 'Обратно'
+    }
   }
 }
 </script>
