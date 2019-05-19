@@ -40,7 +40,7 @@ export default class Communicator {
       })
     }
   }
-  getDirectives(queryWord, done){
+  getDirectives (queryWord, done) {
     this.$http({
       method: 'GET',
       url: 'https://easybooking.uz/airport/list',
@@ -51,5 +51,24 @@ export default class Communicator {
     }).then(response => {
       done(response)
     })
+  }
+  search (request, done) {
+    if (this.config === null) {
+      this.auth(result => {
+        this.setConfig(result)
+        this.search(request, done)
+      })
+    } else {
+      this.$http({
+        method: 'POST',
+        url: 'https://crm.etm-system.com/api/air/search',
+        data: request,
+        headers: {
+          'etm-auth-key': this.config['etm_auth_key']
+        }
+      }).then(response => {
+        done(response.data)
+      })
+    }
   }
 }

@@ -13,12 +13,12 @@
 </template>
 <script>
 export default {
-	name: 'LocationItem',
-	props: {
-		city: String,
-		country: String,
-		code: String
-	}
+  name: 'LocationItem',
+  props: {
+    city: String,
+    country: String,
+    code: String
+  }
 }
 </script>
 

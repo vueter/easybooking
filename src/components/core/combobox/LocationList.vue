@@ -6,18 +6,18 @@
 <script>
 import LocationItem from '@/components/core/combobox/LocationItem'
 export default {
-    name: 'LocationList',
-    components: { LocationItem },
-    data: () => {
-        return {
-            items: []
-        }
-    },
-    methods: {
-        update(items){
-            this.items = items
-        }
+  name: 'LocationList',
+  components: { LocationItem },
+  data: () => {
+    return {
+      items: []
     }
+  },
+  methods: {
+    update (items) {
+      this.items = items
+    }
+  }
 }
 </script>
 <style>

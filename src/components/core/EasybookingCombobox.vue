@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    
+
     <v-layout row class="easybooking-combobox">
       <v-flex class="easybooking-combobox-field">
         <input type="text" :placeholder="from" class="first" ref="from">
@@ -39,14 +39,26 @@ export default {
     }
   },
   methods: {
-    search(target){
+    search (target) {
       var input = this.$refs[target]
-      if(input.value.length > 2){
+      if (input.value.length > 2) {
         const comm = new Communicator()
         comm.getDirectives(input.value, result => {
           console.log(result)
         })
       }
+    },
+    getCodes () {
+      return {
+        'departure_code': this.$refs['from'].value,
+        'arrival_code': this.$refs['to'].value
+      }
+    },
+    getDates (asArray = false) {
+      if (this.$refs['to'].value.length > 0) {
+        return [this.$refs['from'].value, this.$refs['to'].value]
+      }
+      return [this.$refs['from'].value]
     }
   },
   mounted () {
