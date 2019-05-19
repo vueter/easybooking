@@ -52,8 +52,8 @@ export default {
   },
   mounted () {
     const comm = new Communicator()
-    comm.getOffers({ request_id: this.$route.params.id, sort: 'profit'}, result => {
-        this.offers = result
+    comm.getOffers({ request_id: this.$route.params.id, sort: 'profit' }, result => {
+      this.offers = result
     })
   }
 }

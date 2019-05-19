@@ -69,8 +69,7 @@ export default {
       this.from = 'Туда'
       this.to = 'Обратно'
       this.value_from = '2019-05-25'
-    }
-    else{
+    } else {
       this.value_from = 'DXB'
       this.value_to = 'RUH'
     }

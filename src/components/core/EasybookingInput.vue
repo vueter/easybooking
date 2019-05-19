@@ -36,7 +36,6 @@ export default {
     transition: box-shadow .3s, border .3s;
     font-family: "Roboto";
     padding-right: 36px;
-
     background-color: transparent !important;
     color: white !important;
     flex: 2;
@@ -46,7 +45,8 @@ export default {
   .easybooking-input input::placeholder {
     color: white;
   }
-  .easybooking-input.light{
+
+  .easybooking-input.light {
     border: 1px solid white !important;
   }
 </style>

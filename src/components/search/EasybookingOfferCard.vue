@@ -30,47 +30,47 @@
 </template>
 <script>
 export default {
-    name: 'EasybookingOfferCard',
-    props: {
-        offer: {
-            type: Object
-        }
-    },
-    methods: {
-        getDurationTime(offer){
-            var minutes = 0;
-            for(const _offer of offer.offers){
-                for(const segment of _offer.segments){
-                    minutes += segment.duration_minutes
-                }
-            }
-            var m = minutes % 60;
-            minutes = parseInt(minutes / 60)
-            var h = minutes % 24;
-            minutes = parseInt(minutes / 24)
-            var d = parseInt(minutes / 24)
-            if(m < 10){ m = '0' + m }
-            if(h < 10){ h = '0' + h }
-            if(d > 0){ return d + ' д ' + h + ' ч ' + m + ' мин' }
-            return h + ' ч ' + m + ' мин'
-        },
-        getLocations(offer){
-            var locations = [];
-            for(const _offer of offer.offers){
-                for(const segment of _offer.segments){
-                    locations.push({
-                        arrival_airport: segment.arrival_airport,
-                        arrival_date: segment.arrival_date,
-                        arrival_time: segment.arrival_time,
-                        departure_airport : segment.departure_airport,
-                        departure_date: segment.departure_date,
-                        departure_time: segment.departure_time
-                    })
-                }
-            }
-            console.log(locations)
-        }
+  name: 'EasybookingOfferCard',
+  props: {
+    offer: {
+      type: Object
     }
+  },
+  methods: {
+    getDurationTime (offer) {
+      var minutes = 0
+      for (const _offer of offer.offers) {
+        for (const segment of _offer.segments) {
+          minutes += segment.duration_minutes
+        }
+      }
+      var m = minutes % 60
+      minutes = parseInt(minutes / 60)
+      var h = minutes % 24
+      minutes = parseInt(minutes / 24)
+      var d = parseInt(minutes / 24)
+      if (m < 10) { m = '0' + m }
+      if (h < 10) { h = '0' + h }
+      if (d > 0) { return d + ' д ' + h + ' ч ' + m + ' мин' }
+      return h + ' ч ' + m + ' мин'
+    },
+    getLocations (offer) {
+      var locations = []
+      for (const _offer of offer.offers) {
+        for (const segment of _offer.segments) {
+          locations.push({
+            arrival_airport: segment.arrival_airport,
+            arrival_date: segment.arrival_date,
+            arrival_time: segment.arrival_time,
+            departure_airport: segment.departure_airport,
+            departure_date: segment.departure_date,
+            departure_time: segment.departure_time
+          })
+        }
+      }
+      console.log(locations)
+    }
+  }
 }
 </script>
 

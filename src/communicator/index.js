@@ -58,7 +58,7 @@ export default class Communicator {
       })
     }
   }
-  getOffers(params, done){
+  getOffers (params, done) {
     if (this.config === null) {
       this.auth(result => {
         this.setConfig(result)
@@ -73,12 +73,11 @@ export default class Communicator {
           'etm-auth-key': this.config['etm_auth_key']
         }
       }).then(response => {
-        if(response.data.status === 'InProcess'){
+        if (response.data.status === 'InProcess') {
           setTimeout(() => {
             this.getOffers(params, done)
           }, 1000)
-        }
-        else{
+        } else {
           done(response.data)
         }
       })
