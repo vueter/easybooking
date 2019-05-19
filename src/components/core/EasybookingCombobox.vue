@@ -5,7 +5,7 @@
       <v-flex class="easybooking-combobox-field">
         <input type="text" :placeholder="from" class="first" ref="from" :value="value_from">
       </v-flex>
-      <v-btn icon class="combobox-icon-btn">
+      <v-btn icon class="combobox-icon-btn" :ripple="false">
         <v-icon color="#0FB8D3">{{icon}}</v-icon>
       </v-btn>
       <v-flex class="easybooking-combobox-field">
@@ -122,5 +122,6 @@ export default {
 
   .combobox-icon-btn {
     height: 30px;
+    width: 30px;
   }
 </style>

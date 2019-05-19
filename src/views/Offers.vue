@@ -13,7 +13,9 @@
                     <EasybookingFiltersCard />
                 </v-flex>
                 <v-flex md8 pa-3>
-                    
+                    <div v-if="offers !== null && offers.status === 'Ready'">
+                        <EasybookingOfferCard v-for="(offer, index) in offers.offers" v-bind:key="index" v-bind:offer="offer"/>
+                    </div>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -28,6 +30,7 @@ import EasybookingFooter from '@/components/EasybookingFooter'
 // Cards
 import EasybookingSubscribeCard from '@/components/search/EasybookingSubscribeCard'
 import EasybookingFiltersCard from '@/components/search/EasybookingFiltersCard'
+import EasybookingOfferCard from '@/components/search/EasybookingOfferCard'
 
 // Communicator
 import Communicator from '@/communicator'
@@ -38,7 +41,8 @@ export default {
     EasybookingSearchboard,
     EasybookingFooter,
     EasybookingSubscribeCard,
-    EasybookingFiltersCard
+    EasybookingFiltersCard,
+    EasybookingOfferCard
   },
   data: () => {
     return {
@@ -48,9 +52,7 @@ export default {
   },
   mounted () {
     const comm = new Communicator()
-    comm.getOffers({ request_id: this.$route.params.id}, result => {
-        console.log('Comme offers')
-        console.log(result)
+    comm.getOffers({ request_id: this.$route.params.id, sort: 'profit'}, result => {
         this.offers = result
     })
   }
