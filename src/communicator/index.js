@@ -21,17 +21,35 @@ export default class Communicator {
   setConfig (config) {
     this.config = config
   }
-  getOffers (params, done) {
+  getOrders (params, done) {
     if (this.config === null) {
       this.auth(result => {
         this.setConfig(result)
-        this.getOffers(params, done)
+        this.getOrders(params, done)
       })
     } else {
       this.$http({
         method: 'GET',
         url: 'https://crm.etm-system.com/api/air/orders',
         params: params,
+        headers: {
+          'etm-auth-key': this.config['etm_auth_key']
+        }
+      }).then(response => {
+        done(response.data)
+      })
+    }
+  }
+  getOrderById(params, done){
+    if (this.config === null) {
+      this.auth(result => {
+        this.setConfig(result)
+        this.getOrderById(params, done)
+      })
+    } else {
+      this.$http({
+        method: 'GET',
+        url: 'https://crm.etm-system.com/api/air/orders/' + params['order_id'],
         headers: {
           'etm-auth-key': this.config['etm_auth_key']
         }
