@@ -66,6 +66,8 @@ export default {
     return {
       offers: [
         { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' },
+        { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' },
+        { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' },
         { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' }
       ]
     }

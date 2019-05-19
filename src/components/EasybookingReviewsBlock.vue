@@ -10,8 +10,8 @@
       </v-flex>
       <v-flex md6 xs12 pa-3>
         <h3 class="reviews-subtext">Советы</h3>
-        <EasybookingReviewsCard />
-        <EasybookingReviewsCard />
+        <EasybookingAdviceCard />
+        <EasybookingAdviceCard />
         <v-btn block color="#0ED3F2" class="loadmore-reviwes-btn">Посмотреть все отзывы</v-btn>
       </v-flex>
     </v-layout>
@@ -20,11 +20,13 @@
 
 <script>
 import EasybookingReviewsCard from '@/components/cards/EasybookingReviewsCard'
+import EasybookingAdviceCard from '@/components/cards/EasybookingAdviceCard'
 
 export default {
   name: 'EasybookingReviewBlock',
   components: {
-    EasybookingReviewsCard
+    EasybookingReviewsCard,
+    EasybookingAdviceCard
   }
 }
 </script>

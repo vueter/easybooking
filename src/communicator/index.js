@@ -40,4 +40,16 @@ export default class Communicator {
       })
     }
   }
+  getDirectives(queryWord, done){
+    this.$http({
+      method: 'GET',
+      url: 'https://easybooking.uz/airport/list',
+      params: { query: queryWord },
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      }
+    }).then(response => {
+      done(response)
+    })
+  }
 }

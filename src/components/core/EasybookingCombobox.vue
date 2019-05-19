@@ -1,20 +1,27 @@
 <template>
-  <v-layout row class="easybooking-combobox">
-    <v-flex class="easybooking-combobox-field">
-      <input type="text" :placeholder="from" class="first">
-    </v-flex>
-    <v-btn icon class="combobox-icon-btn">
-      <v-icon color="#0FB8D3">{{icon}}</v-icon>
-    </v-btn>
-    <v-flex class="easybooking-combobox-field">
-      <input type="text" :placeholder="to" class="last">
-    </v-flex>
+  <v-layout row wrap>
+    
+    <v-layout row class="easybooking-combobox">
+      <v-flex class="easybooking-combobox-field">
+        <input type="text" :placeholder="from" class="first" ref="from">
+      </v-flex>
+      <v-btn icon class="combobox-icon-btn">
+        <v-icon color="#0FB8D3">{{icon}}</v-icon>
+      </v-btn>
+      <v-flex class="easybooking-combobox-field">
+        <input type="text" :placeholder="to" class="last" ref="to">
+      </v-flex>
+      <LocationList v-if="target == 'location'" />
+    </v-layout>
   </v-layout>
 </template>
 
 <script>
+import LocationList from '@/components/core/combobox/LocationList'
+import Communicator from '@/communicator'
 export default {
   name: 'EasybookingCombobox',
+  components: { LocationList },
   props: {
     target: {
       type: String,
@@ -27,7 +34,19 @@ export default {
     return {
       icon: 'swap_horiz',
       from: 'Прибытие',
-      to: 'Прибытие'
+      to: 'Прибытие',
+      response: ''
+    }
+  },
+  methods: {
+    search(target){
+      var input = this.$refs[target]
+      if(input.value.length > 2){
+        const comm = new Communicator()
+        comm.getDirectives(input.value, result => {
+          console.log(result)
+        })
+      }
     }
   },
   mounted () {
