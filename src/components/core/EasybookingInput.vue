@@ -1,5 +1,5 @@
 <template>
-  <div class="easybooking-input">
+  <div class="easybooking-input" :class="light ? 'light' : 'dark'">
     <input type="text" :placeholder="placeholder" />
   </div>
 </template>
@@ -11,6 +11,12 @@ export default {
       type: String,
       default: () => {
         return ''
+      }
+    },
+    light: {
+      type: Boolean,
+      default: () => {
+        return true
       }
     }
   }
@@ -30,7 +36,7 @@ export default {
     transition: box-shadow .3s, border .3s;
     font-family: "Roboto";
     padding-right: 36px;
-    border: 1px solid white !important;
+
     background-color: transparent !important;
     color: white !important;
     flex: 2;
@@ -39,5 +45,8 @@ export default {
 
   .easybooking-input input::placeholder {
     color: white;
+  }
+  .easybooking-input.light{
+    border: 1px solid white !important;
   }
 </style>

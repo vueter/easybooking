@@ -28,15 +28,13 @@
 <script>
 import EasybookingCombobox from '@/components/core/EasybookingCombobox'
 import EasybookingPassangerBox from '@/components/core/EasybookingPassangerBox'
-import EasybookingSearchButton from '@/components/core/EasybookingSearchButton'
 
 import Communicator from '@/communicator'
 export default {
   name: 'EasybookingSearchboard',
   components: {
     EasybookingCombobox,
-    EasybookingPassangerBox,
-    EasybookingSearchButton
+    EasybookingPassangerBox
   },
   data: () => {
     return {
@@ -60,7 +58,15 @@ export default {
       var request = {
         directions: directives,
         adult_qnt: 1,
-        class: 'E'
+        child_qnt: 0,
+        infant_qnt: 0,
+        class: 'E',
+        direct: false,
+        flexible: false,
+        airlines: [],
+        fare_types: [
+          'PUB', 'NEG'
+        ]
       }
       const comm = new Communicator()
       comm.search(request, result => {

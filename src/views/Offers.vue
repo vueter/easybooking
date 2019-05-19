@@ -8,18 +8,12 @@
         </div>
         <v-container class="offers-body">
             <v-layout row wrap>
-                <v-flex md3>
-                    Filters
+                <v-flex md4 pa-3>
+                    <EasybookingSubscribeCard />
+                    <EasybookingFiltersCard />
                 </v-flex>
-                <v-flex md9 v-if="offers !== null && offers.status === 'ok'">
-                    {{ offers }}
-                    <v-layout v-for="offer in offers.data" v-bind:key="offer.id">
-                        <v-flex pa-2>
-                            <v-card>
-                                {{ offer }}
-                            </v-card>
-                        </v-flex>
-                    </v-layout>
+                <v-flex md8 pa-3>
+                    
                 </v-flex>
             </v-layout>
         </v-container>
@@ -31,31 +25,37 @@ import EasybookingNavbar from '@/components/EasybookingNavbar'
 import EasybookingSearchboard from '@/components/EasybookingSearchboard'
 import EasybookingFooter from '@/components/EasybookingFooter'
 
-import Communicator from '@/communicator'
+// Cards
+import EasybookingSubscribeCard from '@/components/search/EasybookingSubscribeCard'
+import EasybookingFiltersCard from '@/components/search/EasybookingFiltersCard'
 
+// Communicator
+import Communicator from '@/communicator'
 export default {
   name: 'Offers',
-  components: { EasybookingNavbar, EasybookingSearchboard, EasybookingFooter },
-  data:() => {
-      return {
-          offers: null,
-          results: []
-      }
+  components: {
+    EasybookingNavbar,
+    EasybookingSearchboard,
+    EasybookingFooter,
+    EasybookingSubscribeCard,
+    EasybookingFiltersCard
   },
-  mounted(){
-      const comm = new Communicator()
-      comm.getOrders({ request_id: this.$route.params.id}, result => {
-          this.offers = result
-          if(result.status === 'ok'){
-              for(const order of result.data){
-                  comm.getOrderById({ order_id : order.id }, orderInfo => {
-                      console.log(orderInfo)
-                  })
-              }
-          }
-      })
+  data: () => {
+    return {
+      offers: null,
+      results: []
+    }
+  },
+  mounted () {
+    const comm = new Communicator()
+    comm.getOffers({ request_id: this.$route.params.id}, result => {
+        console.log('Comme offers')
+        console.log(result)
+        this.offers = result
+    })
   }
 }
+
 </script>
 <style>
 .offers{

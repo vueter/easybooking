@@ -1,5 +1,5 @@
 <template>
-    <div class="easybooking-support-btn-group">
+    <div class="easybooking-support-btn-group" :class="'btn-color-' + color">
         <button class="easybooking-support-btn">{{text}}</button>
     </div>
 </template>
@@ -10,6 +10,12 @@ export default {
     text: {
       type: String,
       default: () => { return 'Подписаться' }
+    },
+    color: {
+      type: String,
+      default: () => {
+        return 'white'
+      }
     }
   }
 }
@@ -30,5 +36,14 @@ export default {
     color: #0FB8D3;
     font-weight: bold;
     outline: none;
+}
+.btn-color-blue{
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-top: 10px;
+}
+.btn-color-blue .easybooking-support-btn{
+    background-color: #0FB8D3;
+    color: white;
 }
 </style>

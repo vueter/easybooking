@@ -3,13 +3,13 @@
 
     <v-layout row class="easybooking-combobox">
       <v-flex class="easybooking-combobox-field">
-        <input type="text" :placeholder="from" class="first" ref="from">
+        <input type="text" :placeholder="from" class="first" ref="from" :value="value_from">
       </v-flex>
       <v-btn icon class="combobox-icon-btn">
         <v-icon color="#0FB8D3">{{icon}}</v-icon>
       </v-btn>
       <v-flex class="easybooking-combobox-field">
-        <input type="text" :placeholder="to" class="last" ref="to">
+        <input type="text" :placeholder="to" class="last" ref="to" :value="value_to">
       </v-flex>
       <LocationList v-if="target == 'location'" />
     </v-layout>
@@ -35,7 +35,9 @@ export default {
       icon: 'swap_horiz',
       from: 'Прибытие',
       to: 'Прибытие',
-      response: ''
+      response: '',
+      value_from: '',
+      value_to: ''
     }
   },
   methods: {
@@ -66,6 +68,11 @@ export default {
       this.icon = 'date_range'
       this.from = 'Туда'
       this.to = 'Обратно'
+      this.value_from = '2019-05-25'
+    }
+    else{
+      this.value_from = 'DXB'
+      this.value_to = 'RUH'
     }
   }
 }

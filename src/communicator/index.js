@@ -40,7 +40,7 @@ export default class Communicator {
       })
     }
   }
-  getOrderById(params, done){
+  getOrderById (params, done) {
     if (this.config === null) {
       this.auth(result => {
         this.setConfig(result)
@@ -55,6 +55,32 @@ export default class Communicator {
         }
       }).then(response => {
         done(response.data)
+      })
+    }
+  }
+  getOffers(params, done){
+    if (this.config === null) {
+      this.auth(result => {
+        this.setConfig(result)
+        this.getOffers(params, done)
+      })
+    } else {
+      this.$http({
+        method: 'GET',
+        url: 'https://crm.etm-system.com/api/air/offers',
+        params: params,
+        headers: {
+          'etm-auth-key': this.config['etm_auth_key']
+        }
+      }).then(response => {
+        if(response.data.status === 'InProcess'){
+          setTimeout(() => {
+            this.getOffers(params, done)
+          }, 1000)
+        }
+        else{
+          done(response.data)
+        }
       })
     }
   }
