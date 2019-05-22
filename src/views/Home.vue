@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <v-content class="home">
     <easybooking-toolbar>
       <template v-slot:brand>
         <img src="../assets/svg/logo.svg">
@@ -8,37 +8,31 @@
       <v-btn flat icon><img src="../assets/svg/profile.svg"></v-btn>
       <v-btn flat icon><img src="../assets/svg/menu.svg"></v-btn>
     </easybooking-toolbar>
-    <EasybookingSearchThumbnail />
+    <v-container>
+      <h1>Билеты на самолет. Экономьте на полете!</h1>
+    </v-container>
+    <v-container>
+      <v-layout row>
+        <v-flex md10 offset-md1>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <!--<EasybookingSearchThumbnail />
     <EasybookingCarousel />
     <EasybookingOffers />
     <EasybookingSupportBlock />
     <EasybookingReviewsBlock />
-    <EasybookingFooter />
-  </div>
+    <EasybookingFooter />-->
+  </v-content>
 </template>
 
 <script>
-import EasybookingSearchThumbnail from '@/components/EasybookingSearchThumbnail'
-import EasybookingCarousel from '@/components/EasybookingCarousel'
-import EasybookingOffers from '@/components/EasybookingOffers'
-import EasybookingSupportBlock from '@/components/EasybookingSupportBlock'
-import EasybookingFooter from '@/components/EasybookingFooter'
-import EasybookingReviewsBlock from '@/components/EasybookingReviewsBlock'
-
 export default {
   name: 'home',
   data: () => {
     return {
       response: null
     }
-  },
-  components: {
-    EasybookingSearchThumbnail,
-    EasybookingCarousel,
-    EasybookingOffers,
-    EasybookingSupportBlock,
-    EasybookingFooter,
-    EasybookingReviewsBlock
   }
 }
 </script>
