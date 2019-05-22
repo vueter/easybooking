@@ -1,6 +1,5 @@
 <template>
   <v-layout row wrap>
-
     <v-layout row class="easybooking-combobox">
       <v-flex class="easybooking-combobox-field">
         <input type="text" :placeholder="from" class="first" ref="from" :value="value_from">
