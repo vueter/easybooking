@@ -1,13 +1,6 @@
 <template>
   <div class="home">
-    <easybooking-toolbar>
-      <template v-slot:brand>
-        <img src="../assets/svg/logo.svg">
-      </template>
-      <v-btn flat icon><img src="../assets/svg/lang.svg"></v-btn>
-      <v-btn flat icon><img src="../assets/svg/profile.svg"></v-btn>
-      <v-btn flat icon><img src="../assets/svg/menu.svg"></v-btn>
-    </easybooking-toolbar>
+    <EasybookingNavbar />
     <EasybookingSearchThumbnail />
     <EasybookingCarousel />
     <EasybookingOffers />
@@ -18,6 +11,7 @@
 </template>
 
 <script>
+import EasybookingNavbar from '@/components/EasybookingNavbar'
 import EasybookingSearchThumbnail from '@/components/EasybookingSearchThumbnail'
 import EasybookingCarousel from '@/components/EasybookingCarousel'
 import EasybookingOffers from '@/components/EasybookingOffers'
@@ -33,6 +27,7 @@ export default {
     }
   },
   components: {
+    EasybookingNavbar,
     EasybookingSearchThumbnail,
     EasybookingCarousel,
     EasybookingOffers,
