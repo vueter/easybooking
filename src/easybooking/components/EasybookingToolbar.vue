@@ -1,5 +1,5 @@
 <template>
-	<v-toolbar flat color="white">
+	<v-toolbar flat color="white" class="easybooking--toolbar">
     <v-toolbar-title>
 			<slot name="brand"></slot>
 		</v-toolbar-title>
