@@ -1,35 +1,32 @@
-import EasybookingToolbar from './components/EasybookingToolbar'
-import EasybookingSearchBoard from './components/EasybookingSearchBoard'
-import EasybookingDoubleCombobox from './components/EasybookingDoubleCombobox'
-import EasybookingDoubleDate from './components/EasybookingDoubleDate'
-import EasybookingPassangerBox from './components/EasybookingPassangerBox'
+import components from './components'
 
-/**
- * @author Firdavs Beknazarov
- * @see https://github.com/tensor2flow
- * @example
- *      import Easybooking from 'easybooking'
- *      Vue.use(Easybooking, {
- *          ... // come your options
- *      })
- */
-const components = [EasybookingToolbar, EasybookingSearchBoard, EasybookingDoubleCombobox, EasybookingDoubleDate, EasybookingPassangerBox]
+const Easybooking = function (options) {
+  this.options = options
+}
+
+Easybooking.prototype.installComponents = function (Vue, components) {
+  for (const name in components) {
+    const component = components[name]
+    Vue.component(component.name, component)
+  }
+}
+
+Easybooking.prototype.install = function (Vue) {
+  if (this.options.components) {
+    this.installComponents(Vue, this.options.components)
+  } else {
+    this.installComponents(Vue, components)
+  }
+}
+
 export default {
   install (Vue) {
-    const options = arguments.length > 1 && arguments[0] !== undefined ? arguments[1] : {}
-
+    const options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
     Vue.prototype.$easybooking = new Vue({
-
+      name: 'easybooking'
     })
 
-    if (options.components !== undefined) {
-      for (const component of options.components) {
-        Vue.component(component.name, component)
-      }
-    } else {
-      for (const component of components) {
-        Vue.component(component.name, component)
-      }
-    }
+    const easybooking = new Easybooking(options)
+    easybooking.install(Vue)
   }
 }

@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import './plugins/vuetify'
-import './plugins/axiso'
-import './plugins/easybooking'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './store/index'
 
-import './assets/css/main.css'
+import Easybooking from './easybooking'
+import './easybooking/easybooking.scss'
 
 Vue.config.productionTip = false
+
+Vue.use(Easybooking)
 
 new Vue({
   router,

@@ -1,8 +1,8 @@
 <template>
   <v-content class="basic-searching">
-    <v-container>
+    <!--<v-container>
       <h1>Билеты на самолет. Экономьте на полете!</h1>
-    </v-container>
+    </v-container>-->
     <v-container>
       <v-layout row>
         <v-flex md10 offset-md1>

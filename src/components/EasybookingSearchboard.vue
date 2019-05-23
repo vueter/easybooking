@@ -2,7 +2,25 @@
   <v-form>
     <v-layout wrap v-if="!isMulti">
       <v-flex md5 class="locatable">
-        <EasybookingCombobox target="location" ref="location" />
+        <!--<EasybookingCombobox target="location" ref="location" />-->
+        <v-menu style="border: 1px solid red">
+          <template v-slot:activator="{ on }">
+            <v-text-field v-on="on" />
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-list-tile-title>Toshkent</v-list-tile-title>
+                  <v-list-tile-sub-titel>Uzbeksitan</v-list-tile-sub-titel>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  TAs
+                </v-list-tile-action>
+              </v-list-tile>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-flex>
       <v-flex md3 class="locatable">
         <EasybookingCombobox target="date" ref="date" />

@@ -1,65 +1,44 @@
 <template>
   <v-content class="home">
-    <!--<easybooking-toolbar>
+    <easybooking-toolbar>
       <template v-slot:brand>
-        <img src="../assets/svg/logo.svg">
+        <img src="../assets/svg/logo.svg" />
       </template>
-      <v-btn flat icon><img src="../assets/svg/lang.svg"></v-btn>
-      <v-btn flat icon><img src="../assets/svg/profile.svg"></v-btn>
-      <v-btn flat icon><img src="../assets/svg/menu.svg"></v-btn>
-    </easybooking-toolbar>-->
-    <!--<v-container>
-      <h1>Билеты на самолет. Экономьте на полете!</h1>
-    </v-container>-->
-    <!-- Search board -->
-    <v-container>
-      <v-layout row>
-        <v-flex md10 offset-md1>
-          <easybooking-search-board>
-            <template v-slot:location>
-              <easybooking-double-combobox>
-                <template v-slot:departure>
-                  <v-text-field/>
-                </template>
-                <template v-slot:arrival>
-                  <v-text-field/>
-                </template>
-              </easybooking-double-combobox>
-            </template>
-            <template v-slot:date>
-              <easybooking-double-date>
-                <template v-slot:departure>
-                  <v-text-field/>
-                </template>
-                <template v-slot:arrival>
-                  <v-text-field/>
-                </template>
-              </easybooking-double-date>
-            </template>
-            <template v-slot:passanger>
-              <easybooking-passanger-box/>
-            </template>
-            <template v-slot:button>
-              <v-btn>SEARCH</v-btn>
-            </template>
-          </easybooking-search-board>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <!-- End search board -->
-
-    <!--<EasybookingSearchThumbnail />
-    <EasybookingCarousel />
-    <EasybookingOffers />
-    <EasybookingSupportBlock />
-    <EasybookingReviewsBlock />
-    <EasybookingFooter />-->
+      <v-menu offset-y :nudge-width="120">
+        <template v-slot:activator="{ on }">
+          <v-btn flat v-on="on"><img src="../assets/icons/wallet.png"> UZS</v-btn>
+        </template>
+        <v-list>
+          <v-list-tile v-on:click="">
+            <v-list-tile-content>UZB (Uzbek sum)</v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+      <v-menu offset-y :nudge-width="120">
+        <template v-slot:activator="{ on }">
+          <v-btn flat v-on="on"><img src="../assets/icons/web.png"> RU</v-btn>
+        </template>
+        <v-list>
+          <v-list-tile v-for="(lang, index) in languages" v-bind:key="index" v-on:click="setLanguage(lang)">
+            <v-list-tile-content>{{lang}}</v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+      <v-btn icon><img src="../assets/icons/account-circle.png"></v-btn>
+      <v-btn icon><img src="../assets/icons/xbox-controller-menu.png"></v-btn>
+    </easybooking-toolbar>
+    <easybooking-footer>
+      {{languages}}
+    </easybooking-footer>
   </v-content>
 </template>
 
 <script>
+import Languagable from '../mixins/language'
+
 export default {
   name: 'home',
+  mixins: [Languagable],
   data: () => {
     return {
       response: null
