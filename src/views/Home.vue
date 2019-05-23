@@ -1,29 +1,39 @@
 <template>
   <v-content class="home">
-    <easybooking-toolbar>
-      <template v-slot:brand>
-        <img src="../assets/svg/logo.svg" />
-      </template>
-      <easybooking-menu-wallet>
-        <template v-slot:icon><img src="../assets/icons/wallet.png"></template>
-      </easybooking-menu-wallet>
-      <easybooking-menu-language v-bind:languages="languages">
-        <template v-slot:icon><img src="../assets/icons/web.png"></template>
-      </easybooking-menu-language>
-      <v-btn icon><img src="../assets/icons/account-circle.png"></v-btn>
-      <easybooking-menu-controller v-bind:actions="actions" v-bind:statics="statics">
-        <template v-slot:icon><img src="../assets/icons/xbox-controller-menu.png"></template>
-      </easybooking-menu-controller>
-    </easybooking-toolbar>
-    <easybooking-footer>
+    <!--<easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>-->
+    <v-container>
+      <easybooking-search-board v-model="routes">
+        <v-layout row>
+          <v-flex md5 pr-1>
+            <easybooking-double-combobox v-bind:filter="filter"/>
+          </v-flex>
+          <v-flex md4 pl-1 pr-1>
+            <easybooking-date-range />
+          </v-flex>
+          <v-flex md3 p1-1 pr-1>
+            Passanger Box
+          </v-flex>
+        </v-layout>
+        <template v-slot:activator>
+          <v-btn float>Search</v-btn>
+        </template>
+      </easybooking-search-board>
+    </v-container>
+    <!--<easybooking-footer>
       {{languages}}
-    </easybooking-footer>
+    </easybooking-footer>-->
   </v-content>
 </template>
 
 <script>
 import Languagable from '../mixins/language'
-
+const items = [
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' }
+]
 export default {
   name: 'home',
   mixins: [Languagable],
@@ -36,7 +46,13 @@ export default {
       ],
       statics: [
         '+998933363933', '+998933363933'
-      ]
+      ],
+      routes: []
+    }
+  },
+  methods: {
+    filter(name, done){
+      done(items)
     }
   }
 }

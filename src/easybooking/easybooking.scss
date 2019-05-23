@@ -1,4 +1,73 @@
+$primary : #0FB8D3;
 
 .easybooking--footer{
     width: 100%;
+}
+
+.easybooking--double-combobox {
+    display: flex;
+    border: 1px solid $primary;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-top: 6px;
+    background-color: white;
+    .easybooking--double-combobox-field {
+        input {
+            border: 0 !important;
+            padding-right: 16px !important;
+            padding-left: 16px !important;
+            color: #4A4A4A;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            background-color: white;
+            border: 1px solid #CDCDCD;
+            border-radius: 4px;
+            outline: none;
+            height: 100%;
+            width: 100%;
+            font-size: 14px;
+            box-sizing: border-box;
+            padding: 0 0px;
+            box-shadow: none;
+            transition: box-shadow .3s, border .3s;
+            font-family: "Roboto";
+            padding-right: 36px;
+        }
+
+        .first {
+            padding-right: 5px !important;
+        }
+
+        .last {
+            text-align: right;
+            padding-left: 5px !important;
+        }
+    }
+    .easybooking--double-combobox-icon-btn {
+        height: 30px;
+        width: 30px;
+    }
+}
+
+.date-switch.v-input--selection-controls{
+    margin-top: 0px;
+    padding-top: 0px;
+    flex: 0 1 auto;
+}
+.date-switch-label{
+    font-size: 13px;
+}
+.active-date-swwitch-label{
+    color: $primary;
+}
+
+.v-picker.v-card{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.v-menu__content.menuable__content__active{
+    box-shadow: 0px 5px 10px rgba(0, 8, 19, 0.15);
 }
