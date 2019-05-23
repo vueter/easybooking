@@ -3,13 +3,15 @@
 		<template v-slot:activator="{ on }">
 			<v-layout row class="easybooking--double-combobox">
 				<v-flex class="easybooking--double-combobox-field">
-					<input type="text" class="first" ref="departure" v-on:input="typing('departure')">
+					<input type="text" class="main-field first" ref="departure" v-on:input="typing('departure')">
+					<input type="text" value="TAS" class="code-field departure" readonly>
 				</v-flex>
 				<v-btn icon class="easybooking--double-combobox-icon-btn" v-bind:ripple="false">
 					<v-icon color="#0FB8D3">swap_horiz</v-icon>
 				</v-btn>
 				<v-flex class="easybooking--double-combobox-field">
-					<input type="text" class="last" ref="arrival" v-on:input="typing('arrival')">
+					<input type="text" value="MOW" class="code-field arrival" readonly>
+					<input type="text" class="main-field last" ref="arrival" v-on:input="typing('arrival')">
 				</v-flex>
 			</v-layout>
 		</template>
