@@ -9,7 +9,7 @@ Easybooking.prototype.installComponents = function (Vue, components) {
     const component = components[name]
     Vue.component(component.name, component)
   }
-}
+};
 
 Easybooking.prototype.install = function (Vue) {
   if (this.options.components) {
