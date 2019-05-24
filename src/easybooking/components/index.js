@@ -12,6 +12,7 @@ import EasybookingFooter from './EasybookingFooter'
 import EasybookingMenuLanguage from './menu/EasybookingMenuLanguage'
 import EasybookingMenuWallet from './menu/EasybookingMenuWallet'
 import EasybookingMenuController from './menu/EasybookingMenuController'
+import EasybookingMenuPassanger from './menu/EasybookingMenuPassanger'
 
 /**
  * Comboboxes
@@ -21,6 +22,6 @@ import EasybookingDateRange from './comboboxes/EasybookingDateRange'
 
 export default {
   EasybookingToolbar, EasybookingSearchBoard, EasybookingFooter,
-  EasybookingMenuLanguage, EasybookingMenuWallet, EasybookingMenuController,
+  EasybookingMenuLanguage, EasybookingMenuWallet, EasybookingMenuController, EasybookingMenuPassanger,
   EasybookingDoubleCombobox, EasybookingDateRange
 }

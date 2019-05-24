@@ -2,20 +2,15 @@
   <v-content class="home">
     <!--<easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>-->
     <v-container>
-      <easybooking-search-board v-model="routes">
-        <v-flex md4 pr-1>
-          <easybooking-double-combobox v-bind:filter="filter"/>
+      <v-layout row>
+        <v-flex md8 offset-md2>
+          <easybooking-search-board v-bind:filter="filter">
+            <template v-slot:activator>
+              <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
+            </template>
+          </easybooking-search-board>
         </v-flex>
-        <v-flex md3 pl-1 pr-1>
-          <easybooking-date-range />
-        </v-flex>
-        <v-flex md2 p1-1 pr-1>
-          Passanger Box
-        </v-flex>
-        <template v-slot:activator>
-          <v-btn float>Search</v-btn>
-        </template>
-      </easybooking-search-board>
+      </v-layout>
     </v-container>
     <!--<easybooking-footer>
       {{languages}}
