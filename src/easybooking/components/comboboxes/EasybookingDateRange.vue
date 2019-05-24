@@ -16,12 +16,12 @@
         <v-card>
             <v-card-text>
                 <v-layout row>
-                    <v-flex> <font class="date-switch-label" v-bind:class="type ? 'active-date-swwitch-label' : ''">В одну сторону</font> </v-flex>
+                    <v-flex> <font class="date-switch-label" v-bind:class="type ? '' : 'active-date-swwitch-label'">В одну сторону</font> </v-flex>
                     <v-switch v-model="type" class="date-switch" success color="primary"></v-switch>
-                    <v-flex><font class="date-switch-label" v-bind:class="type ? '': 'active-date-swwitch-label'">Туда-обратно</font></v-flex>
+                    <v-flex><font class="date-switch-label" v-bind:class="type ? 'active-date-swwitch-label' : ''">Туда-обратно</font></v-flex>
                 </v-layout>
                 <v-date-picker no-title/>
-                <v-date-picker no-title/>
+                <v-date-picker no-title v-if="type"/>
             </v-card-text>
         </v-card>
 	</v-menu>

@@ -4,13 +4,13 @@
 			<v-layout row class="easybooking--double-combobox">
 				<v-flex class="easybooking--double-combobox-field">
 					<input type="text" class="main-field first" ref="departure" v-on:input="typing('departure')">
-					<input type="text" value="TAS" class="code-field departure" readonly>
 				</v-flex>
+				<font class="easybooking--double-combobox-code">MOW</font>
 				<v-btn icon class="easybooking--double-combobox-icon-btn" v-bind:ripple="false">
-					<v-icon color="#0FB8D3">swap_horiz</v-icon>
+					<v-icon color="primary">swap_horiz</v-icon>
 				</v-btn>
+				<font class="easybooking--double-combobox-code">MOW</font>
 				<v-flex class="easybooking--double-combobox-field">
-					<input type="text" value="MOW" class="code-field arrival" readonly>
 					<input type="text" class="main-field last" ref="arrival" v-on:input="typing('arrival')">
 				</v-flex>
 			</v-layout>
@@ -48,9 +48,11 @@ export default {
 				if(this.filter !== undefined && this.filter !== null){
 					this.filter(input.value, (items) => {
 						this.items = items
-						menu.runDelay('open', () => {
-							menu.isActive = true
-						})
+						if(menu.isActive === false){
+							menu.runDelay('open', () => {
+								menu.isActive = true
+							})
+						}
 					})
 				}
 			}
