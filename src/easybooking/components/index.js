@@ -20,8 +20,14 @@ import EasybookingMenuPassanger from './menu/EasybookingMenuPassanger'
 import EasybookingDoubleCombobox from './comboboxes/EasybookingDoubleCombobox'
 import EasybookingDateRange from './comboboxes/EasybookingDateRange'
 
+/**
+ * Cards
+ */
+import EasybookingStepperCard from './cards/EasybookingStepperCard'
+
 export default {
   EasybookingToolbar, EasybookingSearchBoard, EasybookingFooter,
   EasybookingMenuLanguage, EasybookingMenuWallet, EasybookingMenuController, EasybookingMenuPassanger,
-  EasybookingDoubleCombobox, EasybookingDateRange
+  EasybookingDoubleCombobox, EasybookingDateRange,
+  EasybookingStepperCard
 }
