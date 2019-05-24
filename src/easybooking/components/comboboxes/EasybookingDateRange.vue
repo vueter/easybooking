@@ -6,7 +6,7 @@
 					<input type="text" class="first" ref="departure" readonly>
 				</v-flex>
 				<v-btn icon class="easybooking--double-combobox-icon-btn" v-bind:ripple="false">
-					<v-icon color="primary">swap_horiz</v-icon>
+					<v-icon color="primary">date_range</v-icon>
 				</v-btn>
 				<v-flex class="easybooking--double-combobox-field">
 					<input type="text" class="last" ref="arrival" readonly>
