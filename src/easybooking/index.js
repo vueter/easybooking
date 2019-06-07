@@ -1,4 +1,3 @@
-import Vue18N from 'vue-i18n'
 import components from './components'
 
 /**

@@ -1,11 +1,11 @@
 <template>
-	<v-toolbar flat color="white" class="easybooking--toolbar">
+  <v-toolbar flat color="white" class="easybooking--toolbar">
     <v-toolbar-title>
-			<slot name="brand"><img src="../assets/images/logo.png" /></slot>
-		</v-toolbar-title>
-		<slot name="container">
-			<v-spacer></v-spacer>
-		</slot>
+      <slot name="brand"><img src="../assets/images/logo.png" /></slot>
+    </v-toolbar-title>
+    <slot name="container">
+      <v-spacer></v-spacer>
+    </slot>
     <v-toolbar-items>
       <slot>
         <easybooking-menu-wallet>
