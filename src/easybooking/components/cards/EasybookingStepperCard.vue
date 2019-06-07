@@ -13,13 +13,12 @@
 </template>
 <script>
 export default {
-	name: 'easybooking-stepper-card',
-	props: {
-		step: {
-			type: Number,
-			default: 2
-		}
-	}
+  name: 'easybooking-stepper-card',
+  props: {
+    step: {
+      type: Number,
+      default: 2
+    }
+  }
 }
 </script>
-

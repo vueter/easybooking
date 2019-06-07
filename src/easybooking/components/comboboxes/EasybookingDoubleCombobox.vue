@@ -30,39 +30,37 @@
 </template>
 <script>
 export default {
-	name: 'easybooking-double-combobox',
-	props: {
-		filter: { type: null },
-		items: {
-			type: Array,
-			default: () => {
-				return []
-			}
-		}
-	},
-	methods: {
-		typing(target){
-			const input = this.$refs[target]
-			const menu = this.$refs['location-combobox']
-			if(input.value.length > 2){
-				if(this.filter !== undefined && this.filter !== null){
-					this.filter(input.value, (items) => {
-						this.items = items
-						if(menu.isActive === false){
-							menu.runDelay('open', () => {
-								menu.isActive = true
-							})
-						}
-					})
-				}
-			}
-			else{
-				menu.runDelay('close', () => {
-					menu.isActive = false
-				})
-			}
-		}
-	}
+  name: 'easybooking-double-combobox',
+  props: {
+    filter: { type: null },
+    items: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
+  methods: {
+    typing (target) {
+      const input = this.$refs[target]
+      const menu = this.$refs['location-combobox']
+      if (input.value.length > 2) {
+        if (this.filter !== undefined && this.filter !== null) {
+          this.filter(input.value, (items) => {
+            this.items = items
+            if (menu.isActive === false) {
+              menu.runDelay('open', () => {
+                menu.isActive = true
+              })
+            }
+          })
+        }
+      } else {
+        menu.runDelay('close', () => {
+          menu.isActive = false
+        })
+      }
+    }
+  }
 }
 </script>
-

@@ -28,26 +28,26 @@
 </template>
 <script>
 export default {
-    name: 'easybooking-date-range',
-    props: {
-        placeholder: {
-            type: Array,
-            default: () => {
-                return ['', '']
-            }
-        },
-        type: {
-            type: Boolean,
-            default: true
-        }
+  name: 'easybooking-date-range',
+  props: {
+    placeholder: {
+      type: Array,
+      default: () => {
+        return ['', '']
+      }
     },
-    methods: {
-        open(){
-            const menu = this.$refs['date-range']
-            menu.runDelay('open', () => {
-                menu.isActive = true
-            })
-        }
+    type: {
+      type: Boolean,
+      default: true
     }
+  },
+  methods: {
+    open () {
+      const menu = this.$refs['date-range']
+      menu.runDelay('open', () => {
+        menu.isActive = true
+      })
+    }
+  }
 }
 </script>

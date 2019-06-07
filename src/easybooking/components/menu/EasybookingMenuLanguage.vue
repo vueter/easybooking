@@ -12,15 +12,14 @@
 </template>
 <script>
 export default {
-	name: 'easybooking-menu-language',
-	props: {
-		languages: {
-			type: Object,
-			default: () => {
-				return {}
-			}
-		}
-	}
+  name: 'easybooking-menu-language',
+  props: {
+    languages: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  }
 }
 </script>
-

@@ -12,7 +12,6 @@
 </template>
 <script>
 export default {
-	name: 'easybooking-menu-passanger'
+  name: 'easybooking-menu-passanger'
 }
 </script>
-

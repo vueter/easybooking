@@ -20,15 +20,14 @@
 </template>
 <script>
 export default {
-	name: 'easybooking-search-board',
-	props: {
-		filter: {
-			type: null,
-			default: () => {
-				return null
-			}
-		}
-	}
+  name: 'easybooking-search-board',
+  props: {
+    filter: {
+      type: null,
+      default: () => {
+        return null
+      }
+    }
+  }
 }
 </script>
-

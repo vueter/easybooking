@@ -3,9 +3,9 @@ import components from './components'
 
 /**
  * @name Easybooking
- * @param {components, directives, translations} options 
+ * @param {components, directives, translations} options
  * @author Firdavs Beknazarov
- * 
+ *
  * The Easybooking installer to install the useful easybooking objects
  */
 
@@ -16,8 +16,8 @@ const Easybooking = function (options) {
 /**
  * @name installComponents
  * @param {instance of Vue} Vue
- * @param {... instances of components} components 
- * 
+ * @param {... instances of components} components
+ *
  * This function is capable to install the components to be auto initalizable to Vue components
  */
 
@@ -26,12 +26,12 @@ Easybooking.prototype.installComponents = function (Vue, components) {
     const component = components[name]
     Vue.component(component.name, component)
   }
-};
+}
 
 /**
  * @name install
  * @param {instanse of Vue} Vue
- * 
+ *
  * The main method to install via options
  */
 Easybooking.prototype.install = function (Vue) {
@@ -48,7 +48,7 @@ export default {
     Vue.prototype.$easybooking = new Vue({
       name: 'easybooking',
       methods: {
-        t(){
+        t () {
 
         }
       }

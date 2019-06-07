@@ -24,10 +24,18 @@ import EasybookingDateRange from './comboboxes/EasybookingDateRange'
  * Cards
  */
 import EasybookingStepperCard from './cards/EasybookingStepperCard'
+import EasybookingBuyerCard from './cards/EasybookingBuyerCard'
 
 export default {
-  EasybookingToolbar, EasybookingSearchBoard, EasybookingFooter,
-  EasybookingMenuLanguage, EasybookingMenuWallet, EasybookingMenuController, EasybookingMenuPassanger,
-  EasybookingDoubleCombobox, EasybookingDateRange,
-  EasybookingStepperCard
+  EasybookingToolbar,
+  EasybookingSearchBoard,
+  EasybookingFooter,
+  EasybookingMenuLanguage,
+  EasybookingMenuWallet,
+  EasybookingMenuController,
+  EasybookingMenuPassanger,
+  EasybookingDoubleCombobox,
+  EasybookingDateRange,
+  EasybookingStepperCard,
+  EasybookingBuyerCard
 }

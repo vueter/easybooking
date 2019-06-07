@@ -1,10 +1,10 @@
 
 const languages = {
-    'UZB': 'Uzbek',
-    'RUS': 'Russion',
-    'ENG': 'English'
+  'UZB': 'Uzbek',
+  'RUS': 'Russion',
+  'ENG': 'English'
 }
 
 export default {
-    languages: languages
+  languages: languages
 }

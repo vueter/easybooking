@@ -13,15 +13,14 @@
 
 <script>
 export default {
-	name: 'easybooking-menu-wallet',
-	props: {
-		wallets: {
-			type: Object,
-			default: () => {
-				return {}
-			}
-		}
-	}
+  name: 'easybooking-menu-wallet',
+  props: {
+    wallets: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  }
 }
 </script>
-

@@ -51,7 +51,7 @@ export default {
     }
   },
   methods: {
-    filter(name, done){
+    filter (name, done) {
       done(items)
     }
   }

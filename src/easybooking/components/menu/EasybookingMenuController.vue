@@ -15,26 +15,25 @@
 </template>
 <script>
 export default {
-	name: 'easybooking-menu-controller',
-	props: {
-		actions: {
-			type: Array,
-			default: () => {
-				return []
-			}
-		},
-		statics: {
-			type: Array,
-			default: () => {
-				return []
-			}
-		}
-	},
-	methods: {
-		onItemClicked(action){
-			this.$router.push({ path: action.to })
-		}
-	}
+  name: 'easybooking-menu-controller',
+  props: {
+    actions: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    },
+    statics: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
+  methods: {
+    onItemClicked (action) {
+      this.$router.push({ path: action.to })
+    }
+  }
 }
 </script>
-
