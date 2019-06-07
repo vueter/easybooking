@@ -25,6 +25,7 @@ import EasybookingDateRange from './comboboxes/EasybookingDateRange'
  */
 import EasybookingStepperCard from './cards/EasybookingStepperCard'
 import EasybookingBuyerCard from './cards/EasybookingBuyerCard'
+import EasybookingTextField from './EasybookingTextField'
 
 export default {
   EasybookingToolbar,
@@ -37,5 +38,6 @@ export default {
   EasybookingDoubleCombobox,
   EasybookingDateRange,
   EasybookingStepperCard,
-  EasybookingBuyerCard
+  EasybookingBuyerCard,
+  EasybookingTextField
 }

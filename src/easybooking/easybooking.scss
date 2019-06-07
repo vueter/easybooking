@@ -93,3 +93,26 @@ $primary : #0FB8D3;
 .easybooking--search-btn{
     height: 42px;;
 }
+
+.easybooking-card{
+    border-radius: 4px;
+    margin-bottom: 20px;
+    .v-card__title{
+        background-color: $primary;
+        color: white;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 21px;
+        border-radius: 4px 4px 0px 0px;
+    }
+    .v-card__text{
+        text-align: left;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 22px;
+    }
+}
