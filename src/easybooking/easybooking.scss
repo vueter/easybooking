@@ -116,3 +116,21 @@ $primary : #0FB8D3;
         line-height: 22px;
     }
 }
+.eb-divider-txt{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px;
+    margin-top: 10px;
+    position: relative;
+    top: -10px;
+    background-color: white;
+    padding-right: 10px;
+}
+.full-width{
+    width: 100%;
+}
+.half-width{
+    width: 50% !important;
+}

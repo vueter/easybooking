@@ -3,8 +3,8 @@
     <v-container>
       <v-layout row wrap>
         <v-flex md8>
-          <easybooking-buyer-card />
-          <easybooking-buyer-card />
+          <!--<easybooking-buyer-card />-->
+          <!--<easybooking-passanger-card />-->
         </v-flex>
         <v-flex md4>
         </v-flex>
