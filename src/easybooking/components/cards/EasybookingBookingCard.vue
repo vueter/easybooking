@@ -1,8 +1,8 @@
 <template>
 	<v-card class="easybooking-card">
 		<v-card-title>
-      Оплата
-    </v-card-title>
+				Оплата
+		</v-card-title>
 		<v-card-text>
 			Введите действующий адрес электронной почты для отправки билета, а так же номер мобильного телефона для связи в случае изменений.
 			<v-checkbox label="Я принимаю условия" color="primary">
