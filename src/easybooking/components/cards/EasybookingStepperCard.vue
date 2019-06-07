@@ -1,56 +1,23 @@
 <template>
-  <v-menu v-bind:close-on-content-click="false" offset-y ref="date-range" max-width="310px" class="easybooking--double-datepicker">
-    <template v-slot:activator="{ on }">
-      <v-layout row class="easybooking--double-combobox" v-on:click="open">
-        <v-flex class="easybooking--double-combobox-field">
-          <input type="text" class="first" ref="departure" readonly>
-        </v-flex>
-        <v-btn icon class="easybooking--double-combobox-icon-btn" v-bind:ripple="false">
-          <v-icon color="primary">date_range</v-icon>
-        </v-btn>
-        <v-flex class="easybooking--double-combobox-field">
-          <input type="text" class="last" ref="arrival" readonly>
-        </v-flex>
-      </v-layout>
-    </template>
-    <v-card>
-      <v-card-text>
-        <v-layout row>
-          <v-flex>
-            <font class="date-switch-label" v-bind:class="type ? '' : 'active-date-swwitch-label'">В одну сторону</font>
-          </v-flex>
-          <v-switch v-model="type" class="date-switch" success color="primary"></v-switch>
-          <v-flex>
-            <font class="date-switch-label" v-bind:class="type ? 'active-date-swwitch-label' : ''">Туда-обратно</font>
-          </v-flex>
-        </v-layout>
-        <v-date-picker no-title />
-        <v-date-picker no-title v-if="type" />
-      </v-card-text>
-    </v-card>
-  </v-menu>
+  <v-stepper alt-labels>
+    <v-stepper-header>
+      <v-stepper-step v-bind:complete="step > 1" step="1">Поиск</v-stepper-step>
+      <v-divider></v-divider>
+      <v-stepper-step v-bind:edit="step > 2" step="2">Выбор билета</v-stepper-step>
+      <v-divider></v-divider>
+      <v-stepper-step v-bind:complete="step > 3" step="3">Бронирование</v-stepper-step>
+      <v-divider></v-divider>
+      <v-stepper-step v-bind:complete="step > 4" step="4">Оплата</v-stepper-step>
+    </v-stepper-header>
+  </v-stepper>
 </template>
 <script>
 export default {
-  name: 'easybooking-date-range',
+  name: 'easybooking-stepper-card',
   props: {
-    placeholder: {
-      type: Array,
-      default: () => {
-        return ['', '']
-      }
-    },
-    type: {
-      type: Boolean,
-      default: true
-    }
-  },
-  methods: {
-    open () {
-      const menu = this.$refs['date-range']
-      menu.runDelay('open', () => {
-        menu.isActive = true
-      })
+    step: {
+      type: Number,
+      default: 2
     }
   }
 }
