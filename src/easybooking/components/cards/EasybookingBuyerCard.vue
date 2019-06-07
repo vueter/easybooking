@@ -9,13 +9,13 @@
     <v-card-text>
       <v-layout wrap>
         <v-flex md4 pa-1>
-          <v-text-field v-model="full_name" box label="Полное имя"/>
+          <v-text-field v-model="full_name" box label="Полное имя" />
         </v-flex>
         <v-flex md4 pa-1>
-          <v-text-field v-model="email" box label="E-mail"/>
+          <v-text-field v-model="email" box label="E-mail" />
         </v-flex>
         <v-flex md4 pa-1>
-          <v-text-field v-model="phonenumber" box label="Номер телефона" prefix="+998"/>
+          <v-text-field v-model="phonenumber" box label="Номер телефона" prefix="+998" />
         </v-flex>
       </v-layout>
     </v-card-text>
