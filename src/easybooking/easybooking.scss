@@ -149,3 +149,12 @@ $secondary : #C2C2C2;
         margin-top: -4px;
     }
 }
+.bordered-card{
+    border: 1px solid #DBDBDB !important;
+    box-sizing: border-box;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.bordered-card:last-child{
+    margin-bottom: 0px;
+}
