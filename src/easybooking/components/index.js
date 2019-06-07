@@ -28,6 +28,7 @@ import EasybookingBuyerCard from './cards/EasybookingBuyerCard'
 import EasybookingPassangerCard from './cards/EasybookingPassangerCard'
 import EasybookingNextPassangerCard from './cards/EasybookingNextPassangerCard'
 import EasybookingBookingCard from './cards/EasybookingBookingCard'
+import EasybookingOfferDetailsCard from './cards/EasybookingOfferDetailsCard'
 
 import EasybookingTextField from './EasybookingTextField'
 
@@ -46,5 +47,6 @@ export default {
   EasybookingTextField,
   EasybookingPassangerCard,
   EasybookingNextPassangerCard,
-  EasybookingBookingCard
+  EasybookingBookingCard,
+  EasybookingOfferDetailsCard
 }
