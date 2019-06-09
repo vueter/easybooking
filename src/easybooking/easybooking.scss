@@ -158,3 +158,38 @@ $secondary : #C2C2C2;
 .bordered-card:last-child{
     margin-bottom: 0px;
 }
+.bg-white{
+    background-color: white !important;
+}
+.easybooking-primary-card{
+    .v-card__title{
+        color: $primary;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 18px;
+        font-family: Roboto;
+        img{
+            margin-top: -5px;
+            float: left;
+            margin-right: 5px;
+        }
+    }
+    .v-card__text{
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        .center{
+            margin-top: 5px;
+        }
+    }
+}
+.center{
+    margin-left: 50%;
+    transform: translate(-50%, 0%);
+}
+.text--left{
+    text-align: left !important;
+}

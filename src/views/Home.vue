@@ -1,7 +1,7 @@
 <template>
   <v-content class="home">
-    <!--<easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>-->
-    <!--<v-container>
+    <easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>
+    <v-container>
       <v-layout row>
         <v-flex md8 offset-md2>
           <easybooking-search-board v-bind:filter="filter">
@@ -11,7 +11,7 @@
           </easybooking-search-board>
         </v-flex>
       </v-layout>
-    </v-container>-->
+    </v-container>
     <v-container>
       <v-layout row>
         <v-flex md8 offset-md2>
@@ -19,9 +19,9 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <!--<easybooking-footer>
+    <easybooking-footer>
       {{languages}}
-    </easybooking-footer>-->
+    </easybooking-footer>
   </v-content>
 </template>
 

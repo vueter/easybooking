@@ -1,60 +1,56 @@
 <template>
-    <div class="offers">
-        <div class="offers-header">
-            <EasybookingNavbar />
-            <v-container>
-                <EasybookingSearchboard />
-            </v-container>
-        </div>
-        <v-container class="offers-body">
-            <v-layout row wrap>
-                <v-flex md4 pa-3>
-                    <EasybookingSubscribeCard />
-                    <EasybookingFiltersCard />
-                </v-flex>
-                <v-flex md8 pa-3>
-                    <div v-if="offers !== null && offers.status === 'Ready'">
-                        <EasybookingOfferCard v-for="(offer, index) in offers.offers" v-bind:key="index" v-bind:offer="offer"/>
-                    </div>
-                </v-flex>
-            </v-layout>
+    <div class="bg-white">
+        <easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>
+        <v-container>
+            <easybooking-search-board v-bind:filter="filter">
+                <template v-slot:activator>
+                <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
+                </template>
+            </easybooking-search-board>
         </v-container>
-        <EasybookingFooter />
+        <v-layout class="offers">
+            <v-container>
+                <v-layout row>
+                    <v-flex md4>
+                        <easybooking-subscribe-card/>
+                    </v-flex>
+                    <v-flex md8>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </v-layout>
+        <easybooking-footer>
+            {{languages}}
+        </easybooking-footer>
     </div>
 </template>
 <script>
-import EasybookingNavbar from '@/components/EasybookingNavbar'
-import EasybookingSearchboard from '@/components/EasybookingSearchboard'
-import EasybookingFooter from '@/components/EasybookingFooter'
-
-// Cards
-import EasybookingSubscribeCard from '@/components/search/EasybookingSubscribeCard'
-import EasybookingFiltersCard from '@/components/search/EasybookingFiltersCard'
-import EasybookingOfferCard from '@/components/search/EasybookingOfferCard'
-
-// Communicator
-import Communicator from '@/communicator'
+import Languagable from '../mixins/language'
+const items = [
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
+  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' }
+]
 export default {
   name: 'Offers',
-  components: {
-    EasybookingNavbar,
-    EasybookingSearchboard,
-    EasybookingFooter,
-    EasybookingSubscribeCard,
-    EasybookingFiltersCard,
-    EasybookingOfferCard
-  },
-  data: () => {
-    return {
-      offers: null,
-      results: []
+  mixins: [Languagable],
+  data: () => ({
+    actions: [
+      { text: 'About US', to: '/about' },
+      { text: 'Blog', to: '/blog' },
+      { text: 'Our address', to: '/address' }
+    ],
+    statics: [
+      '+998933363933', '+998933363933'
+    ],
+    routes: []
+  }),
+  methods:{
+      filter (name, done) {
+      done(items)
     }
-  },
-  mounted () {
-    const comm = new Communicator()
-    comm.getOffers({ request_id: this.$route.params.id, sort: 'profit' }, result => {
-      this.offers = result
-    })
   }
 }
 
