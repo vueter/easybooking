@@ -2,7 +2,7 @@
   <v-content class="home">
     <easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>
     <v-container>
-      <easybooking-search-board v-bind:filter="searchLocation">
+      <easybooking-search-board>
         <template v-slot:activator>
           <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
         </template>
@@ -19,11 +19,10 @@
 
 <script>
 import Languagable from '../mixins/language'
-import Easybooking from '../easybooking/mixins/easybooking'
 
 export default {
   name: 'home',
-  mixins: [Languagable, Easybooking],
+  mixins: [Languagable],
   data: () => {
     return {
       actions: [

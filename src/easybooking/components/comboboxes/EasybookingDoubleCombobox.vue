@@ -3,21 +3,21 @@
     <template v-slot:activator="{ on }">
       <v-layout row class="easybooking--double-combobox">
         <v-flex class="easybooking--double-combobox-field">
-          <input type="text" class="main-field first" ref="departure" v-on:input="typing('departure')">
+          <input type="text" class="main-field first" ref="departure" v-bind:placeholder="placeholder['departure']" v-on:input="typing('departure')">
         </v-flex>
-        <!--<font class="easybooking--double-combobox-code">MOW</font>-->
-        <v-btn icon class="easybooking--double-combobox-icon-btn" v-bind:ripple="false">
+        <font class="easybooking--double-combobox-code">{{ result.departure }}</font>
+        <v-btn icon class="easybooking--double-combobox-icon-btn" v-on:click="swap" v-bind:ripple="false">
           <v-icon color="primary">swap_horiz</v-icon>
         </v-btn>
-        <!--<font class="easybooking--double-combobox-code">MOW</font>-->
+        <font class="easybooking--double-combobox-code">{{ result.arrival }}</font>
         <v-flex class="easybooking--double-combobox-field">
-          <input type="text" class="main-field last" ref="arrival" v-on:input="typing('arrival')">
+          <input type="text" class="main-field last" ref="arrival" v-bind:placeholder="placeholder['arrival']" v-on:input="typing('arrival')">
         </v-flex>
       </v-layout>
     </template>
     <v-list class="double-combobox-list">
       <template v-for="item in items">
-        <v-list-tile v-if="item.items === null" v-bind:key="item.code" v-on:click="() => {}">
+        <v-list-tile v-if="item.items === null" v-bind:key="item.code" v-on:click="select(item)">
           <v-list-tile-content>
             <v-list-tile-title>{{ item.city }}</v-list-tile-title>
             <v-list-tile-sub-title>{{ item.name }}</v-list-tile-sub-title>
@@ -28,7 +28,7 @@
         </v-list-tile>
         <v-list-group class="double-combobox-groups" v-if="item.items !== null" v-bind:key="item.code" v-bind:no-action="true" v-bind:value="true" append-icon>
           <template v-slot:activator>
-            <v-list-tile v-on:click="() => {}">
+            <v-list-tile v-on:click="select(item)">
               <v-list-tile-content>
                 <v-list-tile-title>{{ item.city }}</v-list-tile-title>
                 <v-list-tile-sub-title>{{ item.name }}</v-list-tile-sub-title>
@@ -38,7 +38,7 @@
               </v-list-tile-action>
             </v-list-tile>
           </template>
-          <v-list-tile v-for="subItem in item.items" :key="subItem.title" v-on:click="() => {}">
+          <v-list-tile v-for="subItem in item.items" :key="subItem.title" v-on:click="select(subItem)">
             <v-list-tile-content>
               <v-list-tile-title>{{ subItem.city }}</v-list-tile-title>
               <v-list-tile-sub-title>{{ subItem.name }}</v-list-tile-sub-title>
@@ -53,26 +53,47 @@
   </v-menu>
 </template>
 <script>
+import Easybooking from '../../mixins/easybooking'
 export default {
   name: 'easybooking-double-combobox',
-  props: {
-    filter: {
-      type: null
+  mixins: [Easybooking],
+  data: () => ({
+    items: [],
+    activeTarget: null,
+    result: {
+      departure: null,
+      arrival: null
     },
-    items: {
-      type: Array,
-      default: () => {
-        return []
-      }
+    placeholder: {
+      departure: '',
+      arrival: ''
     }
-  },
+  }),
   methods: {
+    select (item) {
+      this.result[this.activeTarget] = item.code
+      this.$refs[this.activeTarget].value = ''
+      this.placeholder[this.activeTarget] = item.city
+    },
+    swap(){
+      var arr_code = this.result['arrival'], dep_code = this.result['departure']
+      var arr_text = this.placeholder['arrival'], dep_text = this.placeholder['departure']
+      this.result = {
+        arrival: dep_code,
+        departure: arr_code
+      }
+      this.placeholder = {
+        arrival: dep_text,
+        departure: arr_text
+      }
+    },
     typing (target) {
       const input = this.$refs[target]
       const menu = this.$refs['location-combobox']
+      this.activeTarget = target
       if (input.value.length > 2) {
-        if (this.filter !== undefined && this.filter !== null) {
-          this.filter(input.value, (items) => {
+        if (this.searchLocation !== undefined && this.searchLocation !== null) {
+          this.searchLocation(input.value, (items) => {
             this.items = items
             if (menu.isActive === false) {
               menu.runDelay('open', () => {
