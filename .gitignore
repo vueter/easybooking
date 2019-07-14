@@ -26,3 +26,4 @@ package-lock.json
 
 # another
 another/
+src/communicator/index.js

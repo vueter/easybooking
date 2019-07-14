@@ -15,16 +15,40 @@
         </v-flex>
       </v-layout>
     </template>
-    <v-list>
-      <v-list-tile v-for="(item, index) in items" v-bind:key="index" v-on:click="() => {}">
-        <v-list-tile-content>
-          <v-list-tile-title>{{ item.city }}</v-list-tile-title>
-          <v-list-tile-sub-title>{{ item.name }}</v-list-tile-sub-title>
-        </v-list-tile-content>
-        <v-list-tile-action>
-          <v-list-tile-action-text>{{ item.code }}</v-list-tile-action-text>
-        </v-list-tile-action>
-      </v-list-tile>
+    <v-list class="double-combobox-list">
+      <template v-for="item in items">
+        <v-list-tile v-if="item.items === null" v-bind:key="item.code" v-on:click="() => {}">
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.city }}</v-list-tile-title>
+            <v-list-tile-sub-title>{{ item.name }}</v-list-tile-sub-title>
+          </v-list-tile-content>
+          <v-list-tile-action>
+            <v-list-tile-action-text>{{ item.code }}</v-list-tile-action-text>
+          </v-list-tile-action>
+        </v-list-tile>
+        <v-list-group class="double-combobox-groups" v-if="item.items !== null" v-bind:key="item.code" v-bind:no-action="true" v-bind:value="true" append-icon>
+          <template v-slot:activator>
+            <v-list-tile v-on:click="() => {}">
+              <v-list-tile-content>
+                <v-list-tile-title>{{ item.city }}</v-list-tile-title>
+                <v-list-tile-sub-title>{{ item.name }}</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-list-tile-action-text>{{ item.code }}</v-list-tile-action-text>
+              </v-list-tile-action>
+            </v-list-tile>
+          </template>
+          <v-list-tile v-for="subItem in item.items" :key="subItem.title" v-on:click="() => {}">
+            <v-list-tile-content>
+              <v-list-tile-title>{{ subItem.city }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ subItem.name }}</v-list-tile-sub-title>
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-list-tile-action-text>{{ subItem.code }}</v-list-tile-action-text>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list-group>
+      </template>
     </v-list>
   </v-menu>
 </template>
@@ -66,3 +90,28 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.theme--light.v-list .v-list__group--active:before, .theme--light.v-list .double-combobox-groups:after {
+  background: transparent;
+}
+.double-combobox-groups .v-list__group__items--no-action .v-list__tile {
+  padding-left: 30px !important;
+}
+.double-combobox-groups .v-list__group__items{
+  background: #f5f5f5;
+}
+.theme--light.v-list .v-list__tile--link:hover, .theme--light.v-list .v-list__tile--highlighted, .theme--light.v-list .v-list__group__header:hover {
+  background: #EDFDFF;
+  border-left: 2px solid #0BD5F5;
+}
+.v-list__tile{
+  height: 59px;
+  border-left: 2px solid transparent;
+}
+.double-combobox-groups .v-list__group__header{
+  border-left: 0px !important;
+}
+.double-combobox-list{
+  padding: 0px;
+}
+</style>
