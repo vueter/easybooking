@@ -1,5 +1,5 @@
 <template>
-  <v-menu v-bind:close-on-content-click="false" offset-y ref="date-range" max-width="310px" class="easybooking--double-datepicker">
+  <v-menu v-bind:close-on-content-click="false" offset-y ref="date-range" max-width="810px" class="easybooking--double-datepicker">
     <template v-slot:activator="{ on }">
       <v-layout row class="easybooking--double-combobox" v-on:click="open">
         <v-flex class="easybooking--double-combobox-field">
@@ -16,16 +16,26 @@
     <v-card>
       <v-card-text>
         <v-layout row>
-          <v-flex>
-            <font class="date-switch-label" v-bind:class="type ? '' : 'active-date-swwitch-label'">В одну сторону</font>
-          </v-flex>
-          <v-switch v-model="type" class="date-switch" success color="primary"></v-switch>
-          <v-flex>
-            <font class="date-switch-label" v-bind:class="type ? 'active-date-swwitch-label' : ''">Туда-обратно</font>
+          <v-flex v-bind:md6="type" v-bind:md12="!type">
+            <v-layout row>
+              <v-flex>
+                <font class="date-switch-label" v-bind:class="type ? '' : 'active-date-swwitch-label'">В одну сторону</font>
+              </v-flex>
+              <v-switch v-model="type" class="date-switch" success color="primary"></v-switch>
+              <v-flex>
+                <font class="date-switch-label" v-bind:class="type ? 'active-date-swwitch-label' : ''">Туда-обратно</font>
+              </v-flex>
+            </v-layout>
           </v-flex>
         </v-layout>
-        <v-date-picker no-title />
-        <v-date-picker no-title v-if="type" />
+        <v-layout row>
+          <v-flex md6>
+            <v-date-picker no-title />
+          </v-flex>
+          <v-flex md6>
+            <v-date-picker no-title v-if="type" />
+          </v-flex>
+        </v-layout>
       </v-card-text>
     </v-card>
   </v-menu>

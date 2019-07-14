@@ -2,41 +2,28 @@
   <v-content class="home">
     <easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>
     <v-container>
-      <v-layout row>
-        <v-flex md8 offset-md2>
-          <easybooking-search-board v-bind:filter="filter">
-            <template v-slot:activator>
-              <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
-            </template>
-          </easybooking-search-board>
-        </v-flex>
-      </v-layout>
+      <easybooking-search-board v-bind:filter="searchLocation">
+        <template v-slot:activator>
+          <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
+        </template>
+      </easybooking-search-board>
     </v-container>
-    <v-container>
-      <v-layout row>
-        <v-flex md8 offset-md2>
-          <easybooking-stepper-card />
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <easybooking-footer>
+    <!--<v-container>
+      <easybooking-stepper-card />
+    </v-container>-->
+    <!--<easybooking-footer>
       {{languages}}
-    </easybooking-footer>
+    </easybooking-footer>-->
   </v-content>
 </template>
 
 <script>
 import Languagable from '../mixins/language'
-const items = [
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' }
-]
+import Easybooking from '../easybooking/mixins/easybooking'
+
 export default {
   name: 'home',
-  mixins: [Languagable],
+  mixins: [Languagable, Easybooking],
   data: () => {
     return {
       actions: [
@@ -49,11 +36,15 @@ export default {
       ],
       routes: []
     }
-  },
-  methods: {
-    filter (name, done) {
-      done(items)
-    }
   }
 }
 </script>
+<style>
+.container{
+  max-width: 1140px !important;
+}
+.v-toolbar__content{
+  max-width: 1140px;
+  margin: auto;
+}
+</style>

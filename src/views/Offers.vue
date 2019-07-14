@@ -4,7 +4,7 @@
         <v-container>
             <easybooking-search-board v-bind:filter="filter">
                 <template v-slot:activator>
-                <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
+                  <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
                 </template>
             </easybooking-search-board>
         </v-container>
@@ -47,8 +47,8 @@ export default {
     ],
     routes: []
   }),
-  methods:{
-      filter (name, done) {
+  methods: {
+    filter (name, done) {
       done(items)
     }
   }

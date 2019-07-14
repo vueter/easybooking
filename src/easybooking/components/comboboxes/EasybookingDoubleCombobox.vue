@@ -5,18 +5,18 @@
         <v-flex class="easybooking--double-combobox-field">
           <input type="text" class="main-field first" ref="departure" v-on:input="typing('departure')">
         </v-flex>
-        <font class="easybooking--double-combobox-code">MOW</font>
+        <!--<font class="easybooking--double-combobox-code">MOW</font>-->
         <v-btn icon class="easybooking--double-combobox-icon-btn" v-bind:ripple="false">
           <v-icon color="primary">swap_horiz</v-icon>
         </v-btn>
-        <font class="easybooking--double-combobox-code">MOW</font>
+        <!--<font class="easybooking--double-combobox-code">MOW</font>-->
         <v-flex class="easybooking--double-combobox-field">
           <input type="text" class="main-field last" ref="arrival" v-on:input="typing('arrival')">
         </v-flex>
       </v-layout>
     </template>
     <v-list>
-      <v-list-tile v-for="(item, index) in items" v-bind:key="index">
+      <v-list-tile v-for="(item, index) in items" v-bind:key="index" v-on:click="() => {}">
         <v-list-tile-content>
           <v-list-tile-title>{{ item.city }}</v-list-tile-title>
           <v-list-tile-sub-title>{{ item.name }}</v-list-tile-sub-title>

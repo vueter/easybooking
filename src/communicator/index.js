@@ -3,8 +3,8 @@ import Axios from 'axios'
 export default class Communicator {
   constructor () {
     this.authConfig = {
-      login: 'vue',
-      password: 'w2Uq8VRlia'
+      login: 'xxx',
+      password: 'yyyyyyy'
     }
     this.config = null
     this.$http = Axios
