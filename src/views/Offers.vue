@@ -12,7 +12,8 @@
             <v-container>
                 <v-layout row>
                     <v-flex md4 mr-1>
-                        <easybooking-subscribe-card/>
+                        <easybooking-subscribe-card />
+                        <easybooking-filter-card />
                     </v-flex>
                     <v-flex md8 ml-1>
                       <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket"/>
@@ -40,7 +41,8 @@ export default {
       '+998933363933', '+998933363933'
     ],
     routes: [],
-    tickets: []
+    tickets: [],
+    filters: null
   }),
   methods: {
     search(){
