@@ -47,7 +47,6 @@
 import EasybookingCombobox from '@/components/core/EasybookingCombobox'
 import EasybookingPassangerBox from '@/components/core/EasybookingPassangerBox'
 
-import Communicator from '@/communicator'
 export default {
   name: 'EasybookingSearchboard',
   components: {
@@ -86,14 +85,6 @@ export default {
           'PUB', 'NEG'
         ]
       }
-      const comm = new Communicator()
-      comm.search(request, result => {
-        if (result['status'] === 'ok') {
-          this.$router.push({
-            path: '/offers/' + result.request_id
-          })
-        }
-      })
     }
   }
 }

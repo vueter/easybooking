@@ -17,7 +17,6 @@
 
 <script>
 import LocationList from '@/components/core/combobox/LocationList'
-import Communicator from '@/communicator'
 export default {
   name: 'EasybookingCombobox',
   components: { LocationList },
@@ -43,10 +42,7 @@ export default {
     search (target) {
       var input = this.$refs[target]
       if (input.value.length > 2) {
-        const comm = new Communicator()
-        comm.getDirectives(input.value, result => {
-          console.log(result)
-        })
+        
       }
     },
     getCodes () {

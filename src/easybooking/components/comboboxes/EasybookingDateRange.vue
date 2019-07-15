@@ -21,6 +21,10 @@
   </v-menu>
 </template>
 <script>
+Date.prototype.addHours= function(h){
+    this.setHours(this.getHours()+h);
+    return this;
+}
 export default {
   name: 'easybooking-date-range',
   props: {
@@ -37,7 +41,7 @@ export default {
   },
   data: () => ({
     activeTarget: 'departure',
-    now: new Date().toISOString().substr(0, 10),
+    now: new Date().addHours(24).toISOString().substr(0, 10),
     result: {
       departure: null,
       arrival: null
