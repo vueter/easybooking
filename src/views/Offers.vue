@@ -11,10 +11,11 @@
         <v-layout class="offers">
             <v-container>
                 <v-layout row>
-                    <v-flex md4>
+                    <v-flex md4 mr-1>
                         <easybooking-subscribe-card/>
                     </v-flex>
-                    <v-flex md8>
+                    <v-flex md8 ml-1>
+                      <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket"/>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -38,7 +39,8 @@ export default {
     statics: [
       '+998933363933', '+998933363933'
     ],
-    routes: []
+    routes: [],
+    tickets: []
   }),
   methods: {
     search(){
@@ -48,7 +50,6 @@ export default {
           console.error(error)
         }
         else{
-          console.log(result)
           this.$router.push({ path: '/offers/' + result.request_id })
         }
       })
@@ -59,7 +60,7 @@ export default {
           console.error(error)
         }
         else{
-          console.log(result)
+          this.tickets = result
         }
       })
     }

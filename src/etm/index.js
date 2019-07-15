@@ -93,15 +93,21 @@ Communicator.prototype.offers = function(params, callback, matches = {}){
         }
         return matches
     }
+    var normalies = (matches) => {
+        var tickets = []
+        for(const name in matches){
+            tickets.push(matches[name][Math.min(...Object.keys(matches[name]))])
+        }
+        return tickets
+    }
     this.run(() => {
         this.$client.get('/offers', { params: params })
             .then(response => {
                 matches = match(response.data, matches)
-                console.log(matches)
-                callback(null, response.data)
+                callback(null, normalies(matches))
                 if(response.data.status == 'InProcess'){
                     setTimeout(() => {
-                        this.offers(params, callback)
+                        this.offers(params, callback, matches)
                     }, 1000)
                 }
             })
