@@ -75,9 +75,9 @@ export default {
       this.$refs[this.activeTarget].value = ''
       this.placeholder[this.activeTarget] = item.city
     },
-    swap(){
-      var arr_code = this.result['arrival'], dep_code = this.result['departure']
-      var arr_text = this.placeholder['arrival'], dep_text = this.placeholder['departure']
+    swap () {
+      var arr_code = this.result['arrival']; var dep_code = this.result['departure']
+      var arr_text = this.placeholder['arrival']; var dep_text = this.placeholder['departure']
       this.result = {
         arrival: dep_code,
         departure: arr_code

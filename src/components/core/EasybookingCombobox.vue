@@ -42,7 +42,7 @@ export default {
     search (target) {
       var input = this.$refs[target]
       if (input.value.length > 2) {
-        
+
       }
     },
     getCodes () {

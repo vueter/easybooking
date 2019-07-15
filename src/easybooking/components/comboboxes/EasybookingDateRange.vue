@@ -21,9 +21,9 @@
   </v-menu>
 </template>
 <script>
-Date.prototype.addHours= function(h){
-    this.setHours(this.getHours()+h);
-    return this;
+Date.prototype.addHours = function (h) {
+  this.setHours(this.getHours() + h)
+  return this
 }
 export default {
   name: 'easybooking-date-range',
@@ -56,9 +56,9 @@ export default {
       })
     }
   },
-  computed:{
-    min(){
-      return this.activeTarget !== 'departure' ? ( this.result.departure !== null ? this.result.departure : this.now ) : this.now
+  computed: {
+    min () {
+      return this.activeTarget !== 'departure' ? (this.result.departure !== null ? this.result.departure : this.now) : this.now
     }
   }
 }

@@ -4,7 +4,7 @@
     <v-container>
       <easybooking-search-board>
         <template v-slot:activator>
-          <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
+          <v-btn float block depressed color="primary" class="easybooking--search-btn">Search</v-btn>
         </template>
       </easybooking-search-board>
     </v-container>
