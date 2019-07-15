@@ -2,10 +2,10 @@
     <div class="bg-white">
         <easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>
         <v-container>
-            <easybooking-search-board v-bind:filter="filter">
-                <template v-slot:activator>
-                  <v-btn float block color="primary" class="easybooking--search-btn">Search</v-btn>
-                </template>
+            <easybooking-search-board ref="search-board">
+              <template v-slot:activator>
+                <v-btn float block depressed color="primary" class="easybooking--search-btn" v-on:click="search">Search</v-btn>
+              </template>
             </easybooking-search-board>
         </v-container>
         <v-layout class="offers">
@@ -26,13 +26,6 @@
 </template>
 <script>
 import Languagable from '../mixins/language'
-const items = [
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' }
-]
 export default {
   name: 'Offers',
   mixins: [Languagable],
@@ -48,9 +41,32 @@ export default {
     routes: []
   }),
   methods: {
-    filter (name, done) {
-      done(items)
+    search(){
+      this.routes = this.$refs['search-board'].getFlights()
+      this.$etm.search(this.routes, (error, result) => {
+        if(error){
+          console.error(error)
+        }
+        else{
+          console.log(result)
+          this.$router.push({ path: '/offers/' + result.request_id })
+        }
+      })
+    },
+    offers(){
+      this.$etm.offers({ request_id: this.$route.params.id, sort: 'price', last_ow_variant: 0 }, (error, result) => {
+        if(error){
+          console.error(error)
+        }
+        else{
+          console.log(result)
+        }
+      })
     }
+  },
+  mounted(){
+    console.log('getting oggers')
+    this.offers()
   }
 }
 

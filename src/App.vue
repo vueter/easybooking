@@ -3,7 +3,19 @@
     <router-view/>
   </v-app>
 </template>
-
+<script>
+export default {
+  data: () => ({
+    etm_user: null
+  }),
+  mounted(){
+    this.$etm.auth({ login: 'Vue', password: 'w2Uq8VRlia' }, (_, result) => {
+      this.etm_user = result
+      console.log(this.etm_user)
+    })
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: "Roboto";
