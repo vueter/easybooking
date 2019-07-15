@@ -71,6 +71,14 @@ export default {
   methods: {
     changePass () {
       this.all = this.flights.adt + this.flights.inf + this.flights.chld
+    },
+    getPassengers() {
+      return {
+        adult_qnt: this.flights.adt,
+        child_qnt: this.flights.chld,
+        infant_qnt: this.flights.inf,
+        class: this.flights.class
+      }
     }
   }
 }

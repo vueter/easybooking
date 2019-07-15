@@ -107,6 +107,12 @@ export default {
           menu.isActive = false
         })
       }
+    },
+    getDirection () {
+      return {
+        departure_code: this.result.departure,
+        arrival_code: this.result.arrival
+      }
     }
   }
 }

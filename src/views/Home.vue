@@ -2,9 +2,9 @@
   <v-content class="home">
     <easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>
     <v-container>
-      <easybooking-search-board>
+      <easybooking-search-board ref="search-board">
         <template v-slot:activator>
-          <v-btn float block depressed color="primary" class="easybooking--search-btn">Search</v-btn>
+          <v-btn float block depressed color="primary" class="easybooking--search-btn" v-on:click="search">Search</v-btn>
         </template>
       </easybooking-search-board>
     </v-container>
@@ -33,7 +33,12 @@ export default {
       statics: [
         '+998933363933', '+998933363933'
       ],
-      routes: []
+      routes: {}
+    }
+  },
+  methods: {
+    search(){
+      this.routes = this.$refs['search-board'].getFlights()
     }
   }
 }

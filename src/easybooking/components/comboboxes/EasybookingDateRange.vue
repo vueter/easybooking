@@ -54,6 +54,9 @@ export default {
       menu.runDelay('open', () => {
         menu.isActive = true
       })
+    },
+    getDates(){
+      return Object.assign({}, this.result)
     }
   },
   computed: {
