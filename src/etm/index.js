@@ -74,12 +74,30 @@ Communicator.prototype.search = function(request, callback){
 }
 
 /** Methods for Offers */
-Communicator.prototype.offers = function(params, callback){
+Communicator.prototype.offers = function(params, callback, matches = {}){
     assert(callback, 'Missing callback')
     assert(typeof callback === 'function', 'Callback should be a function')
+    var match = (data, matches) => {
+        for(const offers of data.offers){
+            for(const offer of offers.offers){
+                for(const segment of offer.segments){
+                    var uuid = `${segment.arrival_timestamp}_${segment.departure_timestamp}_${segment.duration_minutes}_${segment.flight_number}`
+                    if(matches[uuid] === undefined){
+                        matches[uuid] = {}
+                    }
+                    if(!matches[uuid][segment.price]){
+                        matches[uuid][segment.price] = segment
+                    }
+                }
+            }
+        }
+        return matches
+    }
     this.run(() => {
         this.$client.get('/offers', { params: params })
             .then(response => {
+                matches = match(response.data, matches)
+                console.log(matches)
                 callback(null, response.data)
                 if(response.data.status == 'InProcess'){
                     setTimeout(() => {
