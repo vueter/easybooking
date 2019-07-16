@@ -1,4 +1,5 @@
 import components from './components'
+import Filters from './mixins/filters'
 
 /**
  * @name Easybooking
@@ -46,10 +47,11 @@ export default {
     const options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
     Vue.prototype.$easybooking = new Vue({
       name: 'easybooking',
+      data: () => ({
+        match: []
+      }),
       methods: {
-        t () {
-
-        }
+        Filters
       }
     })
 
