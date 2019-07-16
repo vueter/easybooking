@@ -1,5 +1,5 @@
 <template>
-  <v-menu v-bind:close-on-content-click="false" offset-y ref="date-range" max-width="810px" class="easybooking--double-datepicker">
+  <v-menu v-bind:close-on-content-click="true" offset-y ref="date-range" max-width="810px" class="easybooking--double-datepicker">
     <template v-slot:activator="{ on }">
       <v-layout row class="easybooking--double-combobox">
         <v-flex class="easybooking--double-combobox-field" v-on:click="open('departure')">

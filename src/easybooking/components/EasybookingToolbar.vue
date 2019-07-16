@@ -1,7 +1,11 @@
 <template>
   <v-toolbar flat color="white" class="easybooking--toolbar">
-    <v-toolbar-title>
-      <slot name="brand"><img src="../assets/images/logo.png" /></slot>
+    <v-toolbar-title >
+      <slot name="brand">
+        <router-link to="/">
+          <img src="../assets/images/logo.png" />
+        </router-link>
+        </slot>
     </v-toolbar-title>
     <slot name="container">
       <v-spacer></v-spacer>

@@ -1,4 +1,7 @@
-
+const currencies = {
+  'UZS' : 'O`zbek so`mi',
+  'USD' : 'US Dollar'
+}
 const languages = {
   'UZB': 'Uzbek',
   'RUS': 'Russion',
@@ -6,5 +9,6 @@ const languages = {
 }
 
 export default {
-  languages: languages
+  languages: languages,
+  currencies: currencies
 }

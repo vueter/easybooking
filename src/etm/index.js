@@ -6,6 +6,7 @@ const assert = require('assert')
 const Communicator = function(options = {}){
     this.$client = null,
     this.callbacks = []
+    this.currency = null
 }
 
 Communicator.prototype.run = function(callback){
@@ -34,6 +35,7 @@ Communicator.prototype.auth = function(request, callback){
                     'etm-auth-key': response.data.etm_auth_key
                 }
             })
+            this.currency = response.data.currency
             this.runDelay()
             callback(null, response.data)
         })

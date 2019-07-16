@@ -28,7 +28,8 @@ export default {
 <style lang="scss">
 .xs-width{
   @media screen and (max-width: 600px){
-      min-width: 40px
+      min-width: 40px;
+      width: 50px;
   }
 }
 </style>
