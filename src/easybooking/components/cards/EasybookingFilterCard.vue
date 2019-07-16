@@ -1,22 +1,79 @@
 <template>
     <v-card class="filters">
+        {{filterOptions}}
         <v-card-title>
             Sort
         </v-card-title>
         <v-card-text>
-            <v-overflow-btn v-bind:items="sorts"></v-overflow-btn>
-            {{ filterOptions }}
+            <v-overflow-btn v-bind:items="filterOptions.sorts" v-bind:value="filterOptions.sorts[0]"></v-overflow-btn>
         </v-card-text>
         <v-card-title>
             Stops
         </v-card-title>
+        <v-list>
+            <v-list-tile v-on:click="() => {}" v-for="(stop, index) in filterOptions.stops" v-bind:key="'stop_' + index">
+                <v-list-tile-content>
+                    <v-checkbox color="primary" v-bind:ripple="false" v-bind:label="stop.number ? (stop.number + ' stop' + (stop.number !== 1 ? 's' : '')) : 'Direct'"/>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                    {{ stop.price }}
+                </v-list-tile-action>
+            </v-list-tile>
+        </v-list>
+        <v-card-title>
+            Price
+        </v-card-title>
+        <v-card-text>
+            <v-range-slider
+                v-bind:min="filterOptions.price.min" 
+                v-bind:max="filterOptions.price.max" 
+                v-bind:value="[filterOptions.price.min, filterOptions.price.max]" />
+        </v-card-text>
+        <v-card-title>
+            Flight time
+        </v-card-title>
+        <v-card-text>
+            <v-range-slider v-bind:min="1000000" v-bind:max="10000000" v-bind:value="[1000000, 10000000]" />
+            <v-range-slider v-bind:min="1000000" v-bind:max="10000000" v-bind:value="[1000000, 10000000]" />
+        </v-card-text>
+        <v-card-title>
+            Duration time
+        </v-card-title>
+        <v-card-text>
+            <v-range-slider v-bind:min="100" v-bind:max="800" v-bind:value="[100, 800]" />
+        </v-card-text>
+        <v-card-title>
+            Aviacompanies
+        </v-card-title>
+        <v-list>
+            <v-list-tile v-on:click="() => {}" v-for="(aviacompany, index) in filterOptions.aviacompanies" v-bind:key="'aeroports_' + index">
+                <v-list-tile-content>
+                    <v-checkbox color="primary" v-bind:ripple="false" v-bind:label="aviacompany.name"/>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                    {{ aviacompany.price }}
+                </v-list-tile-action>
+            </v-list-tile>
+        </v-list>
     </v-card>
 </template>
 <script>
 export default {
     name: 'easybooking-filter-card',
     props: {
-        filterOptions: Object,
+        filterOptions: {
+            type: Object,
+            default: {
+                stops: [{number: 1, price: 15000}, {number: 2, price: 35000}, {number: 4, price: 85000}],
+                aviacompanies: [
+                    {name: 'Aviacompany name', code: 'NY', price: 150000},
+                    {name: 'Aviacompany name', code: 'NY', price: 150000},
+                    {name: 'Aviacompany name', code: 'NY', price: 150000},
+                    {name: 'Aviacompany name', code: 'NY', price: 150000},
+                    {name: 'Aviacompany name', code: 'NY', price: 150000}
+                ]
+            }
+        },
         filter: {
             type: Function,
             default: () => {}

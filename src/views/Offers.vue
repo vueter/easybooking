@@ -13,9 +13,9 @@
                 <v-layout row>
                     <v-flex md4 mr-1>
                         <easybooking-subscribe-card />
-                        <easybooking-filter-card />
+                        <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" />
                     </v-flex>
-                    <v-flex md8 ml-1>
+                    <v-flex md8 ml-3>
                       <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket"/>
                     </v-flex>
                 </v-layout>
@@ -42,7 +42,8 @@ export default {
     ],
     routes: [],
     tickets: [],
-    filters: null
+    filters: null,
+    filterOptions: null
   }),
   methods: {
     search(){
@@ -63,12 +64,13 @@ export default {
         }
         else{
           this.tickets = result
+          this.$easybooking.match = this.$easybooking.Filters(this.tickets)
+          this.filterOptions = this.$easybooking.match.options
         }
       })
     }
   },
   mounted(){
-    console.log('getting oggers')
     this.offers()
   }
 }

@@ -11,7 +11,6 @@ export default {
   mounted(){
     this.$etm.auth({ login: 'Vue', password: 'w2Uq8VRlia' }, (_, result) => {
       this.etm_user = result
-      console.log(this.etm_user)
     })
   }
 }
