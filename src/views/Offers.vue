@@ -16,6 +16,7 @@
                         <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" />
                     </v-flex>
                     <v-flex md8 ml-3>
+                      {{filterOptions}}
                       <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket"/>
                     </v-flex>
                 </v-layout>
@@ -63,15 +64,24 @@ export default {
           console.error(error)
         }
         else{
-          this.tickets = result
-          this.$easybooking.match = this.$easybooking.Filters(this.tickets)
+          this.$easybooking.match = this.$easybooking.Filters(result)
           this.filterOptions = this.$easybooking.match.options
+          this.tickets = this.$easybooking.match.search()
         }
       })
     }
   },
   mounted(){
     this.offers()
+  },
+  watch:{
+    filterOptions: {
+      handler(){
+        console.log('changed the filter options')
+        this.tickets = this.$easybooking.match.search()
+      },
+      deep: true
+    }
   }
 }
 
