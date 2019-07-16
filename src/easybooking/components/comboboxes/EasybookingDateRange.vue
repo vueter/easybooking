@@ -3,20 +3,18 @@
     <template v-slot:activator="{ on }">
       <v-layout row class="easybooking--double-combobox">
         <v-flex class="easybooking--double-combobox-field" v-on:click="open('departure')">
-          <input type="text" class="first" v-model="result.departure" readonly>
+          <input type="text" class="first" v-model="result.departure" readonly placeholder="Туда">
         </v-flex>
         <v-btn icon class="easybooking--double-combobox-icon-btn" v-bind:ripple="false">
           <v-icon color="primary">date_range</v-icon>
         </v-btn>
-        <v-flex class="easybooking--double-combobox-field" v-on:click="open('arrival')">
-          <input type="text" class="last" v-model="result.arrival" readonly>
+        <v-flex class="easybooking--double-combobox-field return-date-input" v-on:click="open('arrival')">
+          <input type="text" class="last" v-model="result.arrival" placeholder="Обратно" readonly>
         </v-flex>
       </v-layout>
     </template>
     <v-card>
-      <v-card-text>
-        <v-date-picker no-title v-model="result[activeTarget]" v-bind:min="min"/>
-      </v-card-text>
+        <v-date-picker class="easy-datepicker" color="#0FB8D3" first-day-of-week="1" no-title v-model="result[activeTarget]" v-bind:min="min"/>
     </v-card>
   </v-menu>
 </template>
@@ -57,6 +55,9 @@ export default {
     },
     getDates(){
       return Object.assign({}, this.result)
+    },
+    returnClear(){
+      this.result.arrival = null
     }
   },
   computed: {
@@ -66,3 +67,22 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  .easy-datepicker{
+    padding-top: 15px;
+    .accent--text button{
+      color: #0FB8D3 !important;
+      font-weight: 500;
+    }
+    .v-date-picker-header .v-btn__content{
+      color: #0FB8D3;
+      &:disabled{
+        color: #0FB8D3 !important;
+      }
+    }
+    .v-date-picker-table .v-btn.v-btn{
+      border-radius: 30px;
+    }
+  }
+
+</style>

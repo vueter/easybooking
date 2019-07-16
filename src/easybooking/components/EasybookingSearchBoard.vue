@@ -1,18 +1,18 @@
 <template>
   <v-form class="easybooking-search-board">
-    <v-layout row wrap>
+    <v-layout row wrap class="easybooking-search-board-responsive" >
       <slot>
-        <v-flex md5 pr-1>
+        <v-flex md5 sm12>
           <easybooking-double-combobox ref="location" />
         </v-flex>
-        <v-flex md3 pl-1 pr-1>
+        <v-flex md3 sm6>
           <easybooking-date-range ref="dates" />
         </v-flex>
-        <v-flex md2 pl-1 pr-1>
+        <v-flex md2 sm6 xs12>
           <easybooking-menu-passanger ref="passengers" />
         </v-flex>
       </slot>
-      <v-flex md2 pl-1>
+      <v-flex md2 xs12>
         <slot name="activator"></slot>
       </v-flex>
     </v-layout>
@@ -36,7 +36,7 @@ export default {
           date: dates.departure,
           time: ''
         })
-        if(dates.arrival){
+        if (dates.arrival) {
           directions.push({
             departure_code: direction.arrival_code,
             arrival_code: direction.departure_code,
@@ -53,3 +53,21 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.easybooking-search-board{
+  &-responsive{
+    margin-left: -5px;
+    margin-right: -5px;
+    &>*{
+      padding: 5px 5px;
+      margin: 0;
+    }
+  }
+  .easybooking--double-combobox{
+    margin-top: 0;
+  }
+  .v-btn--block{
+    margin: 0;
+  }
+}
+</style>

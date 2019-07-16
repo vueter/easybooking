@@ -14,7 +14,7 @@
         <easybooking-menu-language v-bind:languages="languages">
           <template v-slot:icon><img src="../assets/icons/web.png"></template>
         </easybooking-menu-language>
-        <v-btn icon><img src="../assets/icons/account-circle.png"></v-btn>
+        <v-btn flat class="br-0 header-menu-width"><img src="../assets/icons/account-circle.png"></v-btn>
         <easybooking-menu-controller v-bind:actions="actions" v-bind:statics="statics">
           <template v-slot:icon><img src="../assets/icons/xbox-controller-menu.png"></template>
         </easybooking-menu-controller>

@@ -84,6 +84,14 @@ export default {
 }
 </script>
 <style lang="scss">
+.easybooking--passanger-btn{
+  &:hover{
+    background-color: white !important;
+  }
+  &.v-btn--active:before, &.v-btn:hover:before, &.v-btn:focus:before{
+    background-color: white !important;
+  }
+}
 .passengers {
   padding: 20px;
   &-title {

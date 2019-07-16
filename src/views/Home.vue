@@ -1,12 +1,27 @@
 <template>
   <v-content class="home">
-    <easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>
+    <easybooking-toolbar
+      v-bind:languages="languages"
+      v-bind:actions="actions"
+      v-bind:statics="statics"
+    />
     <v-container>
-      <easybooking-search-board ref="search-board">
-        <template v-slot:activator>
-          <v-btn float block depressed color="primary" class="easybooking--search-btn" v-on:click="search">Search</v-btn>
-        </template>
-      </easybooking-search-board>
+      <div class="home-page-header">
+
+        <h1 class="home-page-header-title">Билеты на самолет. Экономьте на полете!</h1>
+        <easybooking-search-board ref="search-board">
+          <template v-slot:activator>
+            <v-btn
+              float
+              block
+              depressed
+              color="primary"
+              class="easybooking--search-btn"
+              v-on:click="search"
+            >Search</v-btn>
+          </template>
+        </easybooking-search-board>
+      </div>
     </v-container>
     <!--<v-container>
       <easybooking-stepper-card />
@@ -18,47 +33,68 @@
 </template>
 
 <script>
-import Languagable from '../mixins/language'
+import Languagable from "../mixins/language";
 
 export default {
-  name: 'home',
+  name: "home",
   mixins: [Languagable],
   data: () => {
     return {
       actions: [
-        { text: 'About US', to: '/about' },
-        { text: 'Blog', to: '/blog' },
-        { text: 'Our address', to: '/address' }
+        { text: "About US", to: "/about" },
+        { text: "Blog", to: "/blog" },
+        { text: "Our address", to: "/address" }
       ],
-      statics: [
-        '+998933363933', '+998933363933'
-      ],
+      statics: ["+998933363933", "+998933363933"],
       routes: {}
-    }
+    };
   },
   methods: {
-    search(){
-      this.routes = this.$refs['search-board'].getFlights()
-      console.log(this.routes)
+    search() {
+      this.routes = this.$refs["search-board"].getFlights();
+      console.log(this.routes);
       this.$etm.search(this.routes, (error, result) => {
-        if(error){
-          console.error(error)
+        if (error) {
+          console.error(error);
+        } else {
+          console.log(result);
+          this.$router.push({ path: "/offers/" + result.request_id });
         }
-        else{
-          console.log(result)
-          this.$router.push({ path: '/offers/' + result.request_id })
-        }
-      })
+      });
     }
   }
-}
+};
 </script>
-<style>
-.container{
+<style lang="scss">
+.container {
   max-width: 1140px !important;
 }
-.v-toolbar__content{
+.v-toolbar__content {
   max-width: 1140px;
   margin: auto;
 }
+.home-page-header{
+  height: 370px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  &-title{
+    margin: 40px;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 35px;
+    color: #2C2C2C;
+  }
+  @media screen and (max-width: 600px) {
+    &-title{
+      font-size: 25px;
+    }  
+  }
+  @media screen and (max-width: 400px) {
+    &-title{
+      font-size: 20px;
+    }  
+  }
+}
+
 </style>
