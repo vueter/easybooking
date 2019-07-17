@@ -2,7 +2,7 @@
   <v-menu offset-y v-bind:nudge-width="120" class="easybooking--menu-wallet">
     <template v-slot:activator="{ on }">
       <v-btn flat ripple v-on="on" class="br-0">
-        <slot name="icon"></slot>UZS
+        <slot name="icon"></slot> UZS
       </v-btn>
     </template>
     <v-list class="menu-dropdown-list">

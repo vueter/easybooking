@@ -13,10 +13,10 @@
     <v-toolbar-items>
       <slot>
         <easybooking-menu-wallet>
-          <template v-slot:icon><img src="../assets/icons/wallet.png"></template>
+          <template v-slot:icon><img src="../assets/icons/wallet.png" class="mr-1"></template>
         </easybooking-menu-wallet>
         <easybooking-menu-language v-bind:languages="languages">
-          <template v-slot:icon><img src="../assets/icons/web.png"></template>
+          <template v-slot:icon><img src="../assets/icons/web.png" class="mr-1"></template>
         </easybooking-menu-language>
         <v-btn flat class="br-0 header-menu-width"><img src="../assets/icons/account-circle.png"></v-btn>
         <easybooking-menu-controller v-bind:actions="actions" v-bind:statics="statics">
