@@ -13,8 +13,8 @@ const Filters = function(tickets, lang = 'en'){
     this.aviacompanies = {}
     var options = {
         sorts: [...this.sorts],
-        stops: [],
-        aviacompanies: [],
+        stops: {},
+        aviacompanies: {},
         price: {
             min: null,
             max: null
@@ -44,21 +44,29 @@ const Filters = function(tickets, lang = 'en'){
             durationTime.max = ticket.duration_minutes
         }
         // flight time
-        if(flightTime.min){
-            if(flightTime.min > ticket.departure_timestamp){
-                flightTime.min = ticket.departure_timestamp
+        if(flightTime.departure_min){
+            if(flightTime.departure_min > ticket.departure_timestamp){
+                flightTime.departure_min = ticket.departure_timestamp
+            }
+            if(flightTime.departure_max < ticket.departure_timestamp){
+                flightTime.departure_max = ticket.departure_timestamp
             }
         }
         else{
-            flightTime.min = ticket.departure_timestamp
+            flightTime.departure_min = ticket.departure_timestamp
+            flightTime.departure_max = ticket.departure_timestamp
         }
-        if(flightTime.max){
-            if(flightTime.max > ticket.arrival_timestamp){
-                flightTime.max = ticket.arrival_timestamp
+        if(flightTime.arrival_min){
+            if(flightTime.arrival_min > ticket.arrival_timestamp){
+                flightTime.arrival_min = ticket.arrival_timestamp
+            }
+            if(flightTime.arrival_max < ticket.arrival_timestamp){
+                flightTime.arrival_max = ticket.arrival_timestamp
             }
         }
         else{
-            flightTime.max = ticket.arrival_timestamp
+            flightTime.arrival_min = ticket.arrival_timestamp
+            flightTime.arrival_max = ticket.arrival_timestamp
         }
         
         // aviacompanies
@@ -106,24 +114,41 @@ const Filters = function(tickets, lang = 'en'){
     }
     this.price = price
     for(const number in this.stops){
-        options.stops.push({
+        var price = this.stops[number]
+        options.stops[number] = {
+            value: true,
             number: parseInt(number),
-            price: this.stops[number]
-        })
+            price: price
+        }
     }
     options.price = Object.assign({}, this.price)
+    options.price.value = [options.price.min, options.price.max]
     for(const code in this.aviacompanies){
         var aviacompany = this.aviacompanies[code]
         aviacompany.code = code
-        options.aviacompanies.push(Object.assign({}, aviacompany))
+        aviacompany.value = true
+        options.aviacompanies[code] = aviacompany
     }
+    flightTime.departure_value = [flightTime.departure_min, flightTime.departure_max]
+    flightTime.arrival_value = [flightTime.arrival_min, flightTime.arrival_max]
+    durationTime.value = [durationTime.min, durationTime.max]
     options.flightTime.push(flightTime)
     options.durationTime.push(durationTime)
     this.options = options
+    this.options.sorting = this.options.sorts[0].text
+    this.options.num_tickets = 10
 }
 
-Filters.prototype.match = function(options){
-
+Filters.prototype.search = function(){
+    console.log('searching tickets by filter')
+    console.log(this.options.stops)
+    var tickets = []
+    for(const ticket of this.tickets){
+        if(this.options.stops[ticket.stops].value){
+            tickets.push(Object.assign({}, ticket))
+        }
+    }
+    return tickets
 }
 
 export default Filters
