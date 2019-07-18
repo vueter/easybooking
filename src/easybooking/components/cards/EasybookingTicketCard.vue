@@ -18,7 +18,7 @@
           <div class="e-ticket-from-city">{{ subStr(ticket.flights_info[0].departure_city) }}</div>
           <div
             class="e-ticket-from-date"
-          >{{ formatDate(ticket.flights_info[0].departure_local_timestamp) }}</div>
+          >{{ formatDate(ticket.flights_info[0].departure_local_timestamp, 1) }}</div>
         </div>
 
         <div class="e-ticket-timeline">
@@ -44,37 +44,12 @@
           >{{ subStr(ticket.flights_info[ticket.flights_info.length - 1].arrival_city) }}</div>
           <div
             class="e-ticket-to-date"
-          >{{ formatDate(ticket.flights_info[ticket.flights_info.length - 1].arrival_local_timestamp) }}</div>
+          >{{ formatDate(ticket.flights_info[ticket.flights_info.length - 1].arrival_local_timestamp, 1) }}</div>
         </div>
       </div>
 
-      <div class="e-ticket-detail" v-if="is_open" >
-        <div class="reys" v-for="detail in ticket.flights_info" :key="detail.flight_number">
-          <div class="reys-icon">
-            <v-icon>flight_takeoff</v-icon>
-            <v-icon>flight_land</v-icon>
-          </div>
-          <div class="reys-hour">
-            <span>{{ detail.departure_local_time }}</span>
-            <span>{{ detail.arrival_local_time }}</span>
-          </div>
-          <div class="reys-city">
-            <span>{{ detail.departure_city }}</span>
-            <span>{{ detail.arrival_city }}</span>
-          </div>
-          <div class="reys-date">
-            <span>{{ formatDate(detail.departure_local_timestamp) }}</span>
-            <span>{{ formatDate(detail.arrival_local_timestamp) }}</span>
-          </div>
-          <div class="reys-duration">{{ formatTime(detail.duration_minutes) }}</div>
-          <div class="reys-logo">
-            <img class :src="detail.marketing_airline_logo" :title="marketing_airline_name" />
-          </div>
-        </div>
-        <div class="e-ticket-data">
-          <div></div>
-        </div>
-      </div>
+      <easybooking-ticket-detail v-for="detail in ticket.flights_info" :is_open="is_open" :formatDate="formatDate" :formatTime="formatTime" :key="detail.flight_number" :detail="detail" :baggage="ticket.baggage" :class="ticket.class" :seats="ticket.seats"/>
+      .v
     </div>
     <div class="e-ticket-buy">
       <div>
@@ -96,7 +71,6 @@
 </template>
 <script>
 export default {
-
   name: "easybooking-ticket-card",
   props: {
     ticket: Object
@@ -108,7 +82,7 @@ export default {
   },
   methods: {
     ticketToggle() {
-      console.log(this.ticket)
+      console.log(this.ticket);
       this.is_open = !this.is_open;
     },
     ticketBuy(e) {},
@@ -124,7 +98,7 @@ export default {
       }
     },
 
-    formatDate(timestamp) {
+    formatDate(timestamp, format = 2) {
       var a = new Date(timestamp * 1000);
       var months_arr = [
         "Янв",
@@ -143,12 +117,17 @@ export default {
       var week_arr = ["вс", "пн", "вт", "ср", "чт", "пт", "сб"];
       var year = a.getFullYear();
       var month = months_arr[a.getMonth()];
+      var month2 = a.getMonth();
       var week = week_arr[a.getDay()];
       var date = a.getDate();
       var hour = a.getHours();
       var min = a.getMinutes();
       var sec = a.getSeconds();
-      var time = date + " " + month + " " + year + ", " + week;
+      if (format === 1) {
+        var time = date + " " + month + " " + year + ", " + week;
+      } else {
+        var time = date + "/" + month2 + "/" + year;
+      }
       return time;
     },
 
@@ -156,9 +135,9 @@ export default {
       time = parseInt(time);
       const minute = time % 60;
       const hour = (time - minute) / 60;
-      if(hour){
+      if (hour) {
         return hour + " ч  " + minute + " мин";
-      }else{
+      } else {
         return minute + " мин";
       }
     },
@@ -304,6 +283,7 @@ export default {
     margin: 0px 20px;
     padding: 20px 0px;
     border-top: 1px solid #dbdbdb;
+    text-align: left;
   }
   &-duration {
     font-weight: 300;
@@ -370,19 +350,68 @@ export default {
       }
     }
   }
+  
+  &-data{
+      font-size: 14px;
+      line-height: 2;
+      padding: 20px 0px;
+    &-left{
+      text-align: left !important;
+    }
+    &-right{
+      text-align: right !important;
+    }
+    span{
+      color: #777777;
+    }
+  }
+  &-stoptime{
+    border: 1px solid #0FB8D3;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #777777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    margin-bottom: 20px;
+    i{
+      color: #0FB8D3 !important;
+      margin-right: 10px;
+      font-size: 20px;
+    }
+  }
+  &-rules{
+    &-btn{
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      text-transform:inherit;
+      padding: 0;
+      margin: 0;
+      &:hover{
+        background-color: white !important;
+      }
+    }
+  }
 }
 
-.reys{
+.reys {
   display: flex;
   height: 50px;
   align-items: center;
-  &-icon{
-    i{
+  &-icon {
+    i {
       font-size: 20px;
-      color: #0FB8D3 !important;
+      color: #0fb8d3 !important;
     }
   }
-  &-hour, &-city, &-date, &-icon{
+  &-hour,
+  &-city,
+  &-date,
+  &-icon {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -392,17 +421,20 @@ export default {
     align-items: flex-start;
     margin-right: 10px;
   }
-  &-hour{
-    color: #4A4A4A;
+  &-hour {
+    color: #4a4a4a;
     width: 50px;
   }
-  &-city, &-date{
+  &-city,
+  &-date {
     color: #777777;
+    min-width: 80px;
   }
-  &-duration{
+  &-duration {
     font-size: 13px;
     line-height: 15px;
-    color: #4A4A4A;
+    color: #4a4a4a;
+    margin-right: 20px;
   }
 }
 </style>
