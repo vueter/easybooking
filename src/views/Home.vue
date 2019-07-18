@@ -1,5 +1,5 @@
 <template>
-  <v-content class="home">
+  <v-content class="home" style="background-color:white">
     <easybooking-toolbar
       v-bind:languages="languages"
     />
