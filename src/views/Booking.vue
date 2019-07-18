@@ -1,5 +1,10 @@
 <template>
   <v-content>
+    <easybooking-toolbar
+      v-bind:languages="languages"
+      v-bind:actions="actions"
+      v-bind:statics="statics"
+    />
     <v-container>
       <v-layout row wrap>
         <v-flex md8 pr-2>
@@ -17,8 +22,10 @@
   </v-content>
 </template>
 <script>
+import Languagable from "../mixins/language";
 export default {
   name: 'Booking',
+  mixins: [Languagable],
   mounted(){
     if(this.ticket == null){
       this.$router.push({ path: '/offers/' + this.$route.params.id })

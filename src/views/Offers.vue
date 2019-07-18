@@ -16,6 +16,7 @@
                         <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" />
                     </v-flex>
                     <v-flex md8>
+                      {{ tickets }}
                       <easybooking-ticket-ff ref="fareFamily"/>
                       <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket" v-bind:ff="$refs['fareFamily']"/>
                       <v-btn large color="primary" rounded block v-on:click="filterOptions.num_tickets += 10">Show more</v-btn>
@@ -66,6 +67,7 @@ export default {
         }
         else{
           if(JSON.stringify(this.$easybooking.match.tickets) !== JSON.stringify(tickets)){
+            console.log(tickets)
             this.$easybooking.match = this.$easybooking.Filters(tickets)
             this.filterOptions = this.$easybooking.match.options
             this.tickets = this.$easybooking.match.search()
