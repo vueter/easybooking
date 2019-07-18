@@ -14,11 +14,10 @@ export default {
           return result
         })(items)
         var result = []
-        var counter = -1;
+        var counter = 0;
         for (const item of items) {
           if (Array.isArray(item)) {
             if (item[0].is_city == '1') {
-              counter += 1
               result.push({
                 city: item[0].city_eng,
                 name: item[0].name_eng,
@@ -26,6 +25,7 @@ export default {
                 items: [],
                 id: counter
               })
+              counter += 1
               if(counter == 5){
                 return result
               }
@@ -34,18 +34,15 @@ export default {
                   city: sub_item.city_eng,
                   name: sub_item.name_eng,
                   code: sub_item.iata_code,
-                  id: parseInt(counter + 1)
+                  id: counter + 1
                 }))
-                console.log(result)
                 counter = counter + 1
-                console.log(counter)
                 if(counter == 5){
                   return result
                 }
               }
             } else {
               for (const sub_item of item) {
-                counter = counter + 1
                 result.push({
                   city: sub_item.city_eng,
                   name: sub_item.name_eng,
@@ -53,6 +50,7 @@ export default {
                   items: null,
                   id: counter
                 })
+                counter += 1
                 if(counter == 5){
                   return result
                 }
@@ -60,7 +58,6 @@ export default {
             }
           } else {
             if (item.city_eng) {
-              counter += 1
               result.push({
                 city: item.city_eng,
                 name: item.name_eng,
@@ -68,12 +65,12 @@ export default {
                 items: null,
                 id: counter
               })
+              counter += 1
               if(counter == 5){
                 return result
               }
             } else {
               for (const index in item) {
-                counter = counter + 1
                 result.push({
                   city: item[index].city_eng,
                   name: item[index].name_eng,
@@ -81,6 +78,7 @@ export default {
                   items: null,
                   id: counter
                 })
+                counter += 1
                 if(counter == 5){
                   return result
                 }
