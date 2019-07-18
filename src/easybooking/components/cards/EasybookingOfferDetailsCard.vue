@@ -26,11 +26,17 @@
         </v-flex>
       </v-layout>
       <b>1. Рейс: S7-978</b>
+      {{ticket}}
     </v-card-text>
   </v-card>
 </template>
 <script>
 export default {
-  name: 'easybooking-offer-details-card'
+  name: 'easybooking-offer-details-card',
+  props: {
+    ticket: {
+      type: Object
+    }
+  }
 }
 </script>

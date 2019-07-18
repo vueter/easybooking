@@ -10,5 +10,8 @@ const languages = {
 
 export default {
   languages: languages,
-  currencies: currencies
+  currencies: currencies,
+  isFareFamily: false,
+  fareFamily: null,
+  ticket: null
 }
