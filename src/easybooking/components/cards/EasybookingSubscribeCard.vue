@@ -5,8 +5,8 @@
     </v-card-title>
     <v-card-text class="text--left">
       Подпишитесь на обновление цен, чтобы быть в курсе обо всех изменениях.
-      <v-text-field placeholder="E-mail"/>
-      <v-btn block color="primary">Подписаться</v-btn>
+      <v-text-field class="e-subscribe-input" placeholder="E-mail"/>
+      <v-btn block color="primary" class="e-subscribe-btn">Подписаться</v-btn>
     </v-card-text>
   </v-card>
 </template>
@@ -18,6 +18,8 @@ export default {
 <style lang="scss">
   .e-subscribe{
     padding: 20px;
+    box-shadow: 0px 5px 10px rgba(0, 8, 19, 0.15);
+    border-radius: 4px;
     .v-card__title{
       padding: 0;
       font-size: 15px;
@@ -29,6 +31,28 @@ export default {
       font-size: 14px;
       line-height: 20px;
       column-rule: #777777;
+    }
+    &-input{
+      input{
+        border: 1px solid #DBDBDB;
+        box-sizing: border-box;
+        border-radius: 4px;
+        height: 40px !important;
+        max-height: 40px !important;
+        padding: 12px;
+        font-size: 14px;
+        line-height: 16px;
+      }
+      .v-input__slot{
+        &::after, &::before{
+          display: none;
+        }
+      }
+    }
+    &-btn{
+      height: 40px;
+      box-shadow: none !important;
+      margin: 0;
     }
   }
 </style>
