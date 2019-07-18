@@ -49,7 +49,7 @@
       </div>
 
       <easybooking-ticket-detail v-for="detail in ticket.flights_info" :is_open="is_open" :formatDate="formatDate" :formatTime="formatTime" :key="detail.flight_number" :detail="detail" :baggage="ticket.baggage" :class="ticket.class" :seats="ticket.seats"/>
-      .v
+      
     </div>
     <div class="e-ticket-buy">
       <div>
