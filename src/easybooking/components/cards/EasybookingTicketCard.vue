@@ -1,6 +1,7 @@
 <template>
   <v-card class="e-ticket">
-    <div @click="ticketToggle" class="e-ticket-caret" v-bind:class="is_open ? 'open' : ''">
+    {{ ticket }}
+    <!--<div @click="ticketToggle" class="e-ticket-caret" v-bind:class="is_open ? 'open' : ''">
       <v-icon
         :color="is_open ? '#A2A2A2' : 'white'"
       >{{ is_open ? 'arrow_drop_up' : 'arrow_drop_down' }}</v-icon>
@@ -68,14 +69,17 @@
       </div>
 
       <v-btn class="e-ticket-buy-btn" @click="booking" color="primary" v-bind:loading="isLoading" v-bind:disabled="!isPossible">{{ isPossible ? 'Купить': 'Нет мест'}}</v-btn>
-    </div>
+    </div>-->
   </v-card>
 </template>
 <script>
 export default {
   name: "easybooking-ticket-card",
   props: {
-    ticket: Object,
+    ticket: {
+      type: Array,
+      default: []
+    },
     ff: undefined
   },
   data() {
@@ -91,21 +95,21 @@ export default {
     },
     booking() {
       this.isLoading = true
-      if(this.ticket.fare_family){
-        this.$etm.offersFireFamily(this.ticket.buy_id, (_, fareFamily) => {
+      if(this.ticket[this.ticket.length - 1].fare_family){
+        this.$etm.offersFireFamily(this.ticket[this.ticket.length - 1].buy_id, (_, fareFamily) => {
           this.isLoading = false
           this.ff.open(fareFamily.fare_family, this.ticket)
         })
       }
       else{
         this.isLoading = true
-        this.$etm.offersAvailability(this.ticket.buy_id, (error, result) => {
+        this.$etm.offersAvailability(this.ticket[this.ticket.length - 1].buy_id, (error, result) => {
           this.isLoading = false
           if(result.status != 'error'){
             if(result.availability){
               this.$store.commit('setTicket', this.ticket)
               this.$router.push({
-                path: '/booking/' + this.$route.params.id + '/' + this.ticket.buy_id
+                path: '/booking/' + this.$route.params.id + '/' + this.ticket[this.ticket.length - 1].buy_id
               })
             }
           }
