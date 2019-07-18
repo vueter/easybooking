@@ -24,8 +24,8 @@
         </v-card-title>
         <v-card-text>
             <v-range-slider
-                v-bind:min="filterOptions.price.min" 
-                v-bind:max="filterOptions.price.max" 
+                v-bind:min="filterOptions.price.min"
+                v-bind:max="filterOptions.price.max"
                 v-model="filterOptions.price.value" />
         </v-card-text>
         <v-card-title>
@@ -33,14 +33,14 @@
         </v-card-title>
         <v-card-text v-for="(flight, index) in filterOptions.flightTime" v-bind:key="'flight_time_' + index">
             <v-range-slider
-                v-if="flight.departure_min !== flight.departure_max" 
-                v-bind:min="flight.departure_min" 
-                v-bind:max="flight.departure_max" 
+                v-if="flight.departure_min !== flight.departure_max"
+                v-bind:min="flight.departure_min"
+                v-bind:max="flight.departure_max"
                 v-model="flight.departure_value" />
-            <v-range-slider 
+            <v-range-slider
                 v-if="flight.arrival_min !== flight.arrival_max"
-                v-bind:min="flight.arrival_min" 
-                v-bind:max="flight.arrival_max" 
+                v-bind:min="flight.arrival_min"
+                v-bind:max="flight.arrival_max"
                 v-model="flight.arrival_value" />
         </v-card-text>
         <v-card-title>
@@ -75,16 +75,6 @@ export default {
     props: {
         filterOptions: {
             type: Object,
-            default: {
-                stops: [{number: 1, price: 15000}, {number: 2, price: 35000}, {number: 4, price: 85000}],
-                aviacompanies: [
-                    {name: 'Aviacompany name', code: 'NY', price: 150000},
-                    {name: 'Aviacompany name', code: 'NY', price: 150000},
-                    {name: 'Aviacompany name', code: 'NY', price: 150000},
-                    {name: 'Aviacompany name', code: 'NY', price: 150000},
-                    {name: 'Aviacompany name', code: 'NY', price: 150000}
-                ]
-            }
         },
         filter: {
             type: Function,

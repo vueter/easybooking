@@ -11,11 +11,11 @@
         <v-layout class="offers">
             <v-container>
                 <v-layout row>
-                    <v-flex md4 mr-1>
+                    <v-flex md4 class="e-sidebar">
                         <easybooking-subscribe-card />
                         <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" />
                     </v-flex>
-                    <v-flex md8 ml-3>
+                    <v-flex md8>
                       <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket"/>
                       <v-btn large color="primary" rounded block v-on:click="filterOptions.num_tickets += 10">Show more</v-btn>
                     </v-flex>
@@ -97,4 +97,7 @@ export default {
 .offers-body{
     min-height: 700px;
 }
+  .e-sidebar{
+    padding-right: 30px;
+  }
 </style>
