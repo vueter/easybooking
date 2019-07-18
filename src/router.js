@@ -13,7 +13,7 @@ export default new Router({
   routes: [
     { path: '/', name: 'home', component: Home },
     { path: '/offers/:id', name: 'offers', component: Offers },
-    { path: '/booking', name: 'booking', component: Booking },
+    { path: '/booking/:id/:buy_id', name: 'booking', component: Booking },
     { path: '/pay', name: 'pay', component: Pay }
   ]
 })

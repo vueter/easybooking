@@ -9,7 +9,8 @@
           <easybooking-booking-card />
         </v-flex>
         <v-flex md4 pl-2>
-          <easybooking-offer-details-card />
+          {{fareFamily}}
+          <easybooking-offer-details-card v-bind:ticket="ticket" />
         </v-flex>
       </v-layout>
     </v-container>
@@ -17,6 +18,22 @@
 </template>
 <script>
 export default {
-  name: 'Booking'
+  name: 'Booking',
+  mounted(){
+    if(this.ticket == null){
+      this.$router.push({ path: '/offers/' + this.$route.params.id })
+    }
+  },
+  computed: {
+    isFareFamily(){
+      return this.$store.state.isFareFamily
+    },
+    fareFamily(){
+      return this.$store.state.fareFamily
+    },
+    ticket(){
+      return this.$store.state.ticket
+    }
+  }
 }
 </script>

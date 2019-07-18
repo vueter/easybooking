@@ -67,7 +67,7 @@
         {{ formatPrice(ticket.price) }} {{$etm.currency}}
       </div>
 
-      <v-btn class="e-ticket-buy-btn" @click.capture="ticketBuy" color="primary">Купить</v-btn>
+      <v-btn class="e-ticket-buy-btn" @click="booking" color="primary" v-bind:loading="isLoading">Купить</v-btn>
     </div>
   </v-card>
 </template>
@@ -75,19 +75,45 @@
 export default {
   name: "easybooking-ticket-card",
   props: {
-    ticket: Object
+    ticket: Object,
+    ff: undefined
   },
   data() {
     return {
-      is_open: false
+      is_open: false,
+      isLoading: false
     };
   },
   methods: {
     ticketToggle() {
-      console.log(this.ticket);
       this.is_open = !this.is_open;
     },
-    ticketBuy(e) {},
+    booking() {
+      this.isLoading = true
+      if(this.ticket.fare_family){
+        this.$etm.offersFireFamily(this.ticket.buy_id, (_, fareFamily) => {
+          this.isLoading = false
+          this.ff.open(fareFamily.fare_family, this.ticket)
+        })
+      }
+      else{
+        this.isLoading = true
+        this.$etm.offersAvailability(this.ticket.buy_id, (error, result) => {
+          this.isLoading = false
+          if(result.status != 'error'){
+            if(result.availability){
+              this.$store.commit('setTicket', this.ticket)
+              this.$router.push({
+                path: '/booking/' + this.$route.params.id + '/' + this.ticket.buy_id
+              })
+            }
+          }
+          else{
+            alert(result.message)
+          }
+        })
+      }
+    },
 
     formatPrice(price) {
       price = Math.ceil(price);

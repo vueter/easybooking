@@ -130,14 +130,16 @@ Communicator.prototype.offersAvailability = function(buyId, callback){
 
     this.$client.get('/offers/' + buyId + '/availability')
         .then(response => callback(null, response.data))
-        .catch(error, callback(error, null))
+        .catch(error => callback(error, null))
 }
 
 Communicator.prototype.offersFireFamily = function(buyId, callback){
+    assert(callback, 'Missing callback')
+    assert(typeof callback === 'function', 'Callback should be a function')
 
     this.$client.get('/offers/' + buyId + '/ff')
         .then(response => callback(null, response.data))
-        .catch(error, callback(error, null))
+        .catch(error => callback(error, null))
 }
 
 Communicator.prototype.offersOtherPrice = function(buyId, callback){

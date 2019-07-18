@@ -35,6 +35,7 @@ import EasybookingSubscribeCard from './cards/EasybookingSubscribeCard'
 import EasybookingTicketCard from './cards/EasybookingTicketCard'
 import EasybookingFilterCard from './cards/EasybookingFilterCard'
 import EasybookingTicketDetail from './cards/EasybookingTicketDetail'
+import EasybookingTicketFareFamily from './cards/EasybookingTicketFareFamily'
 
 import EasybookingTextField from './EasybookingTextField'
 
@@ -60,5 +61,6 @@ export default {
   EasybookingSubscribeCard,
   EasybookingTicketCard,
   EasybookingFilterCard,
-  EasybookingTicketDetail
+  EasybookingTicketDetail,
+  EasybookingTicketFareFamily
 }
