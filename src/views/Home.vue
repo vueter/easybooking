@@ -16,6 +16,7 @@
               color="primary"
               class="easybooking--search-btn"
               v-on:click="search"
+              v-bind:loading="isLoading"
             >Search</v-btn>
           </template>
         </easybooking-search-board>
@@ -38,7 +39,8 @@ export default {
   mixins: [Languagable],
   data: () => {
     return {
-      routes: {}
+      routes: {},
+      isLoading: false
     };
   },
   methods: {
@@ -46,7 +48,7 @@ export default {
       this.routes = this.$refs["search-board"].getFlights();
       console.log(this.routes);
       if(this.routes){
-        
+        this.isLoading = true
         this.$etm.search(this.routes, (error, result) => {
           if (error) {
             console.error(error);
