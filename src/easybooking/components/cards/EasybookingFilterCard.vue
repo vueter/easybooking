@@ -1,6 +1,5 @@
 <template>
     <v-card class="filters">
-        {{filterOptions.sorting}}
         <v-card-title>
             Sort
         </v-card-title>
@@ -10,7 +9,6 @@
         <v-card-title>
             Stops
         </v-card-title>
-        {{filterOptions.stops}}
         <v-list>
             <v-list-tile v-on:click="() => {}" v-for="(stop, index) in filterOptions.stops" v-bind:key="'stop_' + index">
                 <v-list-tile-content>
@@ -25,7 +23,6 @@
             Price
         </v-card-title>
         <v-card-text>
-            {{filterOptions.price.value}}
             <v-range-slider
                 v-bind:min="filterOptions.price.min" 
                 v-bind:max="filterOptions.price.max" 
@@ -34,7 +31,6 @@
         <v-card-title>
             Flight time
         </v-card-title>
-        {{filterOptions.flightTime}}
         <v-card-text v-for="(flight, index) in filterOptions.flightTime" v-bind:key="'flight_time_' + index">
             <v-range-slider
                 v-if="flight.departure_min !== flight.departure_max" 
@@ -51,7 +47,6 @@
             Duration time
         </v-card-title>
         <v-card-text>
-            {{filterOptions.durationTime}}
             <v-range-slider
                 v-for="(duration, index) in filterOptions.durationTime"
                 v-bind:key="'duration_' + index"
@@ -62,7 +57,6 @@
         <v-card-title>
             Aviacompanies
         </v-card-title>
-        {{filterOptions.aviacompanies}}
         <v-list>
             <v-list-tile v-on:click="() => {}" v-for="(aviacompany, index) in filterOptions.aviacompanies" v-bind:key="'aeroports_' + index">
                 <v-list-tile-content>

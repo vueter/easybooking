@@ -134,18 +134,54 @@ const Filters = function(tickets, lang = 'en'){
     durationTime.value = [durationTime.min, durationTime.max]
     options.flightTime.push(flightTime)
     options.durationTime.push(durationTime)
-    this.options = options
-    this.options.sorting = this.options.sorts[0].text
-    this.options.num_tickets = 10
+    options.sorting = options.sorts[0].text
+    if(this.options && this.options.num_tickets){
+        options.num_tickets = this.options.num_tickets
+    }
+    else{
+        options.num_tickets = 10
+    }
+    if(JSON.stringify(this.options) !== JSON.stringify(options)){
+        this.options = options
+    }
 }
 
 Filters.prototype.search = function(){
-    console.log('searching tickets by filter')
-    console.log(this.options.stops)
+    function flightTime(options, ticket){
+        for(const option of options){
+            if(option.arrival_value[0] > ticket.arrival_timestamp || option.arrival_value[1] < ticket.arrival_timestamp){
+                return false
+            }
+            if(option.departure_value[0] > ticket.departure_timestamp || option.departure_timestamp < ticket.departure_timestamp ){
+                return false
+            }
+        }
+        return true
+    }
+
+    function durationTime(options, ticket){
+        for(const option of options){
+            if(option.value[0] > ticket.duration_minutes || option.value[1] < ticket.duration_minutes){
+                return false
+            }
+        }
+        return true
+    }
+
     var tickets = []
     for(const ticket of this.tickets){
-        if(this.options.stops[ticket.stops].value){
+        var info = ticket.flights_info[0]
+        if(
+            this.options.stops[ticket.stops].value &&
+            this.options.aviacompanies[info.marketing_airline_code].value &&
+            this.options.price.value[0] < ticket.price && ticket.price < this.options.price.value[1] &&
+            flightTime(this.options.flightTime, ticket) &&
+            durationTime(this.options.durationTime, ticket)
+        ){
             tickets.push(Object.assign({}, ticket))
+            if(tickets.length >= this.options.num_tickets){
+                return tickets
+            }
         }
     }
     return tickets
