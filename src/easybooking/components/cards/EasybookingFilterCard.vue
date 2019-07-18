@@ -9,7 +9,7 @@
     <v-card-title>
       Пересадки
     </v-card-title>
-    <v-list>
+    <v-list class="e-filter-checkbox">
       <v-list-tile v-on:click="() => {}" v-for="(stop, index) in filterOptions.stops" v-bind:key="'stop_' + index">
         <v-list-tile-content>
           <v-checkbox color="primary" v-model="stop.value" v-bind:ripple="false"
@@ -90,6 +90,10 @@
     })
   }
 </script>
+
+
+
+
 <style lang="scss">
   .e-filter {
     margin-top: 20px;
@@ -121,11 +125,26 @@
           display: none;
         }
       }
+      .v-text-field__details{
+        display: none;
+      }
       .v-select__slot{
         height: 40px;
         border: 1px solid #0FB8D3;
         box-sizing: border-box;
         border-radius: 4px;
+      }
+    }
+    &-checkbox{
+      margin: 0;
+      padding: 0;
+      .v-list__tile{
+        height: 38px !important;
+        border-left: 0;
+        &:hover{
+          border-left: 0 !important;
+          background: white !important;
+        }
       }
     }
   }
