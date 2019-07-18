@@ -48,8 +48,10 @@
         </div>
       </div>
 
-      <easybooking-ticket-detail v-for="detail in ticket.flights_info" :is_open="is_open" :formatDate="formatDate" :formatTime="formatTime" :key="detail.flight_number" :detail="detail" :baggage="ticket.baggage" :class="ticket.class" :seats="ticket.seats"/>
-      
+      <easybooking-ticket-detail v-for="detail in ticket.flights_info" :is_open="is_open" :formatDate="formatDate" :formatTime="formatTime" :key="detail.flight_number" :detail="detail" :baggage="ticket.baggage" :clas="ticket.class" :seats="ticket.seats"/>
+      <div v-if="is_open" class="e-ticket-rules">
+        <v-btn class="e-ticket-rules-btn" flat color="primary">Правила тарифа</v-btn>
+      </div>
     </div>
     <div class="e-ticket-buy">
       <div>
@@ -156,8 +158,6 @@ export default {
 <style lang="scss">
 .e-ticket {
   margin-bottom: 20px;
-  background: #ffffff;
-  box-shadow: none;
   border-radius: 4px;
   background: white;
   cursor: pointer;
@@ -282,8 +282,12 @@ export default {
   &-detail {
     margin: 0px 20px;
     padding: 20px 0px;
-    border-top: 1px solid #dbdbdb;
     text-align: left;
+    padding-bottom: 0;
+    &:first-child{
+      border-top: 1px solid #DBDBDB;
+    }
+
   }
   &-duration {
     font-weight: 300;
@@ -350,7 +354,7 @@ export default {
       }
     }
   }
-  
+
   &-data{
       font-size: 14px;
       line-height: 2;
@@ -384,6 +388,9 @@ export default {
     }
   }
   &-rules{
+    padding-bottom: 20px;
+    text-align: left;
+    padding-left: 20px;
     &-btn{
       font-weight: 400;
       font-size: 14px;
