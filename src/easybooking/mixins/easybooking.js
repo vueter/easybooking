@@ -1,11 +1,3 @@
-const items = [
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' },
-  { city: 'Tashkent', name: 'Uzbekistan', code: 'TAS' }
-]
-
 export default {
   methods: {
     searchLocation (name, callback) {
@@ -22,49 +14,76 @@ export default {
           return result
         })(items)
         var result = []
+        var counter = -1;
         for (const item of items) {
           if (Array.isArray(item)) {
             if (item[0].is_city == '1') {
-              var inners = []
-              for (const sub_item of item.slice(1)) {
-                inners.push({
-                  city: sub_item.city_eng,
-                  name: sub_item.name_eng,
-                  code: sub_item.iata_code
-                })
-              }
+              counter += 1
               result.push({
                 city: item[0].city_eng,
                 name: item[0].name_eng,
                 code: item[0].iata_code,
-                items: inners
+                items: [],
+                id: counter
               })
+              if(counter == 5){
+                return result
+              }
+              for (const sub_item of item.slice(1)) {
+                result[result.length - 1].items.push(Object.assign({}, {
+                  city: sub_item.city_eng,
+                  name: sub_item.name_eng,
+                  code: sub_item.iata_code,
+                  id: parseInt(counter + 1)
+                }))
+                console.log(result)
+                counter = counter + 1
+                console.log(counter)
+                if(counter == 5){
+                  return result
+                }
+              }
             } else {
               for (const sub_item of item) {
+                counter = counter + 1
                 result.push({
                   city: sub_item.city_eng,
                   name: sub_item.name_eng,
                   code: sub_item.iata_code,
-                  items: null
+                  items: null,
+                  id: counter
                 })
+                if(counter == 5){
+                  return result
+                }
               }
             }
           } else {
             if (item.city_eng) {
+              counter += 1
               result.push({
                 city: item.city_eng,
                 name: item.name_eng,
                 code: item.iata_code,
-                items: null
+                items: null,
+                id: counter
               })
+              if(counter == 5){
+                return result
+              }
             } else {
               for (const index in item) {
+                counter = counter + 1
                 result.push({
                   city: item[index].city_eng,
                   name: item[index].name_eng,
                   code: item[index].iata_code,
-                  items: null
+                  items: null,
+                  id: counter
                 })
+                if(counter == 5){
+                  return result
+                }
               }
             }
           }
