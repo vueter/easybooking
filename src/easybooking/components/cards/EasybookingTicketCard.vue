@@ -67,7 +67,7 @@
         {{ formatPrice(ticket.price) }} {{$etm.currency}}
       </div>
 
-      <v-btn class="e-ticket-buy-btn" @click="booking" color="primary" v-bind:loading="isLoading">Купить</v-btn>
+      <v-btn class="e-ticket-buy-btn" @click="booking" color="primary" v-bind:loading="isLoading" v-bind:disabled="!isPossible">{{ isPossible ? 'Купить': 'Нет мест'}}</v-btn>
     </div>
   </v-card>
 </template>
@@ -81,7 +81,8 @@ export default {
   data() {
     return {
       is_open: false,
-      isLoading: false
+      isLoading: false,
+      isPossible: true
     };
   },
   methods: {
@@ -109,7 +110,7 @@ export default {
             }
           }
           else{
-            alert(result.message)
+            this.isPossible = false
           }
         })
       }

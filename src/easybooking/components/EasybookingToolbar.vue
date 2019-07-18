@@ -40,13 +40,17 @@ export default {
     actions: {
       type: Array,
       default: () => {
-        return []
+        return [
+          { text: "About US", to: "/about" },
+          { text: "Blog", to: "/blog" },
+          { text: "Our address", to: "/address" }
+        ]
       }
     },
     statics: {
       type: Array,
       default: () => {
-        return []
+        return ["+998933363933", "+998933363933"]
       }
     }
   }

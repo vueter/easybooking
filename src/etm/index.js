@@ -80,15 +80,38 @@ Communicator.prototype.offers = function(params, callback, matches = {}){
     assert(callback, 'Missing callback')
     assert(typeof callback === 'function', 'Callback should be a function')
     var match = (data, matches) => {
+        const number_of_routes = data.directions.length
         for(const offers of data.offers){
             for(const offer of offers.offers){
+                var products = []
+                var temp = []
                 for(const segment of offer.segments){
-                    var uuid = `${segment.arrival_timestamp}_${segment.departure_timestamp}_${segment.duration_minutes}_${segment.flight_number}`
+                    if(segment.dir_number === 1){
+                        temp = []
+                    }
+                    if(segment.dir_number == number_of_routes){
+                        products.push([...temp, segment])
+                    }
+                    else{
+                        temp.push(segment)
+                    }
+                }
+                for(const product of products){
+                    var uuid = [
+                        product[0].arrival_timestamp,
+                        product[0].departure_timestamp,
+                        product[product.length - 1].arrival_timestamp,
+                        product[product.length - 1].departure_timestamp,
+                        product[0].duration_minutes,
+                        product[0].flight_number,
+                        product[product.length - 1].duration_minutes,
+                        product[product.length - 1].flight_number,
+                    ].join('_')
                     if(matches[uuid] === undefined){
                         matches[uuid] = {}
                     }
-                    if(!matches[uuid][segment.price]){
-                        matches[uuid][segment.price] = segment
+                    if(!matches[uuid][product[product.length - 1].price]){
+                        matches[uuid][product[product.length - 1].price] = product
                     }
                 }
             }

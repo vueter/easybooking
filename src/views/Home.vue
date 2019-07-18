@@ -2,8 +2,6 @@
   <v-content class="home">
     <easybooking-toolbar
       v-bind:languages="languages"
-      v-bind:actions="actions"
-      v-bind:statics="statics"
     />
     <v-container>
       <div class="home-page-header">
@@ -40,12 +38,6 @@ export default {
   mixins: [Languagable],
   data: () => {
     return {
-      actions: [
-        { text: "About US", to: "/about" },
-        { text: "Blog", to: "/blog" },
-        { text: "Our address", to: "/address" }
-      ],
-      statics: ["+998933363933", "+998933363933"],
       routes: {}
     };
   },
