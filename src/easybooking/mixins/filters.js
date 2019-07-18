@@ -26,7 +26,7 @@ const Filters = function(tickets, lang = 'en'){
     var flightTime = {}
     var durationTime = {}
     for(const ticket of this.tickets){
-        // duractionTime
+        /*// duractionTime
         if(durationTime.min){
             if(durationTime.min > ticket.duration_minutes){
                 durationTime.min = ticket.duration_minutes
@@ -68,47 +68,51 @@ const Filters = function(tickets, lang = 'en'){
             flightTime.arrival_min = ticket.arrival_timestamp
             flightTime.arrival_max = ticket.arrival_timestamp
         }
-        
-        // aviacompanies
-        var info = ticket.flights_info[0]
-        if(this.aviacompanies[info.marketing_airline_code]){
-            if(this.aviacompanies[info.marketing_airline_code].price > ticket.price){
-                this.aviacompanies[info.marketing_airline_code].price = ticket.price
+        */
+        // aviacompanies +
+        for(const segment of ticket){
+            var info = segment.flights_info[0]
+            if(this.aviacompanies[info.marketing_airline_code]){
+                if(this.aviacompanies[info.marketing_airline_code].price > ticket[ticket.length - 1].price){
+                    this.aviacompanies[info.marketing_airline_code].price = ticket[ticket.length - 1].price
+                }
+            }
+            else{
+                this.aviacompanies[info.marketing_airline_code] = {
+                    name: info.marketing_airline_name,
+                    price: ticket[ticket.length - 1].price
+                }
             }
         }
-        else{
-            this.aviacompanies[info.marketing_airline_code] = {
-                name: info.marketing_airline_name,
-                price: ticket.price
+        // stops +
+        for(const segment of ticket){
+            if(this.stops[segment.stops]){
+                if(this.stops[segment.stops] > segment.price){
+                    this.stops[segment.stops] = segment.price
+                }
             }
-        }
-        // stops
-        if(this.stops[ticket.stops]){
-            if(this.stops[ticket.stops] > ticket.price){
-                this.stops[ticket.stops] = ticket.price
+            else{
+                this.stops[segment.stops] = segment.price
             }
-        }
-        else{
-            this.stops[ticket.stops] = ticket.price
         }
 
-        // price
+        // price +
         if(price.min){
-            if(price.min > ticket.price){
-                price.min = ticket.price
+            if(price.min > ticket[ticket.length - 1].price){
+                price.min = ticket[ticket.length - 1].price
             }
         }
         else{
-            price.min = ticket.price
+            price.min = ticket[ticket.length - 1].price
         }
 
         if(price.max){
-            if(price.max < ticket.price){
-                price.max = ticket.price
+            if(price.max < ticket[ticket.length - 1].price){
+                price.max = ticket[ticket.length - 1].price
             }
         }
         else{
-            price.max = ticket.price
+            price.max = ticket[ticket.length - 1].price
         }
 
     }
@@ -147,6 +151,7 @@ const Filters = function(tickets, lang = 'en'){
 }
 
 Filters.prototype.search = function(){
+    return this.tickets
     function flightTime(options, ticket){
         for(const option of options){
             if(option.arrival_value[0] > ticket.arrival_timestamp || option.arrival_value[1] < ticket.arrival_timestamp){

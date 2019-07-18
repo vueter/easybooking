@@ -16,9 +16,11 @@
                         <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" />
                     </v-flex>
                     <v-flex md8>
-                      {{ tickets }}
+                      {{ filterOptions }}
                       <easybooking-ticket-ff ref="fareFamily"/>
-                      <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket" v-bind:ff="$refs['fareFamily']"/>
+                      <template v-for="(_tickets, jndex) in tickets">
+                        <easybooking-ticket-card v-for="ticket in _tickets" v-bind:key="ticket.segment_id + '_' + jndex" v-bind:ticket="ticket" v-bind:ff="$refs['fareFamily']"/>
+                      </template>
                       <v-btn large color="primary" rounded block v-on:click="filterOptions.num_tickets += 10">Show more</v-btn>
                     </v-flex>
                 </v-layout>
