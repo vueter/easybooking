@@ -45,14 +45,17 @@ export default {
     search() {
       this.routes = this.$refs["search-board"].getFlights();
       console.log(this.routes);
-      this.$etm.search(this.routes, (error, result) => {
-        if (error) {
-          console.error(error);
-        } else {
-          console.log(result);
-          this.$router.push({ path: "/offers/" + result.request_id });
-        }
-      });
+      if(this.routes){
+        
+        this.$etm.search(this.routes, (error, result) => {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log(result);
+            this.$router.push({ path: "/offers/" + result.request_id });
+          }
+        });
+      }
     }
   }
 };

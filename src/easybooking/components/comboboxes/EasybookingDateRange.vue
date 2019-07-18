@@ -8,7 +8,7 @@
         <v-btn icon class="easybooking--double-combobox-icon-btn" v-bind:ripple="false">
           <v-icon color="primary">date_range</v-icon>
         </v-btn>
-        <v-flex class="easybooking--double-combobox-field return-date-input" v-on:click="open('arrival')">
+        <v-flex v-if="!single" class="easybooking--double-combobox-field return-date-input" v-on:click="open('arrival')">
           <input type="text" class="last" v-model="result.arrival" placeholder="Обратно" readonly>
         </v-flex>
       </v-layout>
@@ -32,9 +32,9 @@ export default {
         return ['', '']
       }
     },
-    type: {
+    single: {
       type: Boolean,
-      default: true
+      default: false
     }
   },
   data: () => ({
