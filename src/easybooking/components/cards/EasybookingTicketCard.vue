@@ -1,55 +1,38 @@
 <template>
   <v-card class="e-ticket">
-    {{ ticket }}
-    <!--<div @click="ticketToggle" class="e-ticket-caret" v-bind:class="is_open ? 'open' : ''">
-      <v-icon
-        :color="is_open ? '#A2A2A2' : 'white'"
-      >{{ is_open ? 'arrow_drop_up' : 'arrow_drop_down' }}</v-icon>
+    <div @click="ticketToggle" class="e-ticket-caret" v-bind:class="is_open ? 'open' : ''">
+      <v-icon v-bind:color="is_open ? '#A2A2A2' : 'white'">{{ is_open ? 'arrow_drop_up' : 'arrow_drop_down' }}</v-icon>
     </div>
-    <div @click="ticketToggle" class="e-ticket-content">
-      <div class="e-ticket-info">
+    <div class="e-ticket-content">
+      <div v-on:click="ticketToggle" class="e-ticket-info" v-for="(segment, index) in ticket" v-bind:key="'segment_' + index">
         <div class="e-ticket-logo">
-          <img
-            :src="ticket.flights_info[0].marketing_airline_logo"
-            :alt="ticket.flights_info[0].marketing_airline_name"
-          />
+          <img v-bind:src="segment.flights_info[0].marketing_airline_logo" v-bind:alt="segment.flights_info[0].marketing_airline_name"/>
         </div>
         <div class="e-ticket-from">
-          <div class="e-ticket-from-time">{{ ticket.flights_info[0].departure_local_time }}</div>
-          <div class="e-ticket-from-city">{{ subStr(ticket.flights_info[0].departure_city) }}</div>
+          <div class="e-ticket-from-time">{{ segment.flights_info[0].departure_local_time }}</div>
+          <div class="e-ticket-from-city">{{ subStr(segment.flights_info[0].departure_city) }}</div>
           <div
             class="e-ticket-from-date"
-          >{{ formatDate(ticket.flights_info[0].departure_local_timestamp, 1) }}</div>
+          >{{ formatDate(segment.flights_info[0].departure_local_timestamp, 1) }}</div>
         </div>
 
         <div class="e-ticket-timeline">
-          <div class="e-ticket-duration">{{ formatTime(ticket.duration_minutes) }}</div>
+          <div class="e-ticket-duration">{{ formatTime(segment.duration_minutes) }}</div>
           <div class="e-ticket-circle">
-            <span
-              v-for="info in ticket.flights_info"
-              :key="info.flight_number"
-              :title="info.departure_city"
-            >{{ info.departure_airport }}</span>
-            <span
-              :title="ticket.flights_info[ticket.stops].arrival_city"
-            >{{ ticket.flights_info[ticket.stops].arrival_airport }}</span>
+            <span v-for="info in segment.flights_info" v-bind:key="info.flight_number" v-bind:title="info.departure_city">{{ info.departure_airport }}</span>
+            <span v-bind:title="segment.flights_info[segment.stops].arrival_city">{{ segment.flights_info[segment.stops].arrival_airport }}</span>
           </div>
         </div>
 
         <div class="e-ticket-to">
-          <div
-            class="e-ticket-to-time"
-          >{{ ticket.flights_info[ticket.flights_info.length - 1].arrival_local_time }}</div>
-          <div
-            class="e-ticket-to-city"
-          >{{ subStr(ticket.flights_info[ticket.flights_info.length - 1].arrival_city) }}</div>
-          <div
-            class="e-ticket-to-date"
-          >{{ formatDate(ticket.flights_info[ticket.flights_info.length - 1].arrival_local_timestamp, 1) }}</div>
+          <div class="e-ticket-to-time">{{ segment.flights_info[segment.flights_info.length - 1].arrival_local_time }}</div>
+          <div class="e-ticket-to-city">{{ subStr(segment.flights_info[segment.flights_info.length - 1].arrival_city) }}</div>
+          <div class="e-ticket-to-date">{{ formatDate(segment.flights_info[segment.flights_info.length - 1].arrival_local_timestamp, 1) }}</div>
         </div>
       </div>
-
-      <easybooking-ticket-detail v-for="detail in ticket.flights_info" :is_open="is_open" :formatDate="formatDate" :formatTime="formatTime" :key="detail.flight_number" :detail="detail" :baggage="ticket.baggage" :clas="ticket.class" :seats="ticket.seats"/>
+      <template v-for="segment in ticket">
+        <easybooking-ticket-detail v-bind:taggle="ticketToggle" v-for="detail in segment.flights_info" :is_open="is_open" :formatDate="formatDate" :formatTime="formatTime" :key="detail.flight_number" :detail="detail" :baggage="ticket.baggage" :clas="ticket.class" :seats="ticket.seats"/>
+      </template>
       <div v-if="is_open" class="e-ticket-rules">
         <v-btn class="e-ticket-rules-btn" flat color="primary">Правила тарифа</v-btn>
       </div>
@@ -64,12 +47,12 @@
         </v-tooltip>
       </div>
       <div class="e-ticket-price">
-        <span>{{ ticket.fare_family ? 'от' : '' }}</span>
-        {{ formatPrice(ticket.price) }} {{$etm.currency}}
+        <span>{{ ticket[ticket.length - 1].fare_family ? 'от' : '' }}</span>
+        {{ formatPrice(ticket[ticket.length - 1].price) }} {{$etm.currency}}
       </div>
 
       <v-btn class="e-ticket-buy-btn" @click="booking" color="primary" v-bind:loading="isLoading" v-bind:disabled="!isPossible">{{ isPossible ? 'Купить': 'Нет мест'}}</v-btn>
-    </div>-->
+    </div>
   </v-card>
 </template>
 <script>

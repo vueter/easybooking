@@ -1,5 +1,5 @@
 <template>
-  <div class="e-ticket-detail" v-if="is_open">
+  <div class="e-ticket-detail" v-if="is_open" v-on:click="taggle">
     <div>
       <div class="reys">
         <div class="reys-icon">
@@ -84,6 +84,7 @@ export default {
     'is_open',
     'formatDate',
     'formatTime',
+    'taggle'
   ],
 };
 

@@ -1,5 +1,3 @@
-import { setInterval } from 'core-js';
-
 const axios = require('axios')
 const assert = require('assert')
 
@@ -87,13 +85,20 @@ Communicator.prototype.offers = function(params, callback, matches = {}){
                 var temp = []
                 for(const segment of offer.segments){
                     if(segment.dir_number === 1){
-                        temp = []
+                        if(number_of_routes !== 1){
+                            temp = []
+                        }
+                        else{
+                            products.push([segment])
+                        }
                     }
-                    if(segment.dir_number == number_of_routes){
-                        products.push([...temp, segment])
-                    }
-                    else{
-                        temp.push(segment)
+                    if(number_of_routes !== 1){
+                        if(segment.dir_number == number_of_routes){
+                            products.push([...temp, segment])
+                        }
+                        else{
+                            temp.push(segment)
+                        }
                     }
                 }
                 for(const product of products){
@@ -133,7 +138,7 @@ Communicator.prototype.offers = function(params, callback, matches = {}){
                 if(response.data.status == 'InProcess'){
                     setTimeout(() => {
                         this.offers(params, callback, matches)
-                    }, 1000)
+                    }, 2000)
                 }
             })
             .catch(error => callback(error, null))

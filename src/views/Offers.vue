@@ -66,7 +66,6 @@ export default {
         }
         else{
           if(JSON.stringify(this.$easybooking.match.tickets) !== JSON.stringify(tickets)){
-            console.log(tickets)
             this.$easybooking.match = this.$easybooking.Filters(tickets)
             this.filterOptions = this.$easybooking.match.options
             this.tickets = this.$easybooking.match.search()
@@ -81,6 +80,7 @@ export default {
   watch:{
     filterOptions: {
       handler(){
+        console.log('changed the filterOptions')
         this.tickets = this.$easybooking.match.search()
       },
       deep: true

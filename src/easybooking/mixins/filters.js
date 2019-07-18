@@ -3,6 +3,7 @@ const Filters = function(tickets, lang = 'en'){
     if(!(this instanceof Filters)){
         return new Filters(tickets, lang)
     }
+    console.log(tickets)
     this.tickets = tickets
     const sorts = {
         en: [{ text: 'by Price', code: 'PR' }, {text: 'Travel time', code: 'TT'}, { text: 'Early time', code: 'ET' }, { text: 'Late time', code: 'LT' }]
@@ -23,52 +24,57 @@ const Filters = function(tickets, lang = 'en'){
         durationTime: []
     }
     var price = {}
-    var flightTime = {}
-    var durationTime = {}
+    var flightTime = []
+    var durationTime = []
+    for(var i = 0; 0 < this.tickets.length && i < this.tickets[0].length; i++){
+        durationTime.push({})
+        flightTime.push({})
+    }
     for(const ticket of this.tickets){
-        /*// duractionTime
-        if(durationTime.min){
-            if(durationTime.min > ticket.duration_minutes){
-                durationTime.min = ticket.duration_minutes
+        for(const index in ticket){
+            // flight time
+            if(flightTime[index].departure_min){
+                if(flightTime[index].departure_min > ticket[index].departure_timestamp){
+                    flightTime[index].departure_min = ticket[index].departure_timestamp
+                }
+                if(flightTime[index].departure_max < ticket[index].departure_timestamp){
+                    flightTime[index].departure_max = ticket[index].departure_timestamp
+                }
+            }
+            else{
+                flightTime[index].departure_min = ticket[index].departure_timestamp
+                flightTime[index].departure_max = ticket[index].departure_timestamp
+            }
+            if(flightTime[index].arrival_min){
+                if(flightTime[index].arrival_min > ticket[index].arrival_timestamp){
+                    flightTime[index].arrival_min = ticket[index].arrival_timestamp
+                }
+                if(flightTime[index].arrival_max < ticket[index].arrival_timestamp){
+                    flightTime[index].arrival_max = ticket[index].arrival_timestamp
+                }
+            }
+            else{
+                flightTime[index].arrival_min = ticket[index].arrival_timestamp
+                flightTime[index].arrival_max = ticket[index].arrival_timestamp
+            }
+            // duractionTime
+            if(durationTime[index].min){
+                if(durationTime[index].min > ticket[index].duration_minutes){
+                    durationTime[index].min = ticket[index].duration_minutes
+                }
+            }
+            else{
+                durationTime[index].min = ticket[index].departure_timestamp
+            }
+            if(durationTime[index].max){
+                if(durationTime[index].max < ticket[index].duration_minutes){
+                    durationTime[index].max = ticket[index].duration_minutes
+                }
+            }
+            else{
+                durationTime[index].max = ticket[index].duration_minutes
             }
         }
-        else{
-            durationTime.min = ticket.departure_timestamp
-        }
-        if(durationTime.max){
-            if(durationTime.max < ticket.duration_minutes){
-                durationTime.max = ticket.duration_minutes
-            }
-        }
-        else{
-            durationTime.max = ticket.duration_minutes
-        }
-        // flight time
-        if(flightTime.departure_min){
-            if(flightTime.departure_min > ticket.departure_timestamp){
-                flightTime.departure_min = ticket.departure_timestamp
-            }
-            if(flightTime.departure_max < ticket.departure_timestamp){
-                flightTime.departure_max = ticket.departure_timestamp
-            }
-        }
-        else{
-            flightTime.departure_min = ticket.departure_timestamp
-            flightTime.departure_max = ticket.departure_timestamp
-        }
-        if(flightTime.arrival_min){
-            if(flightTime.arrival_min > ticket.arrival_timestamp){
-                flightTime.arrival_min = ticket.arrival_timestamp
-            }
-            if(flightTime.arrival_max < ticket.arrival_timestamp){
-                flightTime.arrival_max = ticket.arrival_timestamp
-            }
-        }
-        else{
-            flightTime.arrival_min = ticket.arrival_timestamp
-            flightTime.arrival_max = ticket.arrival_timestamp
-        }
-        */
         // aviacompanies +
         for(const segment of ticket){
             var info = segment.flights_info[0]
@@ -133,12 +139,14 @@ const Filters = function(tickets, lang = 'en'){
         aviacompany.value = true
         options.aviacompanies[code] = aviacompany
     }
-    flightTime.departure_value = [flightTime.departure_min, flightTime.departure_max]
-    flightTime.arrival_value = [flightTime.arrival_min, flightTime.arrival_max]
-    durationTime.value = [durationTime.min, durationTime.max]
-    options.flightTime.push(flightTime)
-    options.durationTime.push(durationTime)
     options.sorting = options.sorts[0].text
+    for(const index in durationTime){
+        durationTime[index].value = [durationTime[index].min, durationTime[index].max]
+        flightTime[index].arrival_value = [flightTime[index].arrival_min, flightTime[index].arrival_max]
+        flightTime[index].departure_value = [flightTime[index].departure_min, flightTime[index].departure_max]
+    }
+    options.durationTime = durationTime
+    options.flightTime = flightTime
     if(this.options && this.options.num_tickets){
         options.num_tickets = this.options.num_tickets
     }
@@ -151,42 +159,77 @@ const Filters = function(tickets, lang = 'en'){
 }
 
 Filters.prototype.search = function(){
-    return this.tickets
-    function flightTime(options, ticket){
-        for(const option of options){
-            if(option.arrival_value[0] > ticket.arrival_timestamp || option.arrival_value[1] < ticket.arrival_timestamp){
-                return false
-            }
-            if(option.departure_value[0] > ticket.departure_timestamp || option.departure_timestamp < ticket.departure_timestamp ){
-                return false
-            }
-        }
-        return true
-    }
-
-    function durationTime(options, ticket){
-        for(const option of options){
-            if(option.value[0] > ticket.duration_minutes || option.value[1] < ticket.duration_minutes){
-                return false
-            }
-        }
-        return true
-    }
-
     var tickets = []
-    for(const ticket of this.tickets){
-        var info = ticket.flights_info[0]
-        if(
-            this.options.stops[ticket.stops].value &&
-            this.options.aviacompanies[info.marketing_airline_code].value &&
-            this.options.price.value[0] < ticket.price && ticket.price < this.options.price.value[1] &&
-            flightTime(this.options.flightTime, ticket) &&
-            durationTime(this.options.durationTime, ticket)
-        ){
-            tickets.push(Object.assign({}, ticket))
-            if(tickets.length >= this.options.num_tickets){
-                return tickets
+    const checkAviacompany = (ticket) => {
+        for(const segment of ticket){
+            var info = segment.flights_info[0]
+            if(this.options.aviacompanies[info.marketing_airline_code].value){
+                return true
             }
+        }
+        return false
+    }
+    const flightTime = (ticket) => {
+        for(const index in ticket){
+            if(!(
+                this.options.flightTime[index].arrival_value[0] <= ticket[index].arrival_timestamp &&
+                ticket[index].arrival_timestamp <= this.options.flightTime[index].arrival_value[1] &&
+                this.options.flightTime[index].departure_value[0] <= ticket[index].departure_timestamp &&
+                ticket[index].departure_timestamp <= this.options.flightTime[index].departure_value[1]
+            )){
+                return false
+            }
+        }
+        return true
+    }
+    const duractionMinutes = (ticket) => {
+        for(const index in ticket){
+            if(!(
+                this.options.durationTime[index].value[0] <= ticket[index].duration_minutes &&
+                ticket[index].duration_minutes <= this.options.durationTime[index].value[1]
+            )){
+                return false
+            }
+        }
+        return true
+    }
+    const stops = (ticket) => {
+        const isDirect = () => {
+            for(const segment of ticket){
+                if(segment.stops != 0){
+                    return false
+                }
+            }
+            return true
+        }
+        const hasStop = (number) => {
+            var result = false
+            for(const segment of ticket){
+                if(segment.stops == number){
+                    result = true
+                }
+            }
+            return result
+        }
+        if(this.options.stops[0].value){
+            if(isDirect()){
+                return true
+            }
+        }
+        for(var i = 1; i <= Math.max(...Object.keys(this.options.stops)); i++){
+            if(hasStop(i)){
+                return true
+            }
+        }
+        return false
+    }
+    for(const ticket of this.tickets){
+        var price = this.options.price.value[0] <= ticket[ticket.length - 1].price && ticket[ticket.length - 1].price <= this.options.price.value[1]
+        if(price && checkAviacompany(ticket) && flightTime(ticket) && duractionMinutes(ticket) && stops(ticket)){
+            tickets.push([...ticket])
+        }
+        if(tickets.length >= this.options.num_tickets){
+            return tickets
         }
     }
     return tickets
