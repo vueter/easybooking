@@ -16,8 +16,8 @@
                         <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" />
                     </v-flex>
                     <v-flex md8 ml-3>
-                      {{filterOptions}}
                       <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket"/>
+                      <v-btn large color="primary" rounded block v-on:click="filterOptions.num_tickets += 10">Show more</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -59,14 +59,16 @@ export default {
       })
     },
     offers(){
-      this.$etm.offers({ request_id: this.$route.params.id, sort: 'price', last_ow_variant: 0 }, (error, result) => {
+      this.$etm.offers({ request_id: this.$route.params.id, sort: 'price', last_ow_variant: 0 }, (error, tickets) => {
         if(error){
           console.error(error)
         }
         else{
-          this.$easybooking.match = this.$easybooking.Filters(result)
-          this.filterOptions = this.$easybooking.match.options
-          this.tickets = this.$easybooking.match.search()
+          if(JSON.stringify(this.$easybooking.match.tickets) !== JSON.stringify(tickets)){
+            this.$easybooking.match = this.$easybooking.Filters(tickets)
+            this.filterOptions = this.$easybooking.match.options
+            this.tickets = this.$easybooking.match.search()
+          }
         }
       })
     }
@@ -77,7 +79,6 @@ export default {
   watch:{
     filterOptions: {
       handler(){
-        console.log('changed the filter options')
         this.tickets = this.$easybooking.match.search()
       },
       deep: true
