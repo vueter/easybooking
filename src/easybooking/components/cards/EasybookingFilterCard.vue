@@ -1,6 +1,5 @@
 <template>
   <v-card class="e-filter">
-    {{$etm.directions}}
     <v-card-title>Сортировка</v-card-title>
     <v-card-text>
       <v-overflow-btn
@@ -45,10 +44,13 @@
       v-for="(flight, index) in filterOptions.flightTime"
       v-bind:key="'flight_time_' + index"
     >
-    <span>Вылет из {{ flight }}:</span>
+      <span
+        class="e-filter-route"
+      >{{ $etm.directions[index].departure_name }} - {{ $etm.directions[index].arrival_name }}</span>
+      <span class="text-left">Вылет из {{ $etm.directions[index].departure_name }}:</span>
       <v-layout row class="e-filter-range-label">
-        <v-flex xs12>{{ formatFilterDate(flight.departure_value[0]) }} </v-flex>
-        <v-flex xs12>{{ formatFilterDate(flight.departure_value[1]) }} </v-flex>
+        <v-flex xs12>{{ formatFilterDate(flight.departure_value[0]) }}</v-flex>
+        <v-flex xs12>{{ formatFilterDate(flight.departure_value[1]) }}</v-flex>
       </v-layout>
       <v-range-slider
         class="e-filter-range"
@@ -57,10 +59,10 @@
         v-bind:max="flight.departure_max"
         v-model="flight.departure_value"
       />
-
+      <span class="text-left">Вылет из {{ $etm.directions[index].arrival_name }}:</span>
       <v-layout row class="e-filter-range-label">
-        <v-flex xs12>{{ formatFilterDate(flight.arrival_value[0]) }} </v-flex>
-        <v-flex xs12>{{ formatFilterDate(flight.arrival_value[1]) }} </v-flex>
+        <v-flex xs12>{{ formatFilterDate(flight.arrival_value[0]) }}</v-flex>
+        <v-flex xs12>{{ formatFilterDate(flight.arrival_value[1]) }}</v-flex>
       </v-layout>
       <v-range-slider
         class="e-filter-range"
@@ -70,18 +72,24 @@
         v-model="flight.arrival_value"
       />
     </v-card-text>
-    <v-card-title>Duration time</v-card-title>
-    <v-card-text>
-      <v-range-slider
-        v-for="(duration, index) in filterOptions.durationTime"
-        v-bind:key="'duration_' + index"
-        v-bind:min="duration.min"
-        v-bind:max="duration.max"
-        v-model="duration.value"
-      />
-    </v-card-text>
-    <v-card-title>Aviacompanies</v-card-title>
-    <v-list>
+    <v-card-title>Время в пути</v-card-title>
+    <template v-for="(duration, index) in filterOptions.durationTime">
+      <v-card-text :key="index">
+        <v-layout row class="e-filter-range-label">
+          <v-flex xs12>{{ formatTime(duration.value[0]) }}</v-flex>
+          <v-flex xs12>{{ formatTime(duration.value[1]) }}</v-flex>
+        </v-layout>
+        <v-range-slider
+          class="e-filter-range"
+          v-bind:key="'duration_' + index"
+          v-bind:min="duration.min"
+          v-bind:max="duration.max"
+          v-model="duration.value"
+        />
+      </v-card-text>
+    </template>
+    <v-card-title>Авиакомпании</v-card-title>
+    <v-list class="e-filter-checkbox">
       <v-list-tile
         v-on:click="() => {}"
         v-for="(aviacompany, index) in filterOptions.aviacompanies"
@@ -98,6 +106,10 @@
         <v-list-tile-action>{{ aviacompany.price }}</v-list-tile-action>
       </v-list-tile>
     </v-list>
+    <v-card-text>
+      <v-btn block class="btn-outline mb-4 mt-2" outline color="primary" type="button">Сбросить фильтр</v-btn>
+      <br>
+    </v-card-text>
   </v-card>
 </template>
 <script>
@@ -130,6 +142,19 @@ export default {
 
 
 <style lang="scss">
+.btn-outline{
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-weight: 400 !important;
+  font-size: 15px;
+  line-height: 18px;
+  height: 40px;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+  .v-btn__content{
+    text-transform: initial;
+  }
+}
 .e-filter {
   margin-top: 20px;
   box-shadow: 0px 5px 10px rgba(0, 8, 19, 0.15);
@@ -208,5 +233,16 @@ export default {
       }
     }
   }
+  &-route {
+    display: block;
+    color: #0fb8d3;
+    text-align: left;
+  }
+}
+.text-left {
+  text-align: left !important;
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 </style>

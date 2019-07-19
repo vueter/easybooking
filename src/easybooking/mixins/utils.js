@@ -39,6 +39,16 @@ export default {
             var time = hour + ":" + (min < 10 ? 0 : '') + min + ", " + date + " " + month;
             return time;
         },
+        formatTime(time) {
+            time = parseInt(time);
+            const minute = time % 60;
+            const hour = (time - minute) / 60;
+            if (hour) {
+                return hour + " ч  " + minute + " мин";
+            } else {
+                return minute + " мин";
+            }
+        },
     },
 
 
