@@ -1,16 +1,33 @@
 <template>
   <v-app id="app">
     <router-view/>
+    <v-snackbar v-model="snackbar" top v-bind:timeout="6000">
+      {{ message }}
+      <v-btn color="pink" flat v-on:click="snackbar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 <script>
 export default {
   data: () => ({
-    etm_user: null
+    etm_user: null,
+    snackbar: false,
+    message: ''
   }),
   mounted(){
-    this.$etm.auth({ login: 'Vue', password: 'w2Uq8VRlia' }, (_, result) => {
-      this.etm_user = result
+    this.$etm.registerAlert((message) => {
+      this.message = message
+      this.snackbar = true
+    })
+    this.$etm.auth({ login: 'Vue', password: 'w2Uq8VRlia' }, (error, result) => {
+      if(error){
+        this.$etm.alert('Error on connection to server')
+      }
+      else{
+        this.etm_user = result
+      }
     })
   }
 }

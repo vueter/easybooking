@@ -52,6 +52,14 @@ Communicator.prototype.auth = function(request, callback){
  *      }
  * })
  */
+Communicator.prototype.registerAlert = function(callback){
+    this.alerter = callback
+}
+
+Communicator.prototype.alert = function(message){
+    this.alerter(message)
+}
+
 Communicator.prototype.airlines = function(callback){
     assert(callback, 'Missing callback')
     assert(typeof callback !== 'function', 'Callback should be a function')
@@ -79,6 +87,7 @@ Communicator.prototype.offers = function(params, callback, matches = {}){
     assert(typeof callback === 'function', 'Callback should be a function')
     var match = (data, matches) => {
         const number_of_routes = data.directions.length
+        this.directions = data.directions
         for(const offers of data.offers){
             for(const offer of offers.offers){
                 var products = []

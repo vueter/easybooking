@@ -211,13 +211,13 @@ Filters.prototype.search = function(){
             }
             return result
         }
-        if(this.options.stops[0].value){
+        if(this.options.stops[0] && this.options.stops[0].value){
             if(isDirect(ticket)){
                 return true
             }
         }
         for(var i = 1; i <= Math.max(...Object.keys(this.options.stops)); i++){
-            if(this.options.stops[i].value){
+            if(this.options.stops[i] && this.options.stops[i].value){
                 if(hasStop(ticket, i)){
                     return true
                 }
