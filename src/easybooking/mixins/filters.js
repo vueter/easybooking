@@ -261,6 +261,17 @@ Filters.prototype.search = function(){
                     }
                 })
                 return tickets
+            },
+            LT: (tickets) => {
+                tickets.sort((a, b) => {
+                    if(a[a.length - 1].arrival_timestamp < b[b.length - 1].arrival_timestamp){
+                        return -1
+                    }
+                    else{
+                        return 1
+                    }
+                })
+                return tickets
             }
         }
         if(algos[sorting]){
