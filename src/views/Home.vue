@@ -51,9 +51,8 @@ export default {
         this.isLoading = true
         this.$etm.search(this.routes, (error, result) => {
           if (error) {
-            console.error(error);
+            this.$etm.alert('Could not search')
           } else {
-            console.log(result);
             this.$router.push({ path: "/offers/" + result.request_id });
           }
         });

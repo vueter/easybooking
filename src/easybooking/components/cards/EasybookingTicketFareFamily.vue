@@ -1,28 +1,23 @@
 <template>
-    <v-dialog v-model="dialog" persistent max-width="800px">
+    <v-dialog v-model="dialog" persistent max-width="900px">
         <v-card>
-            <v-card-title>
-                <span class="headline">User Profile</span>
-            </v-card-title>
-            <v-card-text>
-                <v-layout row>
-                    <v-flex md4 ma-1 v-for="(ff, index) in fareFamily" v-bind:key="index + (loadings[index] ? '_true' : '_false')">
-                        <v-card>
-                            <v-toolbar card>
-                                <v-toolbar-title>
-                                    {{ ff.components[0].name }}
-                                </v-toolbar-title>
-                            </v-toolbar>
-                            <v-card-text>
-                                {{ ff.components[0] }}
-                            </v-card-text>
-                            <v-card-text>
-                                <v-btn block large color="primary" v-on:click="booking(ff, index)" v-bind:loading="loadings[index]">{{ ff.price.total_amount }}</v-btn>
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-            </v-card-text>
+            <v-layout row>
+                <v-flex md4 ma-1 v-for="(ff, index) in fareFamily" v-bind:key="index + (loadings[index] ? '_true' : '_false')">
+                    <v-card>
+                        <v-toolbar card>
+                            <v-toolbar-title>
+                                {{ ff.components[0].name }}
+                            </v-toolbar-title>
+                        </v-toolbar>
+                        <v-card-text>
+                            {{ ff.components[0] }}
+                        </v-card-text>
+                        <v-card-text>
+                            <v-btn block large color="primary" v-on:click="booking(ff, index)" v-bind:loading="loadings[index]">{{ ff.price.total_amount }}</v-btn>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+            </v-layout>
             <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>

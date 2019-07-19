@@ -36,6 +36,7 @@ import EasybookingTicketCard from './cards/EasybookingTicketCard'
 import EasybookingFilterCard from './cards/EasybookingFilterCard'
 import EasybookingTicketDetail from './cards/EasybookingTicketDetail'
 import EasybookingTicketFareFamily from './cards/EasybookingTicketFareFamily'
+import EasybookingTicketRules from './cards/EasybookingTicketRules'
 
 import EasybookingTextField from './EasybookingTextField'
 
