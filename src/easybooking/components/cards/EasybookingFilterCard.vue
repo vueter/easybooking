@@ -1,6 +1,5 @@
 <template>
   <v-card class="e-filter">
-    {{$etm.directions}}
     <v-card-title>Сортировка</v-card-title>
     <v-card-text>
       <v-overflow-btn
