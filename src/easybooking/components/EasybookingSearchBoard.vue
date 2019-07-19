@@ -61,7 +61,7 @@ export default {
   data: () => ({
     flexible: false,
     isMulti: false,
-    num_routes: 2
+    num_routes: 1
   }),
   methods: {
     getFlights () {

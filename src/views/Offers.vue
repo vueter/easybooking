@@ -18,7 +18,7 @@
                     <v-flex md8>
                       <easybooking-ticket-ff ref="fareFamily"/>
                       <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket" v-bind:ff="$refs['fareFamily']"/>
-                      <v-btn large color="primary" rounded block v-on:click="filterOptions.num_tickets += 10">Show more</v-btn>
+                      <v-btn v-if="$easybooking.match.tickets && $easybooking.match.tickets.length > filterOptions.num_tickets" large color="primary" rounded block v-on:click="filterOptions.num_tickets += 10">Show more</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>

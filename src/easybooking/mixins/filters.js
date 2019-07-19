@@ -274,12 +274,7 @@ Filters.prototype.search = function(){
                 return tickets
             }
         }
-        if(algos[sorting]){
-            console.log(algos[sorting](tickets))
-        }
-        else{
-            console.log(sorting)
-        }
+        return algos[sorting](tickets)
     }
     sort(this.tickets)
     for(const ticket of this.tickets){
