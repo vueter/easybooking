@@ -75,6 +75,9 @@
     <v-card-title>Время в пути</v-card-title>
     <template v-for="(duration, index) in filterOptions.durationTime">
       <v-card-text :key="index">
+        <span
+        class="e-filter-route mb-1"
+      >{{ $etm.directions[index].departure_name }} - {{ $etm.directions[index].arrival_name }}</span>
         <v-layout row class="e-filter-range-label">
           <v-flex xs12>{{ formatTime(duration.value[0]) }}</v-flex>
           <v-flex xs12>{{ formatTime(duration.value[1]) }}</v-flex>
@@ -100,10 +103,10 @@
             v-model="aviacompany.value"
             color="primary"
             v-bind:ripple="false"
-            v-bind:label="aviacompany.name"
+            v-bind:label="aviacompany.name.substr(0, 15)"
           />
         </v-list-tile-content>
-        <v-list-tile-action>{{ aviacompany.price }}</v-list-tile-action>
+        <v-list-tile-action>{{ formatPrice(aviacompany.price) }} {{ $etm.currency }} </v-list-tile-action>
       </v-list-tile>
     </v-list>
     <v-card-text>
@@ -201,6 +204,10 @@ export default {
     .v-list__tile {
       height: 38px !important;
       border-left: 0;
+      font-size: 14px;
+      line-height: 16px;
+      overflow: hidden;
+      white-space: nowrap;
       &:hover {
         border-left: 0 !important;
         background: white !important;
@@ -208,6 +215,12 @@ export default {
     }
     .v-input--selection-controls {
       margin-top: 0 !important;
+    }
+    label{
+      font-size: 14px;
+      line-height: 16px;
+      overflow: hidden;
+      white-space: nowrap;
     }
   }
   &-range {

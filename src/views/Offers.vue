@@ -71,7 +71,7 @@ export default {
         }
         else{
           if(JSON.stringify(this.$easybooking.match.tickets) !== JSON.stringify(tickets)){
-            this.$easybooking.match = this.$easybooking.Filters(tickets)
+            this.$easybooking.match = this.$easybooking.Filters(tickets, 'ru')
             this.filterOptions = this.$easybooking.match.options
             this.tickets = this.$easybooking.match.search()
           }
@@ -79,7 +79,7 @@ export default {
       })
     },
     reset(){
-      this.$easybooking.match = this.$easybooking.Filters(this.$easybooking.match.tickets)
+      this.$easybooking.match = this.$easybooking.Filters(this.$easybooking.match.tickets, 'ru')
       this.filterOptions = this.$easybooking.match.options
       this.tickets = this.$easybooking.match.search()
     }

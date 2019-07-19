@@ -6,7 +6,8 @@ const Filters = function(tickets, lang = 'en'){
     console.log(tickets)
     this.tickets = tickets
     const sorts = {
-        en: [{ text: 'by Price', code: 'PR' }, {text: 'Travel time', code: 'TT'}, { text: 'Early time', code: 'ET' }, { text: 'Late time', code: 'LT' }]
+        en: [{ text: 'by Price', code: 'PR' }, {text: 'Travel time', code: 'TT'}, { text: 'Early time', code: 'ET' }, { text: 'Late time', code: 'LT' }],
+        ru: [{ text: 'По цене', code: 'PR' }, {text: 'По времени полета', code: 'TT'}, { text: 'По времени вылета', code: 'ET' }, { text: 'по времени прибытия', code: 'LT' }],
     }
     this.sorts = sorts[lang]
     this.stops = {}
