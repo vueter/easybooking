@@ -63,5 +63,6 @@ export default {
   EasybookingTicketCard,
   EasybookingFilterCard,
   EasybookingTicketDetail,
-  EasybookingTicketFareFamily
+  EasybookingTicketFareFamily,
+  EasybookingTicketRules
 }
