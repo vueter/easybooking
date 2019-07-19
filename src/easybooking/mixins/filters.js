@@ -194,7 +194,7 @@ Filters.prototype.search = function(){
         return true
     }
     const stops = (ticket) => {
-        const isDirect = () => {
+        const isDirect = (ticket) => {
             for(const segment of ticket){
                 if(segment.stops != 0){
                     return false
@@ -202,7 +202,7 @@ Filters.prototype.search = function(){
             }
             return true
         }
-        const hasStop = (number) => {
+        const hasStop = (ticket, number) => {
             var result = false
             for(const segment of ticket){
                 if(segment.stops == number){
@@ -212,17 +212,65 @@ Filters.prototype.search = function(){
             return result
         }
         if(this.options.stops[0].value){
-            if(isDirect()){
+            if(isDirect(ticket)){
                 return true
             }
         }
         for(var i = 1; i <= Math.max(...Object.keys(this.options.stops)); i++){
-            if(hasStop(i)){
-                return true
+            if(this.options.stops[i].value){
+                if(hasStop(ticket, i)){
+                    return true
+                }
             }
         }
         return false
     }
+    const sort = (tickets) => {
+        const sorting = ((options) => {
+            for(const _type of options.sorts){
+                if(_type.text == options.sorting){
+                    return _type.code
+                }
+            }
+        })(this.options)
+        var algos = {
+            PR: (tickets) => {
+                tickets.sort((a, b) => {
+                    if(a[a.length - 1].price < b[b.length - 1].price){
+                        return -1
+                    }
+                    else{
+                        return 1
+                    }
+                })
+                return tickets
+            },
+            TT: (tickets) => {
+                tickets.sort((a, b) => {
+                    return b[b.length - 1].arrival_timestamp - a[0].departure_timestamp
+                })
+                return tickets
+            },
+            ET: (tickets) => {
+                tickets.sort((a, b) => {
+                    if(a[0].departure_timestamp < b[0].departure_timestamp){
+                        return -1
+                    }
+                    else{
+                        return 1
+                    }
+                })
+                return tickets
+            }
+        }
+        if(algos[sorting]){
+            console.log(algos[sorting](tickets))
+        }
+        else{
+            console.log(sorting)
+        }
+    }
+    sort(this.tickets)
     for(const ticket of this.tickets){
         var price = this.options.price.value[0] <= ticket[ticket.length - 1].price && ticket[ticket.length - 1].price <= this.options.price.value[1]
         if(price && checkAviacompany(ticket) && flightTime(ticket) && duractionMinutes(ticket) && stops(ticket)){

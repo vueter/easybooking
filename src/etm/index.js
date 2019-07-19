@@ -108,9 +108,7 @@ Communicator.prototype.offers = function(params, callback, matches = {}){
                         product[product.length - 1].arrival_timestamp,
                         product[product.length - 1].departure_timestamp,
                         product[0].duration_minutes,
-                        product[0].flight_number,
-                        product[product.length - 1].duration_minutes,
-                        product[product.length - 1].flight_number,
+                        product[product.length - 1].duration_minutes
                     ].join('_')
                     if(matches[uuid] === undefined){
                         matches[uuid] = {}
