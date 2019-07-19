@@ -107,7 +107,7 @@
       </v-list-tile>
     </v-list>
     <v-card-text>
-      <v-btn block class="btn-outline mb-4 mt-2" outline color="primary" type="button">Сбросить фильтр</v-btn>
+      <v-btn block class="btn-outline mb-4 mt-2" outline color="primary" type="button" v-on:click="reset">Сбросить фильтр</v-btn>
       <br>
     </v-card-text>
   </v-card>
@@ -123,9 +123,9 @@ export default {
     filter: {
       type: Function,
       default: () => {}
-    }
+    },
+    reset: Function
   },
-
   mixins: [utils],
   data: () => ({
     sorts: [

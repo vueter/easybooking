@@ -18,7 +18,7 @@
                 <v-layout row>
                     <v-flex md4 class="e-sidebar">
                         <easybooking-subscribe-card />
-                        <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" />
+                        <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" v-bind:reset="reset"/>
                     </v-flex>
                     <v-flex md8>
                       <easybooking-ticket-ff ref="fareFamily"/>
@@ -77,6 +77,11 @@ export default {
           }
         }
       })
+    },
+    reset(){
+      this.$easybooking.match = this.$easybooking.Filters(this.$easybooking.match.tickets)
+      this.filterOptions = this.$easybooking.match.options
+      this.tickets = this.$easybooking.match.search()
     }
   },
   mounted(){

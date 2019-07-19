@@ -2,16 +2,14 @@
   <v-content>
     <easybooking-toolbar
       v-bind:languages="languages"
-      v-bind:actions="actions"
-      v-bind:statics="statics"
     />
     <v-container>
       <v-layout row wrap>
         <v-flex md8 pr-2>
           <easybooking-buyer-card />
-          <easybooking-passanger-card />
+          <!--<easybooking-passanger-card />
           <easybooking-next-passanger-card />
-          <easybooking-booking-card />
+          <easybooking-booking-card />-->
         </v-flex>
         <v-flex md4 pl-2>
           {{fareFamily}}

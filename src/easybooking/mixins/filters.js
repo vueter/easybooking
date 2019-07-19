@@ -156,6 +156,7 @@ const Filters = function(tickets, lang = 'en'){
     if(JSON.stringify(this.options) !== JSON.stringify(options)){
         this.options = options
     }
+    this.copied = Object.assign({}, this.options)
 }
 
 Filters.prototype.search = function(){

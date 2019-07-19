@@ -6,7 +6,7 @@
             </v-card-title>
             <v-card-text>
                 <v-layout row>
-                    <v-flex md4 ma-1 v-for="(ff, index) in fareFamily" v-bind:key="index">
+                    <v-flex md4 ma-1 v-for="(ff, index) in fareFamily" v-bind:key="index + (loadings[index] ? '_true' : '_false')">
                         <v-card>
                             <v-toolbar card>
                                 <v-toolbar-title>
@@ -37,13 +37,13 @@ export default {
     data: () => ({
         dialog: false,
         fareFamily: [],
-        ticket: null,
+        ticket: [],
         loadings: []
     }),
     methods: {
         open(fareFamily, ticket){
             var loadings = []
-            for(const _ of loadings){
+            for(const _ of fareFamily){
                 loadings.push(false)
             }
             this.loadings = loadings
@@ -53,6 +53,7 @@ export default {
         },
         booking(segment, index){
             this.loadings[index] = true
+            this.$forceUpdate()
             this.$etm.offersAvailability(segment.segments, (error, result) => {
                 this.loadings[index] = false
                 if(result.availability){
