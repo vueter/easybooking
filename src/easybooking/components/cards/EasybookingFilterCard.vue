@@ -1,151 +1,211 @@
 <template>
   <v-card class="e-filter">
-    <v-card-title>
-      Сортировка
-    </v-card-title>
+    <v-card-title>Сортировка</v-card-title>
     <v-card-text>
-      <v-overflow-btn class="e-filter-sort" v-bind:items="filterOptions.sorts" v-model="filterOptions.sorting"></v-overflow-btn>
+      <v-overflow-btn
+        class="e-filter-sort"
+        v-bind:items="filterOptions.sorts"
+        v-model="filterOptions.sorting"
+      ></v-overflow-btn>
     </v-card-text>
-    <v-card-title>
-      Пересадки
-    </v-card-title>
+    <v-card-title>Пересадки</v-card-title>
     <v-list class="e-filter-checkbox">
-      <v-list-tile v-on:click="() => {}" v-for="(stop, index) in filterOptions.stops" v-bind:key="'stop_' + index">
+      <v-list-tile
+        v-on:click="() => {}"
+        v-for="(stop, index) in filterOptions.stops"
+        v-bind:key="'stop_' + index"
+      >
         <v-list-tile-content>
-          <v-checkbox color="primary" v-model="stop.value" v-bind:ripple="false"
-                      v-bind:label="stop.number ? (stop.number + ' stop' + (stop.number !== 1 ? 's' : '')) : 'Direct'"/>
+          <v-checkbox
+            color="primary"
+            v-model="stop.value"
+            v-bind:ripple="false"
+            v-bind:label="stop.number ? ('Пересадки: ' + stop.number) : 'Прямой'"
+          />
         </v-list-tile-content>
-        <v-list-tile-action>
-          {{ stop.price }}
-        </v-list-tile-action>
+        <v-list-tile-action>{{ formatPrice(stop.price) }} {{ $etm.currency }}</v-list-tile-action>
       </v-list-tile>
     </v-list>
-    <v-card-title>
-      Цена
-    </v-card-title>
+    <v-card-title>Цена</v-card-title>
     <v-card-text>
+      <v-layout row class="e-filter-range-label">
+        <v-flex xs12>{{ formatPrice(filterOptions.price.value[0]) }} {{ $etm.currency }}</v-flex>
+        <v-flex xs12>{{ formatPrice(filterOptions.price.value[1]) }} {{ $etm.currency }}</v-flex>
+      </v-layout>
       <v-range-slider
+        class="e-filter-range"
         v-bind:min="filterOptions.price.min"
         v-bind:max="filterOptions.price.max"
-        v-model="filterOptions.price.value"/>
+        v-model="filterOptions.price.value"
+      />
     </v-card-text>
-    <v-card-title>
-      Flight time
-    </v-card-title>
-    <v-card-text v-for="(flight, index) in filterOptions.flightTime" v-bind:key="'flight_time_' + index">
+    <v-card-title>Время вылета/прибытия</v-card-title>
+    <v-card-text
+      v-for="(flight, index) in filterOptions.flightTime"
+      v-bind:key="'flight_time_' + index"
+    >
+    <span>Вылет из {{ flight }}:</span>
+      <v-layout row class="e-filter-range-label">
+        <v-flex xs12>{{ formatFilterDate(flight.departure_value[0]) }} </v-flex>
+        <v-flex xs12>{{ formatFilterDate(flight.departure_value[1]) }} </v-flex>
+      </v-layout>
       <v-range-slider
+        class="e-filter-range"
         v-if="flight.departure_min !== flight.departure_max"
         v-bind:min="flight.departure_min"
         v-bind:max="flight.departure_max"
-        v-model="flight.departure_value"/>
+        v-model="flight.departure_value"
+      />
+
+      <v-layout row class="e-filter-range-label">
+        <v-flex xs12>{{ formatFilterDate(flight.arrival_value[0]) }} </v-flex>
+        <v-flex xs12>{{ formatFilterDate(flight.arrival_value[1]) }} </v-flex>
+      </v-layout>
       <v-range-slider
+        class="e-filter-range"
         v-if="flight.arrival_min !== flight.arrival_max"
         v-bind:min="flight.arrival_min"
         v-bind:max="flight.arrival_max"
-        v-model="flight.arrival_value"/>
+        v-model="flight.arrival_value"
+      />
     </v-card-text>
-    <v-card-title>
-      Duration time
-    </v-card-title>
+    <v-card-title>Duration time</v-card-title>
     <v-card-text>
       <v-range-slider
         v-for="(duration, index) in filterOptions.durationTime"
         v-bind:key="'duration_' + index"
         v-bind:min="duration.min"
         v-bind:max="duration.max"
-        v-model="duration.value"/>
+        v-model="duration.value"
+      />
     </v-card-text>
-    <v-card-title>
-      Aviacompanies
-    </v-card-title>
+    <v-card-title>Aviacompanies</v-card-title>
     <v-list>
-      <v-list-tile v-on:click="() => {}" v-for="(aviacompany, index) in filterOptions.aviacompanies"
-                   v-bind:key="'aeroports_' + index">
+      <v-list-tile
+        v-on:click="() => {}"
+        v-for="(aviacompany, index) in filterOptions.aviacompanies"
+        v-bind:key="'aeroports_' + index"
+      >
         <v-list-tile-content>
-          <v-checkbox v-model="aviacompany.value" color="primary" v-bind:ripple="false"
-                      v-bind:label="aviacompany.name"/>
+          <v-checkbox
+            v-model="aviacompany.value"
+            color="primary"
+            v-bind:ripple="false"
+            v-bind:label="aviacompany.name"
+          />
         </v-list-tile-content>
-        <v-list-tile-action>
-          {{ aviacompany.price }}
-        </v-list-tile-action>
+        <v-list-tile-action>{{ aviacompany.price }}</v-list-tile-action>
       </v-list-tile>
     </v-list>
   </v-card>
 </template>
 <script>
-  export default {
-    name: 'easybooking-filter-card',
-    props: {
-      filterOptions: {
-        type: Object,
-      },
-      filter: {
-        type: Function,
-        default: () => {
-        }
-      }
+import utils from "@/easybooking/mixins/utils";
+export default {
+  name: "easybooking-filter-card",
+  props: {
+    filterOptions: {
+      type: Object
     },
-    data: () => ({
-      sorts: [{ text: 'Price' }, { text: 'Travel time' }, { text: 'Early time' }, { text: 'Late time' }]
-    })
-  }
+    filter: {
+      type: Function,
+      default: () => {}
+    }
+  },
+
+  mixins: [utils],
+  data: () => ({
+    sorts: [
+      { text: "Price" },
+      { text: "Travel time" },
+      { text: "Early time" },
+      { text: "Late time" }
+    ]
+  })
+};
 </script>
 
 
 
 
 <style lang="scss">
-  .e-filter {
-    margin-top: 20px;
-    box-shadow: 0px 5px 10px rgba(0, 8, 19, 0.15);
-    border-radius: 4px;
-    .v-card__title{
-      font-weight: 500;
-      font-size: 15px;
-      line-height: 18px;
-      color: #4A4A4A;
-      margin-bottom: 0;
-    }
-    .v-card__text{
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-    &-sort{
-      padding: 0;
+.e-filter {
+  margin-top: 20px;
+  box-shadow: 0px 5px 10px rgba(0, 8, 19, 0.15);
+  border-radius: 4px;
+  .v-card__title {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    color: #4a4a4a;
+    margin-bottom: 0;
+  }
+  .v-card__text {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  &-sort {
+    padding: 0;
+    margin: 0;
+    .v-input__slot {
       margin: 0;
-      .v-input__slot{
-        margin: 0;
-        padding: 0;
-        &::before{
-          display: none;
-        }
-      }
-      .v-input__control{
-        &::before{
-          display: none;
-        }
-      }
-      .v-text-field__details{
+      padding: 0;
+      &::before {
         display: none;
       }
-      .v-select__slot{
-        height: 40px;
-        border: 1px solid #0FB8D3;
-        box-sizing: border-box;
-        border-radius: 4px;
+    }
+    .v-input__control {
+      &::before {
+        display: none;
       }
     }
-    &-checkbox{
-      margin: 0;
-      padding: 0;
-      .v-list__tile{
-        height: 38px !important;
-        border-left: 0;
-        &:hover{
-          border-left: 0 !important;
-          background: white !important;
+    .v-text-field__details {
+      display: none;
+    }
+    .v-select__slot {
+      height: 40px;
+      border: 1px solid #0fb8d3;
+      box-sizing: border-box;
+      border-radius: 4px;
+    }
+  }
+  &-checkbox {
+    margin: 0;
+    padding: 0;
+    .v-list__tile {
+      height: 38px !important;
+      border-left: 0;
+      &:hover {
+        border-left: 0 !important;
+        background: white !important;
+      }
+    }
+    .v-input--selection-controls {
+      margin-top: 0 !important;
+    }
+  }
+  &-range {
+    margin-top: 0;
+    padding: 0px 6px;
+    .v-messages {
+      display: none;
+    }
+    .v-input__slot {
+      margin-bottom: 0;
+    }
+    &-label {
+      .flex {
+        font-size: 13px;
+        line-height: 15px;
+        color: #4a4a4a;
+        &:first-child {
+          text-align: left;
+        }
+        &:last-child {
+          text-align: right;
         }
       }
     }
   }
+}
 </style>
