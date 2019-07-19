@@ -98,6 +98,7 @@ export default {
           }
           else{
             this.isPossible = false
+            this.$etm.alert(result.message)
           }
         })
       }

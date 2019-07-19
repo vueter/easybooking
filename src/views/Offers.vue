@@ -11,6 +11,11 @@
         <v-layout class="offers">
             <v-container>
                 <v-layout row>
+                  <v-flex md12>
+                    <easybooking-stepper-card />
+                  </v-flex>
+                </v-layout>
+                <v-layout row>
                     <v-flex md4 class="e-sidebar">
                         <easybooking-subscribe-card />
                         <easybooking-filter-card v-if="filterOptions" v-bind:filter-options="filterOptions" />
@@ -18,7 +23,7 @@
                     <v-flex md8>
                       <easybooking-ticket-ff ref="fareFamily"/>
                       <easybooking-ticket-card v-for="ticket in tickets" v-bind:key="ticket.segment_id" v-bind:ticket="ticket" v-bind:ff="$refs['fareFamily']"/>
-                      <v-btn v-if="$easybooking.match.tickets && $easybooking.match.tickets.length > filterOptions.num_tickets" large color="primary" rounded block v-on:click="filterOptions.num_tickets += 10">Show more</v-btn>
+                      <v-btn v-if="$easybooking.match.tickets && filterOptions && $easybooking.match.tickets.length > filterOptions.num_tickets" large color="primary" rounded block v-on:click="filterOptions.num_tickets += 10">Show more</v-btn>
                     </v-flex>
                 </v-layout>
             </v-container>
@@ -52,7 +57,7 @@ export default {
       this.routes = this.$refs['search-board'].getFlights()
       this.$etm.search(this.routes, (error, result) => {
         if(error){
-          console.error(error)
+          this.$etm.alert('Could not search results. Please try again.')
         }
         else{
           this.$router.push({ path: '/offers/' + result.request_id })
@@ -62,7 +67,7 @@ export default {
     offers(){
       this.$etm.offers({ request_id: this.$route.params.id, sort: 'price', last_ow_variant: 0 }, (error, tickets) => {
         if(error){
-          console.error(error)
+          this.$etm.alert('Offers could not found')
         }
         else{
           if(JSON.stringify(this.$easybooking.match.tickets) !== JSON.stringify(tickets)){
@@ -80,7 +85,6 @@ export default {
   watch:{
     filterOptions: {
       handler(){
-        console.log('changed the filterOptions')
         this.tickets = this.$easybooking.match.search()
       },
       deep: true
