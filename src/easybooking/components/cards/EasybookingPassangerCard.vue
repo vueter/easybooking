@@ -26,7 +26,7 @@
         <font class="eb-divider-txt">№ {{i}} ADT</font>
       </v-card-text>
       <v-card-text v-bind:key="'passanger-card-body_adt' + i">
-        <easybooking-passanger-form ref="passanger"/>
+        <easybooking-passanger-form ref="passanger" v-bind:codes="codes"/>
       </v-card-text>
     </template>
     <template v-for="i in searchParameters.child_qnt">
@@ -35,7 +35,7 @@
         <font class="eb-divider-txt">№ {{searchParameters.adult_qnt + i}} CHILD</font>
       </v-card-text>
       <v-card-text v-bind:key="'passanger-card-body_child' + i">
-        <easybooking-passanger-form ref="passanger"/>
+        <easybooking-passanger-form ref="passanger" v-bind:codes="codes"/>
       </v-card-text>
     </template>
     <template v-for="i in searchParameters.infant_qnt">
@@ -44,7 +44,7 @@
         <font class="eb-divider-txt">№ {{ searchParameters.adult_qnt + searchParameters.child_qnt + i}} infant</font>
       </v-card-text>
       <v-card-text v-bind:key="'passanger-card-body_infant' + i">
-        <easybooking-passanger-form ref="passanger"/>
+        <easybooking-passanger-form ref="passanger" v-bind:codes="codes"/>
       </v-card-text>
     </template>
     <v-card-text>
@@ -61,6 +61,12 @@
 <script>
 export default {
   name: 'easybooking-passanger-card',
+  props: {
+    codes: {
+      type: Array,
+      default: []
+    }
+  },
   computed: {
     searchParameters(){
       return this.$store.state.searchParameters

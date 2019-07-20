@@ -26,10 +26,10 @@
       </v-btn-toggle>
     </v-flex>
     <v-flex md4 pa-1>
-      <v-combobox box label="Тип документа" />
+			<v-autocomplete v-bind:items="codes" v-model="citizenship" item-text="country_rus" label="Страна выдачи" box></v-autocomplete>
     </v-flex>
     <v-flex md4 pa-1>
-      <v-combobox box label="Страна выдачи" />
+      <v-autocomplete v-bind:items="documents" box label="Тип документа" v-bind:disabled="!citizenship"/>
     </v-flex>
     <v-flex md4 pa-1>
       <v-text-field box label="Номер документа" />
@@ -62,20 +62,55 @@
   export default {
 		name: 'easybooking-passanger-form',
 		props: {
-			doc_types: {
-				type: Array,
-				default: []
-			},
-			citizenships: {
+			codes: {
 				tyep: Array,
 				default: []
 			}
 		},
     data: () => ({
+			doc_types: [],
 			toggle_exclusive: 2,
 			birthday: null,
 			name: '',
 			surname: '',
-    }),
+			citizenship: null,
+			citizenship_code: null,
+			documents: []
+		}),
+		watch: {
+			citizenship(){
+				for(const code of this.codes){
+					if(code.country_rus == this.citizenship){
+						console.log(code)
+					}
+				}
+			}
+		},
+		methods: {
+			getDocumentTypes(){
+				var docs = [
+					{code: 'PSP', text: 'Заграничный паспорт'},
+					{code: 'NP', text: 'Национальный паспорт'},
+					{code: 'DP', text: 'Дипломатический паспорт'},
+				]
+				if(this.pcc_name === 'Delta' || this.pcc_name === 'Sigma' || this.pcc_name === 'Tetra'){
+					if(this.citizenship_code === 'ru'){
+						docs = [
+							{code: 'PSP', text: 'Заграничный паспорт'},
+							{code: 'PS',  text: 'Паспорт внутренний'},
+							{code: 'DP',  text: 'Дипломатический паспорт'},
+						]
+					}
+					else{
+						docs = [
+							{code: 'ZC', text: 'Заграничный паспорт не РФ'},
+							{code: 'NP', text: 'Национальный паспорт'},
+							{code: 'DP', text: 'Дипломатический паспорт'},
+						]
+					}
+				}
+				return docs
+			}
+		}
   }
 </script>

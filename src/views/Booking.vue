@@ -1,14 +1,12 @@
 <template>
   <v-content>
-    <easybooking-toolbar
-      v-bind:languages="languages"
-    />
+    <easybooking-toolbar v-bind:languages="languages"/>
     <v-container>
       <v-layout row wrap>
         <v-flex md8 pr-2>
           {{searchParameters}}
-          <easybooking-buyer-card />
-          <easybooking-passanger-card />
+          <easybooking-buyer-card v-bind:codes="codes"/>
+          <easybooking-passanger-card v-bind:codes="codes"/>
           <!--<easybooking-next-passanger-card />
           <easybooking-booking-card />-->
         </v-flex>
@@ -22,13 +20,25 @@
 </template>
 <script>
 import Languagable from "../mixins/language";
+import Easybooking from '@/easybooking/mixins/easybooking';
 export default {
   name: 'Booking',
-  mixins: [Languagable],
+  mixins: [Languagable, Easybooking],
+  data: () => ({
+    codes: []
+  }),
   mounted(){
     /*if(this.ticket == null){
       this.$router.push({ path: '/offers/' + this.$route.params.id })
     }*/
+    this.getPhoneCodes((error, result) => {
+      if(error){
+        this.$etm.alert('Could not get phene codes')
+      }
+      else{
+        this.codes = result.data
+      }
+    })
   },
   computed: {
     isFareFamily(){
