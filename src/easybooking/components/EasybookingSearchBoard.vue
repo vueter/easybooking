@@ -14,12 +14,16 @@
         <v-flex md3 sm4>
           <easybooking-date-range ref="dates" single />
         </v-flex>
+
+        <v-btn v-if="i === num_routes && i > 1" icon class="e-muti-form-remove" @click="num_routes--">
+          <v-icon>close</v-icon>
+        </v-btn>
       </v-layout>
-      <v-layout class="easybooking-search-board-responsive" row>
-        <v-flex md6 pr-1>
+      <v-layout class="easybooking-search-board-responsive fd-column" row>
+        <v-flex xs12 md6 lg6>
           <easybooking-menu-passanger ref="passengers" />
         </v-flex>
-        <v-flex md3 pr-1 pl-2>
+        <v-flex xs12 md3 lg3>
           <v-btn
             float
             block
@@ -30,16 +34,16 @@
             v-on:click="num_routes < 4 ? num_routes = num_routes + 1 : num_routes = num_routes"
           >Продолжить маршрут</v-btn>
         </v-flex>
-        <v-flex md3 pl-2>
+        <v-flex xs12 md3 lg3>
           <v-btn
             float
             block
             depressed
             color="primary"
-            class="easybooking--search-btn"
+            class="easybooking--search-btn h-44"
             v-on:click="search"
             v-bind:loading="isLoading"
-          >Search</v-btn>
+          >Поиск</v-btn>
         </v-flex>
       </v-layout>
     </template>
@@ -61,15 +65,18 @@
           block
           depressed
           color="primary"
-          class="easybooking--search-btn"
+          class="easybooking--search-btn h-44"
           v-on:click="search"
           v-bind:loading="isLoading"
         >Поиск</v-btn>
       </v-flex>
     </v-layout>
-    <v-layout row class="search-form-items">
+    <v-layout row :class="isMulti ? '' : 'search-form-items'">
       <v-flex sm4 md3 class="text-left">
-        <v-btn class="e-ctrip" flat @click="isMulti = !isMulti">
+        <v-btn v-if="isMulti" class="e-ctrip" flat @click="isMulti = !isMulti">
+          <img src="@/assets/image/triangle.png" /> Вернуться к обычному поиску
+        </v-btn>
+        <v-btn v-else class="e-ctrip" flat @click="isMulti = !isMulti">
           <img src="@/assets/image/triangle.png" /> Сложный маршрут
         </v-btn>
       </v-flex>
@@ -175,8 +182,35 @@ export default {
     display: none;
   }
 }
-.e-multi-form{
+.e-multi-form {
   margin-bottom: 15px !important;
+  position: relative;
+}
+.e-muti-form-remove {
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  background: #ff5d5d;
+  border-radius: 20px !important;
+  width: 17px;
+  height: 17px;
+  padding: 0 !important;
+  i {
+    font-size: 10px;
+    color: white !important;
+  }
+  &:hover {
+    position: absolute !important;
+  }
+}
+.h-44 {
+  height: 44px !important;
+  .v-btn__content {
+    text-transform: initial;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 400;
+  }
 }
 .e-checkbox {
   margin: 0;
@@ -210,6 +244,7 @@ export default {
   &-responsive {
     margin-left: -5px;
     margin-right: -5px;
+    position: relative;
     & > * {
       padding: 5px 5px;
       margin: 0;
@@ -236,6 +271,16 @@ export default {
   }
   .search-form-items {
     margin-top: -100px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .fd-column {
+    flex-direction: column !important;
+  }
+}
+@media screen and (max-width: 600px) {
+  .e-muti-form {
+    margin-bottom: 10px;
   }
 }
 </style>
