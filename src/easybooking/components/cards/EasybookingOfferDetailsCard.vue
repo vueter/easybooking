@@ -35,7 +35,7 @@ export default {
   name: 'easybooking-offer-details-card',
   props: {
     ticket: {
-      type: Object
+      type: Array
     }
   }
 }

@@ -36,18 +36,21 @@
   </v-card>
 </template>
 <script>
-import easybooking from '@/easybooking/mixins/easybooking'
 export default {
   name: 'easybooking-buyer-card',
-  mixins: [easybooking],
+  props: {
+    codes: {
+      type: Array,
+      default: []
+    }
+  },
   data: () => ({
     full_name: '',
     email: '',
     phonenumber: '',
     code: 'UZ',
     phone_code: '998',
-    mask: '(##) ###-##-##',
-    codes: []
+    mask: '(##) ###-##-##'
   }),
   methods: {
     getBuyer(){
@@ -73,16 +76,6 @@ export default {
       this.phone_code = item.phone_code
       this.mask = item.phone_mask
     }
-  },
-  mounted(){
-    this.getPhoneCodes((error, result) => {
-      if(error){
-        this.$etm.alert('Could not get phene codes')
-      }
-      else{
-        this.codes = result.data
-      }
-    })
   }
 }
 </script>

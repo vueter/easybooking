@@ -31,7 +31,15 @@
           >Продолжить маршрут</v-btn>
         </v-flex>
         <v-flex md3 pl-2>
-          <slot name="activator"></slot>
+          <v-btn
+            float
+            block
+            depressed
+            color="primary"
+            class="easybooking--search-btn"
+            v-on:click="search"
+            v-bind:loading="isLoading"
+          >Search</v-btn>
         </v-flex>
       </v-layout>
     </template>

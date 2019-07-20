@@ -213,4 +213,10 @@ Communicator.prototype.offersSeats = function(segmentId, callback){
         .catch(error, callback(error, null))
 }
 
+Communicator.prototype.getCitizenships = function(callback){
+    this.$client.get('/dictionaries/citizenship')
+        .then(response => callback(null, response.data))
+        .catch(error => callback(error, null))
+}
+
 export default Communicator
