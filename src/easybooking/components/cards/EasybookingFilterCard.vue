@@ -34,6 +34,7 @@
       </v-layout>
       <v-range-slider
         class="e-filter-range"
+        validate-on-blur
         v-bind:min="filterOptions.price.min"
         v-bind:max="filterOptions.price.max"
         v-model="filterOptions.price.value"
