@@ -19,71 +19,36 @@
         </v-flex>
       </v-layout>
     </v-card-text>
+    {{searchParameters}}
+    <template v-for="i in searchParameters.adult_qnt">
+      <v-card-text v-bind:key="'passanger-card-header_adt' + i">
+        <v-divider></v-divider>
+        <font class="eb-divider-txt">№ {{i}} ADT</font>
+      </v-card-text>
+      <v-card-text v-bind:key="'passanger-card-body_adt' + i">
+        <easybooking-passanger-form ref="passanger"/>
+      </v-card-text>
+    </template>
+    <template v-for="i in searchParameters.child_qnt">
+      <v-card-text v-bind:key="'passanger-card-header_child' + i">
+        <v-divider></v-divider>
+        <font class="eb-divider-txt">№ {{searchParameters.adult_qnt + i}} CHILD</font>
+      </v-card-text>
+      <v-card-text v-bind:key="'passanger-card-body_child' + i">
+        <easybooking-passanger-form ref="passanger"/>
+      </v-card-text>
+    </template>
+    <template v-for="i in searchParameters.infant_qnt">
+      <v-card-text v-bind:key="'passanger-card-header_infant' + i">
+        <v-divider></v-divider>
+        <font class="eb-divider-txt">№ {{ searchParameters.adult_qnt + searchParameters.child_qnt + i}} infant</font>
+      </v-card-text>
+      <v-card-text v-bind:key="'passanger-card-body_infant' + i">
+        <easybooking-passanger-form ref="passanger"/>
+      </v-card-text>
+    </template>
     <v-card-text>
-      <v-divider></v-divider>
-      <font class="eb-divider-txt">№ 1 Взрослый</font>
-    </v-card-text>
-    <v-card-text>
-      <v-layout row wrap>
-        <v-flex md4 pa-1>
-          <v-text-field box label="Фамилия" />
-        </v-flex>
-        <v-flex md4 pa-1>
-          <v-text-field box label="Имя" />
-        </v-flex>
-        <v-flex md4 pa-1>
-          <v-menu ref="menu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="date" lazy transition="scale-transition" offset-y full-width min-width="290px">
-            <template v-slot:activator="{ on }">
-              <v-text-field label="Дата рождения" append-icon="event" readonly box v-on="on"></v-text-field>
-            </template>
-            <v-date-picker v-model="date" no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn flat color="primary">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-flex>
-        <v-flex md4 pa-1>
-          <font>Пол</font>
-          <v-btn-toggle v-model="toggle_exclusive" class="full-width">
-            <v-btn flat class="half-width">
-              Мужской
-            </v-btn>
-            <v-btn flat class="half-width">
-              Женский
-            </v-btn>
-          </v-btn-toggle>
-        </v-flex>
-        <v-flex md4 pa-1>
-          <v-combobox box label="Тип документа" />
-        </v-flex>
-        <v-flex md4 pa-1>
-          <v-text-field box label="Страна выдачи" />
-        </v-flex>
-        <v-flex md4 pa-1>
-          <v-text-field box label="Номер документа" />
-        </v-flex>
-        <v-flex md4 pa-1>
-          <v-menu ref="menu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="date" lazy transition="scale-transition" offset-y full-width min-width="290px">
-            <template v-slot:activator="{ on }">
-              <v-text-field label="Дата выдачи документа" append-icon="event" readonly box v-on="on"></v-text-field>
-            </template>
-            <v-date-picker v-model="date" no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn flat color="primary">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-flex>
-        <v-flex md4 pa-1>
-          <v-menu ref="menu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="date" lazy transition="scale-transition" offset-y full-width min-width="290px">
-            <template v-slot:activator="{ on }">
-              <v-text-field label="Срок действия документа" append-icon="event" readonly box v-on="on"></v-text-field>
-            </template>
-            <v-date-picker v-model="date" no-title scrollable>
-              <v-spacer></v-spacer>
-              <v-btn flat color="primary">OK</v-btn>
-            </v-date-picker>
-          </v-menu>
-        </v-flex>
+      <v-layout row>
         <v-flex md4 pa-1>
           <v-btn color="primary" outline block large>
             Сохранить
@@ -96,8 +61,10 @@
 <script>
 export default {
   name: 'easybooking-passanger-card',
-  data: () => ({
-    toggle_exclusive: 2
-  })
+  computed: {
+    searchParameters(){
+      return this.$store.state.searchParameters
+    }
+  }
 }
 </script>

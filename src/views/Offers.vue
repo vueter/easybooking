@@ -2,11 +2,7 @@
     <div class="bg-white">
         <easybooking-toolbar v-bind:languages="languages" v-bind:actions="actions" v-bind:statics="statics"/>
         <v-container>
-            <easybooking-search-board ref="search-board">
-              <template v-slot:activator>
-                <v-btn float block depressed color="primary" class="easybooking--search-btn" v-on:click="search">Search</v-btn>
-              </template>
-            </easybooking-search-board>
+            <easybooking-search-board ref="search-board" />
         </v-container>
         <v-layout class="offers">
             <v-container>

@@ -13,5 +13,6 @@ export default {
   currencies: currencies,
   isFareFamily: false,
   fareFamily: null,
-  ticket: null
+  ticket: null,
+  searchParameters: null
 }

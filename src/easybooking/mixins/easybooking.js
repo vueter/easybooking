@@ -97,6 +97,11 @@ export default {
       }).catch(() => {
         callback([])
       })
+    },
+    getPhoneCodes(callback){
+      this.$http.get('http://api.easybooking.uz/country')
+        .then(response => callback(null, response.data))
+        .catch(error => callback(error, null))
     }
   }
 }
