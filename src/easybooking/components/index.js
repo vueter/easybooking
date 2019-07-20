@@ -38,7 +38,9 @@ import EasybookingTicketDetail from './cards/EasybookingTicketDetail'
 import EasybookingTicketFareFamily from './cards/EasybookingTicketFareFamily'
 import EasybookingTicketRules from './cards/EasybookingTicketRules'
 
+/** Easybooking Form */
 import EasybookingTextField from './EasybookingTextField'
+import EasybookingPassangerForm from './form/EasybookingPassangerForm'
 
 export default {
   EasybookingToolbar,
@@ -64,5 +66,6 @@ export default {
   EasybookingFilterCard,
   EasybookingTicketDetail,
   EasybookingTicketFareFamily,
-  EasybookingTicketRules
+  EasybookingTicketRules,
+  EasybookingPassangerForm
 }

@@ -6,9 +6,10 @@
     <v-container>
       <v-layout row wrap>
         <v-flex md8 pr-2>
+          {{searchParameters}}
           <easybooking-buyer-card />
-          <!--<easybooking-passanger-card />
-          <easybooking-next-passanger-card />
+          <easybooking-passanger-card />
+          <!--<easybooking-next-passanger-card />
           <easybooking-booking-card />-->
         </v-flex>
         <v-flex md4 pl-2>
@@ -25,9 +26,9 @@ export default {
   name: 'Booking',
   mixins: [Languagable],
   mounted(){
-    if(this.ticket == null){
+    /*if(this.ticket == null){
       this.$router.push({ path: '/offers/' + this.$route.params.id })
-    }
+    }*/
   },
   computed: {
     isFareFamily(){
@@ -38,6 +39,9 @@ export default {
     },
     ticket(){
       return this.$store.state.ticket
+    },
+    searchParameters(){
+      return this.$store.state.searchParameters
     }
   }
 }

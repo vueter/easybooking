@@ -34,7 +34,7 @@
         <easybooking-ticket-detail v-bind:taggle="ticketToggle" v-for="detail in segment.flights_info" :is_open="is_open" :formatDate="formatDate" :formatTime="formatTime" :key="detail.flight_number" :detail="detail" :baggage="ticket.baggage" :clas="ticket.class" :seats="ticket.seats"/>
       </template>
       <div v-if="is_open" class="e-ticket-rules">
-        <v-btn class="e-ticket-rules-btn" flat color="primary">Правила тарифа</v-btn>
+        <v-btn class="e-ticket-rules-btn" flat color="primary" v-on:click="showRules">Правила тарифа</v-btn>
       </div>
     </div>
     <div class="e-ticket-buy">
@@ -63,7 +63,8 @@ export default {
       type: Array,
       default: []
     },
-    ff: undefined
+    ff: undefined,
+    rules: undefined
   },
   data() {
     return {
@@ -75,6 +76,16 @@ export default {
   methods: {
     ticketToggle() {
       this.is_open = !this.is_open;
+    },
+    showRules(){
+      this.$etm.offersRules(this.ticket[this.ticket.length - 1].buy_id, (error, rules) => {
+        if(error){
+          this.$etm.alert('rules could not load')
+        }
+        else{
+          this.rules.open(rules.routes)
+        }
+      })
     },
     booking() {
       this.isLoading = true

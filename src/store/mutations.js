@@ -5,5 +5,8 @@ export default {
     },
     setTicket(state, payload){
         state.ticket = payload
+    },
+    setSearchParameters(state, payload){
+        state.searchParameters = payload
     }
 }

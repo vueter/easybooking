@@ -42,7 +42,15 @@
         </v-flex>
       </slot>
       <v-flex md2 xs12>
-        <slot name="activator"></slot>
+        <v-btn
+          float
+          block
+          depressed
+          color="primary"
+          class="easybooking--search-btn"
+          v-on:click="search"
+          v-bind:loading="isLoading"
+        >Search</v-btn>
       </v-flex>
     </v-layout>
     <v-layout row>
@@ -61,9 +69,25 @@ export default {
   data: () => ({
     flexible: false,
     isMulti: false,
-    num_routes: 1
+    num_routes: 1,
+    routes: {},
+    isLoading: false
   }),
   methods: {
+    search() {
+      this.routes = this.getFlights();
+      if(this.routes){
+        this.isLoading = true
+        this.$store.commit('setSearchParameters', this.routes)
+        this.$etm.search(this.routes, (error, result) => {
+          if (error) {
+            this.$etm.alert('Could not search')
+          } else {
+            this.$router.push({ path: '/offers/' + result.request_id });
+          }
+        });
+      }
+    },
     getFlights () {
       if(this.isMulti){
         var directions = []

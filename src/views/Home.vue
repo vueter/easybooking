@@ -7,19 +7,7 @@
       <div class="home-page-header">
 
         <h1 class="home-page-header-title">Билеты на самолет. Экономьте на полете!</h1>
-        <easybooking-search-board ref="search-board">
-          <template v-slot:activator>
-            <v-btn
-              float
-              block
-              depressed
-              color="primary"
-              class="easybooking--search-btn"
-              v-on:click="search"
-              v-bind:loading="isLoading"
-            >Search</v-btn>
-          </template>
-        </easybooking-search-board>
+        <easybooking-search-board ref="search-board" />
       </div>
     </v-container>
     <!--<v-container>
@@ -36,29 +24,7 @@ import Languagable from "../mixins/language";
 
 export default {
   name: "home",
-  mixins: [Languagable],
-  data: () => {
-    return {
-      routes: {},
-      isLoading: false
-    };
-  },
-  methods: {
-    search() {
-      this.routes = this.$refs["search-board"].getFlights();
-      console.log(this.routes);
-      if(this.routes){
-        this.isLoading = true
-        this.$etm.search(this.routes, (error, result) => {
-          if (error) {
-            this.$etm.alert('Could not search')
-          } else {
-            this.$router.push({ path: "/offers/" + result.request_id });
-          }
-        });
-      }
-    }
-  }
+  mixins: [Languagable]
 };
 </script>
 <style lang="scss">
