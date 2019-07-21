@@ -8,5 +8,8 @@ export default {
     },
     setSearchParameters(state, payload){
         state.searchParameters = payload
+    },
+    setBooked(state, payload){
+        state.booked = payload
     }
 }

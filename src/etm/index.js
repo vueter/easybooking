@@ -198,7 +198,6 @@ Communicator.prototype.offersRules = function(buyId, callback){
         .catch(error => callback(error, null))
 }
 
-
 Communicator.prototype.offersServices = function(buyId, callback){
 
     this.$client.get('/offers/' + buyId + '/services')
@@ -215,6 +214,12 @@ Communicator.prototype.offersSeats = function(segmentId, callback){
 
 Communicator.prototype.getCitizenships = function(callback){
     this.$client.get('/dictionaries/citizenship')
+        .then(response => callback(null, response.data))
+        .catch(error => callback(error, null))
+}
+
+Communicator.prototype.createOrder = function(data, callback){
+    this.$client.post('/orders', data)
         .then(response => callback(null, response.data))
         .catch(error => callback(error, null))
 }

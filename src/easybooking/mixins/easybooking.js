@@ -88,7 +88,7 @@ export default {
         }
         return result
       }
-      this.$http.get('http://api.easybooking.uz/airport', {
+      this.$http.get('https://api.easybooking.uz/airport', {
         params: {
           query: name
         }
@@ -99,7 +99,7 @@ export default {
       })
     },
     getPhoneCodes(callback){
-      this.$http.get('http://api.easybooking.uz/country')
+      this.$http.get('https://api.easybooking.uz/country')
         .then(response => callback(null, response.data))
         .catch(error => callback(error, null))
     }

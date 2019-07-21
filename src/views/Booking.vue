@@ -4,11 +4,9 @@
     <v-container>
       <v-layout row wrap>
         <v-flex md8 pr-2>
-          {{searchParameters}}
-          <easybooking-buyer-card v-bind:codes="codes"/>
-          <easybooking-passanger-card v-bind:codes="codes"/>
-          <!--<easybooking-next-passanger-card />
-          <easybooking-booking-card />-->
+          <easybooking-buyer-card v-bind:codes="codes" ref="buyer"/>
+          <easybooking-passanger-card v-bind:codes="codes" v-bind:ticket="ticket" ref="passangers"/>
+          <easybooking-booking-card v-bind:book="onBook"/>
         </v-flex>
         <v-flex md4 pl-2>
           {{fareFamily}}
@@ -27,6 +25,23 @@ export default {
   data: () => ({
     codes: []
   }),
+  methods: {
+    onBook(){
+      var data = this.$refs['buyer'].getBuyer()
+      data.passengers = this.$refs['passangers'].getPassangers()
+      data.request_id = this.$route.params.id
+      data.buy_id = this.$route.params.buy_id
+      this.$etm.createOrder(data, (error, result) => {
+        if(error){
+          this.$etm.alert('Could not create order')
+        }
+        else{
+          this.$store.commit('setBooked', result.data)
+          this.$router.push({ path: '/pay' })
+        }
+      })
+    }
+  },
   mounted(){
     /*if(this.ticket == null){
       this.$router.push({ path: '/offers/' + this.$route.params.id })
