@@ -36,7 +36,7 @@
             />
             <v-btn
               class="e-show-more"
-              v-if="$easybooking.match.tickets && filterOptions && $easybooking.match.tickets.length > filterOptions.num_tickets"
+              v-if="$easybooking.match.tickets && filterOptions && $easybooking.match.tickets.length > filterOptions.num_tickets && tickets.length > 9"
               large
               color="primary"
               rounded
