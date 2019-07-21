@@ -37,7 +37,7 @@
     <v-flex md4 pa-1>
       <v-menu v-model="document_issue_menu" :close-on-content-click="false" :nudge-right="40" lazy transition="scale-transition" offset-y full-width min-width="290px">
         <template v-slot:activator="{ on }">
-          <v-text-field label="Дата выдачи документа" v-model="document_issue" append-icon="event" readonly box v-on="on"></v-text-field>
+          <v-text-field label="Дата выдачи документа" v-model="document_issue" append-icon="event" mask="####-##-##" return-masked-value box v-on="on"></v-text-field>
         </template>
         <v-date-picker v-model="document_issue" no-title scrollable v-on:input="document_issue_menu = false"/>
       </v-menu>
@@ -45,9 +45,9 @@
     <v-flex md4 pa-1>
       <v-menu v-model="document_expire_menu" :close-on-content-click="false" :nudge-right="40" lazy transition="scale-transition" offset-y full-width min-width="290px">
         <template v-slot:activator="{ on }">
-          <v-text-field label="Дата выдачи документа" v-model="document_expire" append-icon="event" readonly box v-on="on"></v-text-field>
+          <v-text-field label="Дата выдачи документа" v-model="document_expire" append-icon="event" mask="####-##-##" return-masked-value box v-on="on"></v-text-field>
         </template>
-        <v-date-picker v-model="document_expire" no-title scrollable v-on:input="document_expire_menu = false"/>
+        <v-date-picker v-model="document_expire" no-title scrollable v-on:input="document_expire_menu = false" v-bind:min="now"/>
       </v-menu>
     </v-flex>
     <v-flex md4>
@@ -85,7 +85,8 @@
       document: null,
       document_code: null,
       document_number: '',
-			documents: []
+      documents: [],
+      now: new Date().addHours(24).toISOString().substr(0, 10),
 		}),
 		watch: {
 			citizenship(){
