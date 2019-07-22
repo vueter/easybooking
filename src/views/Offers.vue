@@ -101,11 +101,13 @@ export default {
     },
     offers() {
       this.isLoading = true
-      this.$etm.search(this.decode(this.$route.params.id), (error, result) => {
+      var searchParams = this.decode(this.$route.params.id)
+      this.$etm.search(searchParams, (error, result) => {
         if (error) {
           this.$etm.alert("Could not search");
         } else {
           this.$store.commit('setRequestId', result.request_id)
+          this.$store.commit('setSearchParameters', searchParams)
           this.$etm.offers(
             {
               request_id: result.request_id,

@@ -81,10 +81,15 @@ export default {
           this.$store.commit("setFareFamily", segment);
           this.$store.commit("setTicket", this.ticket);
           this.$router.push({
-            path: "/booking/" + this.$route.params.id + "/" + segment.segments
+            path: "/booking/" + this.requestId + "/" + segment.segments
           });
         }
       });
+    }
+  },
+  computed:{
+    requestId(){
+      return this.$store.state.request_id
     }
   }
 };
