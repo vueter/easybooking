@@ -11,7 +11,7 @@
             v-on:input="typing('departure')"
             v-on:keyup.down="key('down', $event)"
             v-on:keyup.up="key('up', $event)"
-            v-on:keyup.tab="submitKey"
+            v-on:keydown.tab="submitKey"
             v-on:keyup.enter="submitKey"
           />
         </v-flex>
@@ -32,7 +32,7 @@
             v-on:input="typing('arrival')"
             v-on:keyup.down="key('down', $event)"
             v-on:keyup.up="key('up', $event)"
-            v-on:keyup.tab="submitKey"
+            v-on:keydown.tab="submitKey"
             v-on:keyup.enter="submitKey"
           />
         </v-flex>
