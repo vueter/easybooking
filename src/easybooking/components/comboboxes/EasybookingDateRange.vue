@@ -1,5 +1,5 @@
 <template>
-  <v-menu v-bind:close-on-content-click="true" offset-y ref="date-range" max-width="810px" class="easybooking--double-datepicker">
+  <v-menu v-bind:close-on-content-click="true" offset-y ref="date-range" max-width="290px" class="easybooking--double-datepicker">
     <template v-slot:activator="{ on }">
       <v-layout row class="easybooking--double-combobox">
         <v-flex class="easybooking--double-combobox-field" v-on:click="open('departure')">
@@ -13,8 +13,11 @@
         </v-flex>
       </v-layout>
     </template>
-    <v-card>
-        <v-date-picker class="easy-datepicker" color="#0FB8D3" first-day-of-week="1" no-title v-model="result[activeTarget]" v-bind:min="min"/>
+    <v-card >
+      <v-date-picker class="easy-datepicker" color="#0FB8D3" first-day-of-week="1" no-title v-model="result[activeTarget]" v-bind:min="min"/>
+      <v-card-text>
+        <v-btn v-if="activeTarget == 'arrival'" block color="primary" v-on:click="clearReturnDate()">Только в одну сторону</v-btn>
+      </v-card-text>
     </v-card>
   </v-menu>
 </template>
@@ -56,8 +59,13 @@ export default {
     getDates(){
       return Object.assign({}, this.result)
     },
-    returnClear(){
-      this.result.arrival = null
+    clearReturnDate(){
+      const menu = this.$refs['date-range']
+      this.result[this.activeTarget] = null
+      menu.runDelay('close', () => {
+        menu.isActive = false
+        this.$forceUpdate()
+      })
     }
   },
   computed: {

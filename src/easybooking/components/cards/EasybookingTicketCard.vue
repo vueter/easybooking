@@ -176,7 +176,7 @@ export default {
                 this.$router.push({
                   path:
                     "/booking/" +
-                    this.$route.params.id +
+                    this.requestId +
                     "/" +
                     this.ticket[this.ticket.length - 1].buy_id
                 });
@@ -252,6 +252,11 @@ export default {
       }
       str = str.substr(0, 12) + dot;
       return str;
+    }
+  },
+  computed: {
+    requestId(){
+      return this.$store.state.request_id
     }
   }
 };
