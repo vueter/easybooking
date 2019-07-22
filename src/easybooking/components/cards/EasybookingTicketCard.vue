@@ -6,100 +6,93 @@
       >{{ is_open ? 'arrow_drop_up' : 'arrow_drop_down' }}</v-icon>
     </div>
     <div class="e-ticket-content">
-      <div
-        class="e-ticket-mobile"
-        v-on:click="ticketToggle"
-        v-for="(segment, index) in ticket"
-        v-bind:key="'logo_' + index"
-      >
-        <div class="e-ticket-mobile-logo">
-          <img
-            v-bind:src="segment.flights_info[0].marketing_airline_logo"
-            v-bind:alt="segment.flights_info[0].marketing_airline_name"
-          />
-        </div>
-        <div class="e-ticket-mobile-price">
-          <span>{{ ticket[ticket.length - 1].fare_family ? 'от' : '' }}</span>
-          {{ formatPrice(ticket[ticket.length - 1].price) }} {{$etm.currency}}
-        </div>
-      </div>
-      <div
-        v-on:click="ticketToggle"
-        class="e-ticket-info"
-        v-for="(segment, index) in ticket"
-        v-bind:key="'segment_' + index"
-      >
-        <div class="e-ticket-logo">
-          <img
-            v-bind:src="segment.flights_info[0].marketing_airline_logo"
-            v-bind:alt="segment.flights_info[0].marketing_airline_name"
-          />
-        </div>
-        <div class="e-ticket-from">
-          <div class="e-ticket-from-time">{{ segment.flights_info[0].departure_local_time }}</div>
-          <div class="e-ticket-from-city">{{ subStr(segment.flights_info[0].departure_city) }}</div>
-          <div
-            class="e-ticket-from-date"
-          >{{ formatDate(segment.flights_info[0].departure_local_timestamp, 1) }}</div>
-        </div>
-
-        <div class="e-ticket-timeline">
-          <div class="e-ticket-duration">{{ formatTime(segment.duration_minutes) }}</div>
-          <div class="e-ticket-circle">
-            <v-tooltip top v-for="(info, i) in segment.flights_info" v-bind:key="'info_' + i">
-              <template v-slot:activator="{ on }">
-                <span class="e-ticket-iata-circle" v-on="on">{{ info.departure_airport }}</span>
-              </template>
-              <span v-if="i === 0">
-                Вылет из г. {{ info.departure_city }}
-              </span>
-              <span v-else>
-                Пересадка  {{ formatTime(segment.flights_info[i-1].stop_time_minutes) }}
-                <br />
-                в г. {{ info.departure_city }}
-              </span>
-            </v-tooltip>
-
-            <v-tooltip top>
-              <template v-slot:activator="{ on }">
-                <span v-on="on"
-                 class="e-ticket-iata-circle e-ticket-iata-circle-last"
-                >{{ segment.flights_info[segment.stops].arrival_airport }}</span>
-              </template>
-              <span>
-                Прибытие в г. {{ segment.flights_info[segment.stops].arrival_city }}
-              </span>
-            </v-tooltip>
+      <div v-for="(segment, index) in ticket" v-bind:key="'logo_' + index">
+        <div class="e-ticket-mobile" v-on:click="ticketToggle">
+          <div class="e-ticket-mobile-logo">
+            <img
+              v-bind:src="segment.flights_info[0].marketing_airline_logo"
+              v-bind:alt="segment.flights_info[0].marketing_airline_name"
+            />
+          </div>
+          <div v-if="index === 0" class="e-ticket-mobile-price">
+            <span>{{ ticket[ticket.length - 1].fare_family ? 'от' : '' }}</span>
+            {{ formatPrice(ticket[ticket.length - 1].price) }} {{$etm.currency}}
           </div>
         </div>
+        <div v-on:click="ticketToggle" class="e-ticket-info">
+          <div class="e-ticket-logo">
+            <img
+              v-bind:src="segment.flights_info[0].marketing_airline_logo"
+              v-bind:alt="segment.flights_info[0].marketing_airline_name"
+            />
+          </div>
+          <div class="e-ticket-from">
+            <div class="e-ticket-from-time">{{ segment.flights_info[0].departure_local_time }}</div>
+            <div class="e-ticket-from-city">{{ subStr(segment.flights_info[0].departure_city) }}</div>
+            <div
+              class="e-ticket-from-date"
+            >{{ formatDate(segment.flights_info[0].departure_local_timestamp, 1) }}</div>
+          </div>
 
-        <div class="e-ticket-to">
-          <div
-            class="e-ticket-to-time"
-          >{{ segment.flights_info[segment.flights_info.length - 1].arrival_local_time }}</div>
-          <div
-            class="e-ticket-to-city"
-          >{{ subStr(segment.flights_info[segment.flights_info.length - 1].arrival_city) }}</div>
-          <div
-            class="e-ticket-to-date"
-          >{{ formatDate(segment.flights_info[segment.flights_info.length - 1].arrival_local_timestamp, 1) }}</div>
+          <div class="e-ticket-timeline">
+            <div class="e-ticket-duration">{{ formatTime(segment.duration_minutes) }}</div>
+            <div class="e-ticket-circle">
+              <v-tooltip top v-for="(info, i) in segment.flights_info" v-bind:key="'info_' + i">
+                <template v-slot:activator="{ on }">
+                  <span class="e-ticket-iata-circle" v-on="on">{{ info.departure_airport }}</span>
+                </template>
+                <span v-if="i === 0">Вылет из г. {{ info.departure_city }}</span>
+                <span v-else>
+                  Пересадка {{ formatTime(segment.flights_info[i-1].stop_time_minutes) }}
+                  <br />
+                  в г. {{ info.departure_city }}
+                </span>
+              </v-tooltip>
+
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <span
+                    v-on="on"
+                    class="e-ticket-iata-circle e-ticket-iata-circle-last"
+                  >{{ segment.flights_info[segment.stops].arrival_airport }}</span>
+                </template>
+                <span>Прибытие в г. {{ segment.flights_info[segment.stops].arrival_city }}</span>
+              </v-tooltip>
+            </div>
+          </div>
+
+          <div class="e-ticket-to">
+            <div
+              class="e-ticket-to-time"
+            >{{ segment.flights_info[segment.flights_info.length - 1].arrival_local_time }}</div>
+            <div
+              class="e-ticket-to-city"
+            >{{ subStr(segment.flights_info[segment.flights_info.length - 1].arrival_city) }}</div>
+            <div
+              class="e-ticket-to-date"
+            >{{ formatDate(segment.flights_info[segment.flights_info.length - 1].arrival_local_timestamp, 1) }}</div>
+          </div>
         </div>
+        <template>
+          <easybooking-ticket-detail
+            v-bind:taggle="ticketToggle"
+            v-for="detail in segment.flights_info"
+            :is_open="is_open"
+            :formatDate="formatDate"
+            :formatTime="formatTime"
+            :key="detail.flight_number"
+            :detail="detail"
+            :baggage="ticket.baggage"
+            :clas="ticket.class"
+            :seats="ticket.seats"
+          />
+        </template>
       </div>
-      <template v-for="segment in ticket">
-        <easybooking-ticket-detail
-          v-bind:taggle="ticketToggle"
-          v-for="detail in segment.flights_info"
-          :is_open="is_open"
-          :formatDate="formatDate"
-          :formatTime="formatTime"
-          :key="detail.flight_number"
-          :detail="detail"
-          :baggage="ticket.baggage"
-          :clas="ticket.class"
-          :seats="ticket.seats"
-        />
-      </template>
       <div v-if="is_open" class="e-ticket-rules">
+        <div class="e-ticket-cashback">
+          <img v-on="on" src="../../../assets/image/gift.png" />
+          <span>Cashback: 1 балл</span>
+        </div>
         <v-btn class="e-ticket-rules-btn" flat color="primary" v-on:click="showRules">Правила тарифа</v-btn>
       </div>
     </div>
@@ -410,34 +403,50 @@ export default {
     min-width: 130px;
     display: flex;
     justify-content: space-between;
-    .v-tooltip{
+    .v-tooltip {
       display: none;
     }
-    .e-ticket-iata-circle{
+    .e-ticket-iata-circle {
       &:first-child {
-      left: -17px;
-      &::after {
-        content: "";
-        display: block;
-        width: 11px;
-        height: 11px;
-        background: #ffffff;
-        border: 1px solid #0fb8d3;
-        top: -16px;
+        left: -17px;
+        &::after {
+          content: "";
+          display: block;
+          width: 11px;
+          height: 11px;
+          background: #ffffff;
+          border: 1px solid #0fb8d3;
+          top: -16px;
+        }
+      }
+      &-last {
+        right: -14px;
+        &::after {
+          content: "";
+          display: block;
+          width: 11px;
+          height: 11px;
+          background: #ffffff;
+          border: 1px solid #0fb8d3;
+          top: -16px;
+        }
       }
     }
-    &-last {
-      right: -17px;
-      &::after {
-        content: "";
-        display: block;
-        width: 11px;
-        height: 11px;
-        background: #ffffff;
-        border: 1px solid #0fb8d3;
-        top: -16px;
-      }
-    }
+  }
+  &-cashback {
+    border: 1px solid #ff8a00;
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 16px;
+    color: #777777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    img{
+      margin-right: 10px;
     }
   }
   &-iata-circle {
@@ -466,7 +475,6 @@ export default {
       left: 50%;
       margin-left: -5.5px;
     }
-    
   }
   &-data {
     font-size: 14px;
@@ -534,7 +542,10 @@ export default {
     &-mobile {
       display: flex;
       justify-content: space-between;
-      margin: 30px 20px 0px;
+      margin: 0px 20px;
+    }
+    &-content {
+      padding-top: 30px;
     }
     &-info {
       padding-top: 10px;
@@ -557,6 +568,7 @@ export default {
       order: 2;
       width: 100%;
       margin-top: 15px;
+      order: 2;
     }
     &-caret {
       width: 100%;
@@ -602,6 +614,9 @@ export default {
     line-height: 15px;
     color: #4a4a4a;
     margin-right: 20px;
+  }
+  &-logo {
+    width: 64px;
   }
 }
 </style>
