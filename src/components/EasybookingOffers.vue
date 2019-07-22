@@ -1,48 +1,32 @@
 <template>
   <div class="easybooking-offers">
     <v-container>
-      <h2>Популярные направления</h2>
+      <h2 class="block-title">Популярные направления</h2>
       <v-layout row wrap style="margin-top: 25px">
-        {{ data }}
-        <v-flex md6 v-for="(offer, index) in offers" v-bind:pl-2="index % 2 != 0" pb-3 v-bind:pr-2="index % 2 == 0" v-bind:key="index">
+        <v-flex
+          v-for="(offer, index) in data"
+          v-bind:pl-2="index % 2 != 0"
+          v-bind:pr-2="index % 2 == 0"
+          v-bind:key="index"
+        >
           <v-card>
             <v-layout row>
               <v-flex md7 xs12>
                 <v-layout wrap class="easybooking-offers-content">
                   <v-flex md12>
-                    <h3 class="offers-city">Из Парижа</h3>
+                    <h3 class="offers-city">Из {{ offer.from }}</h3>
                     <p cass="offers-county" style="color: #A2A2A2">Франция</p>
                   </v-flex>
                   <div class="offers-list">
                     <v-layout wrap>
-                      <router-link to="/">
+                      <router-link
+                        v-for="(to, index) in offer.data"
+                        :key="'popular_' + index"
+                        to="/"
+                      >
                         <div class="offers-item">
-                          <span>В Ташкент</span>
-                          <span class="right">от 1 250 000 UZS</span>
-                        </div>
-                      </router-link>
-                      <router-link to="/">
-                        <div class="offers-item">
-                          <span>В Ташкент</span>
-                          <span class="right">от 1 250 000 UZS</span>
-                        </div>
-                      </router-link>
-                      <router-link to="/">
-                        <div class="offers-item">
-                          <span>В Ташкент</span>
-                          <span class="right">от 1 250 000 UZS</span>
-                        </div>
-                      </router-link>
-                      <router-link to="/">
-                        <div class="offers-item">
-                          <span>В Ташкент</span>
-                          <span class="right">от 1 250 000 UZS</span>
-                        </div>
-                      </router-link>
-                      <router-link to="/">
-                        <div class="offers-item">
-                          <span>В Ташкент</span>
-                          <span class="right">от 1 250 000 UZS</span>
+                          <span>В {{ to.to }}</span>
+                          <span class="right">от {{ to.price }} UZS</span>
                         </div>
                       </router-link>
                     </v-layout>
@@ -50,7 +34,7 @@
                 </v-layout>
               </v-flex>
               <v-flex xs5 class="hide-on-sm">
-                <img src="../assets/images/moscow.png" style="float:right; width: 100%"/>
+                <img :src="'http://easybooking.uz/' + offer.image" style="float:right; width: 100%" />
               </v-flex>
             </v-layout>
           </v-card>
@@ -62,52 +46,52 @@
 
 <script>
 export default {
-  name: 'EasybookingOffers',
+  name: "EasybookingOffers",
   data: () => {
     return {
-      offers: [
-        { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' },
-        { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' },
-        { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' },
-        { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' }
-      ],
       data: []
-    }
+    };
   },
-  mounted(){
-    this.$http.get('http://api.easybooking.uz/popular ')
-      .then(response => {
-        this.data = response.data
-      })
+  mounted() {
+    this.$http.get("http://api.easybooking.uz/popular").then(response => {
+      this.data = response.data;
+    });
   }
-}
+};
 </script>
 <style>
-.easybooking-offers{
-  margin-top: 50px;
+.easybooking-offers {
+  margin-top: 40px;
 }
-.easybooking-offers-content{
-  text-align:left;
+.block-title {
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  text-align: center;
+  color: #4a4a4a;
+}
+.easybooking-offers-content {
+  text-align: left;
   padding: 10px !important;
 }
-.easybooking-offers-content .offers-city{
-  color: #0FB8D3;
+.easybooking-offers-content .offers-city {
+  color: #0fb8d3;
   font-size: 20px;
 }
-.easybooking-offers-content .offers-county{
+.easybooking-offers-content .offers-county {
   font-size: 14px;
   line-height: 16px;
   display: flex;
   align-items: center;
-  color: #A2A2A2 !important;
+  color: #a2a2a2 !important;
   font-family: "Roboto";
 }
-.offers-county{
-  color: #A2A2A2 !important;
+.offers-county {
+  color: #a2a2a2 !important;
 }
-.offers-list{
+.offers-list {
   font-size: 12px;
-  color: #4A4A4A;
+  color: #4a4a4a;
   display: flex;
   justify-content: space-between;
   margin: 5px auto;
@@ -115,23 +99,23 @@ export default {
   float: left;
   position: block;
 }
-.offers-list a{
+.offers-list a {
   text-decoration: none;
-  color: #4A4A4A !important;
+  color: #4a4a4a !important;
   width: 100%;
   float: left;
   margin-bottom: 12px;
 }
-.offers-list a:hover{
-  color: #0FB8D3 !important;
+.offers-list a:hover {
+  color: #0fb8d3 !important;
 }
-.offers-item{
+.offers-item {
   width: 100%;
 }
-.offers-item span:last-child{
+.offers-item span:last-child {
   float: right;
 }
-.right{
+.right {
   float: right;
 }
 </style>
