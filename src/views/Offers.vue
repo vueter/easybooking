@@ -62,47 +62,76 @@ export default {
       { text: "Our address", to: "/address" }
     ],
     statics: ["+998933363933", "+998933363933"],
-    routes: [],
     tickets: [],
     filters: null,
-    filterOptions: null
+    filterOptions: null,
+    isLoading: false
   }),
   methods: {
-    search() {
-      this.routes = this.$refs["search-board"].getFlights();
-      this.$etm.search(this.routes, (error, result) => {
-        if (error) {
-          this.$etm.alert("Could not search results. Please try again.");
-        } else {
-          this.$router.push({ path: "/offers/" + result.request_id });
+    decode(){
+      var params = this.$route.params.id.split('-')
+      var directions = params.slice(0, params.length - 1)
+      var options = params[params.length - 1]
+      var routes = {
+        direct: false,
+        max_price: '',
+        airlines: [],
+        fare_types: ["PUB", "NEG"]
+      }
+      for(const index in directions){
+        var departure_code = directions[index].substr(0, 3)
+        var year = directions[index].substr(3, 4)
+        var month = directions[index].substr(7, 2)
+        var day = directions[index].substr(9, 2)
+        var arrival_code = directions[index].substr(11)
+        directions[index] = {
+          departure_code: departure_code,
+          arrival_code: arrival_code,
+          date: `${year}-${month}-${day}`
         }
-      });
+      }
+      var adult_qnt = parseInt(options.substr(0, 1)), 
+          child_qnt = parseInt(options.substr(1, 1)),
+          infant_qnt = parseInt(options.substr(2, 1)),
+          _class = options.substr(3, 1),
+          flexible = parseInt(options.substr(4, 1))
+      return Object.assign(routes, {
+        directions, adult_qnt, child_qnt, infant_qnt, class: _class, flexible
+      })
     },
     offers() {
-      this.$etm.offers(
-        {
-          request_id: this.$route.params.id,
-          sort: "price",
-          last_ow_variant: 0
-        },
-        (error, tickets) => {
-          if (error) {
-            this.$etm.alert("Offers could not found");
-          } else {
-            if (
-              JSON.stringify(this.$easybooking.match.tickets) !==
-              JSON.stringify(tickets)
-            ) {
-              this.$easybooking.match = this.$easybooking.Filters(
-                tickets,
-                "ru"
-              );
-              this.filterOptions = this.$easybooking.match.options;
-              this.tickets = this.$easybooking.match.search();
+      this.isLoading = true
+      this.$etm.search(this.decode(this.$route.params.id), (error, result) => {
+        if (error) {
+          this.$etm.alert("Could not search");
+        } else {
+          this.$store.commit('setRequestId', result.request_id)
+          this.$etm.offers(
+            {
+              request_id: result.request_id,
+              sort: "price",
+              last_ow_variant: 0
+            },
+            (error, tickets) => {
+              if (error) {
+                this.$etm.alert("Offers could not found");
+              } else {
+                if (
+                  JSON.stringify(this.$easybooking.match.tickets) !==
+                  JSON.stringify(tickets)
+                ) {
+                  this.$easybooking.match = this.$easybooking.Filters(
+                    tickets,
+                    "ru"
+                  );
+                  this.filterOptions = this.$easybooking.match.options;
+                  this.tickets = this.$easybooking.match.search();
+                }
+              }
             }
-          }
+          );
         }
-      );
+      });
     },
     reset() {
       this.$easybooking.match = this.$easybooking.Filters(
