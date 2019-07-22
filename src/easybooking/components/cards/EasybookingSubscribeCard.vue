@@ -1,7 +1,7 @@
 <template>
   <v-card class="easybooking-primary-card e-subscribe">
     <v-card-title>
-      <div class="center"><img src="../../assets/icons/bell-ring.png"/>Обновление цен</div>
+      <img src="../../assets/icons/bell-ring.png"/>Обновление цен
     </v-card-title>
     <v-card-text class="text--left">
       Подпишитесь на обновление цен, чтобы быть в курсе обо всех изменениях.
@@ -24,6 +24,9 @@ export default {
       padding: 0;
       font-size: 15px;
       line-height: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .v-card__text{
       padding: 0;
@@ -53,6 +56,9 @@ export default {
       height: 40px;
       box-shadow: none !important;
       margin: 0;
+    }
+    @media screen and (max-width: 959px) {
+      display: none;
     }
   }
 </style>

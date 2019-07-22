@@ -15,8 +15,8 @@
             <easybooking-stepper-card />
           </v-flex>
         </v-layout>
-        <v-layout row>
-          <v-flex md4 class="e-sidebar">
+        <v-layout row wrap>
+          <v-flex xs12 md4 lg4 class="e-sidebar">
             <easybooking-subscribe-card />
             <easybooking-filter-card
               v-if="filterOptions"
@@ -24,7 +24,7 @@
               v-bind:reset="reset"
             />
           </v-flex>
-          <v-flex md8>
+          <v-flex xs12 md8 lg8>
             <easybooking-ticket-ff ref="fareFamily" />
             <easybooking-ticket-rules ref="rules" />
             <easybooking-ticket-card
