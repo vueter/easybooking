@@ -37,7 +37,9 @@
         validate-on-blur
         v-bind:min="filterOptions.price.min"
         v-bind:max="filterOptions.price.max"
-        v-model="filterOptions.price.value"
+        v-bind:value="[...filterOptions.price.value]"
+        v-on:end="change('price', $event)"
+        ref="price"
       />
     </v-card-text>
     <v-card-title>Время вылета/прибытия</v-card-title>
@@ -138,14 +140,11 @@ export default {
     reset: Function
   },
   mixins: [utils],
-  data: () => ({
-    sorts: [
-      { text: "Price" },
-      { text: "Travel time" },
-      { text: "Early time" },
-      { text: "Late time" }
-    ]
-  })
+  methods: {
+    change(target, value){
+      this.filterOptions[target].value = value
+    }
+  }
 };
 </script>
 
