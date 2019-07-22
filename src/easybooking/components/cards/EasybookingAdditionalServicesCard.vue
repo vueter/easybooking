@@ -45,19 +45,19 @@
             <v-list>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-header>
+                  <v-list-tile-title>
                     <v-radio label="Включить услугу" value="on"/>
-                  </v-list-tile-header>
+                  </v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                  500
+                  500 UZS
                 </v-list-tile-action>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-header>
+                  <v-list-tile-title>
                     <v-radio label="Нет, спасибо" value="off"/>
-                  </v-list-tile-header>
+                  </v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </v-list>

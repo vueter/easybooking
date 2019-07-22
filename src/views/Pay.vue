@@ -17,8 +17,11 @@
   </v-content>
 </template>
 <script>
+import Languagable from "../mixins/language";
+import Easybooking from '@/easybooking/mixins/easybooking';
 export default {
   name: 'Pay',
+  mixins: [Languagable, Easybooking],
   computed: {
     booked(){
       return this.$store.state.booked

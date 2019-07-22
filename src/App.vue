@@ -51,3 +51,7 @@ export default {
   }
 }
 </style>
+<style>
+@import url('./assets/css/main.css');
+</style>
+

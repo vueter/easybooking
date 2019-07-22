@@ -111,6 +111,7 @@ export default {
           if (error) {
             this.$etm.alert("Could not search");
           } else {
+            this.isLoading = false;
             this.$router.push({ path: "/offers/" + result.request_id });
           }
         });
