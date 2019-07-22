@@ -102,19 +102,20 @@ export default {
     isLoading: false
   }),
   methods: {
+    encode(routes){
+      var query = []
+      for(const direction of routes.directions){
+        query.push(`${direction.departure_code}${direction.date.split('-').join('')}${direction.arrival_code}`)
+      }
+      query.push(`${routes.adult_qnt}${routes.child_qnt}${routes.infant_qnt}${routes.class}${routes.flexible ? 1 : 0}`)
+      return query.join('-')
+    },
     search() {
       this.routes = this.getFlights();
       if (this.routes) {
         this.isLoading = true;
         this.$store.commit("setSearchParameters", this.routes);
-        this.$etm.search(this.routes, (error, result) => {
-          if (error) {
-            this.$etm.alert("Could not search");
-          } else {
-            this.isLoading = false;
-            this.$router.push({ path: "/offers/" + result.request_id });
-          }
-        });
+        this.$router.push({ path: "/offers/" + this.encode(this.routes) })
       }
     },
     getFlights() {
@@ -186,10 +187,6 @@ export default {
   }
   .v-ripple__container {
     display: none;
-  }
-}
-@media screen and (max-width: 959px) {
-  .pb-47 {
   }
 }
 .e-multi-form {

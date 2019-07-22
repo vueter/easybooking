@@ -15,5 +15,6 @@ export default {
   fareFamily: null,
   ticket: null,
   searchParameters: null,
-  booked: null
+  booked: null,
+  request_id: null
 }
