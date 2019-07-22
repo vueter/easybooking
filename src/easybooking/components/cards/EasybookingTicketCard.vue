@@ -1,12 +1,39 @@
 <template>
   <v-card class="e-ticket">
     <div @click="ticketToggle" class="e-ticket-caret" v-bind:class="is_open ? 'open' : ''">
-      <v-icon v-bind:color="is_open ? '#A2A2A2' : 'white'">{{ is_open ? 'arrow_drop_up' : 'arrow_drop_down' }}</v-icon>
+      <v-icon
+        v-bind:color="is_open ? '#A2A2A2' : 'white'"
+      >{{ is_open ? 'arrow_drop_up' : 'arrow_drop_down' }}</v-icon>
     </div>
     <div class="e-ticket-content">
-      <div v-on:click="ticketToggle" class="e-ticket-info" v-for="(segment, index) in ticket" v-bind:key="'segment_' + index">
+      <div
+        class="e-ticket-mobile"
+        v-on:click="ticketToggle"
+        v-for="(segment, index) in ticket"
+        v-bind:key="'logo_' + index"
+      >
+        <div class="e-ticket-mobile-logo">
+          <img
+            v-bind:src="segment.flights_info[0].marketing_airline_logo"
+            v-bind:alt="segment.flights_info[0].marketing_airline_name"
+          />
+        </div>
+        <div class="e-ticket-mobile-price">
+          <span>{{ ticket[ticket.length - 1].fare_family ? 'от' : '' }}</span>
+          {{ formatPrice(ticket[ticket.length - 1].price) }} {{$etm.currency}}
+        </div>
+      </div>
+      <div
+        v-on:click="ticketToggle"
+        class="e-ticket-info"
+        v-for="(segment, index) in ticket"
+        v-bind:key="'segment_' + index"
+      >
         <div class="e-ticket-logo">
-          <img v-bind:src="segment.flights_info[0].marketing_airline_logo" v-bind:alt="segment.flights_info[0].marketing_airline_name"/>
+          <img
+            v-bind:src="segment.flights_info[0].marketing_airline_logo"
+            v-bind:alt="segment.flights_info[0].marketing_airline_name"
+          />
         </div>
         <div class="e-ticket-from">
           <div class="e-ticket-from-time">{{ segment.flights_info[0].departure_local_time }}</div>
@@ -19,19 +46,58 @@
         <div class="e-ticket-timeline">
           <div class="e-ticket-duration">{{ formatTime(segment.duration_minutes) }}</div>
           <div class="e-ticket-circle">
-            <span v-for="info in segment.flights_info" v-bind:key="info.flight_number" v-bind:title="info.departure_city">{{ info.departure_airport }}</span>
-            <span v-bind:title="segment.flights_info[segment.stops].arrival_city">{{ segment.flights_info[segment.stops].arrival_airport }}</span>
+            <v-tooltip top v-for="(info, i) in segment.flights_info" v-bind:key="'info_' + i">
+              <template v-slot:activator="{ on }">
+                <span class="e-ticket-iata-circle" v-on="on">{{ info.departure_airport }}</span>
+              </template>
+              <span v-if="i === 0">
+                Вылет из г. {{ info.departure_city }}
+              </span>
+              <span v-else>
+                Пересадка  {{ formatTime(segment.flights_info[i-1].stop_time_minutes) }}
+                <br />
+                в г. {{ info.departure_city }}
+              </span>
+            </v-tooltip>
+
+            <v-tooltip top>
+              <template v-slot:activator="{ on }">
+                <span v-on="on"
+                 class="e-ticket-iata-circle e-ticket-iata-circle-last"
+                >{{ segment.flights_info[segment.stops].arrival_airport }}</span>
+              </template>
+              <span>
+                Прибытие в г. {{ segment.flights_info[segment.stops].arrival_city }}
+              </span>
+            </v-tooltip>
           </div>
         </div>
 
         <div class="e-ticket-to">
-          <div class="e-ticket-to-time">{{ segment.flights_info[segment.flights_info.length - 1].arrival_local_time }}</div>
-          <div class="e-ticket-to-city">{{ subStr(segment.flights_info[segment.flights_info.length - 1].arrival_city) }}</div>
-          <div class="e-ticket-to-date">{{ formatDate(segment.flights_info[segment.flights_info.length - 1].arrival_local_timestamp, 1) }}</div>
+          <div
+            class="e-ticket-to-time"
+          >{{ segment.flights_info[segment.flights_info.length - 1].arrival_local_time }}</div>
+          <div
+            class="e-ticket-to-city"
+          >{{ subStr(segment.flights_info[segment.flights_info.length - 1].arrival_city) }}</div>
+          <div
+            class="e-ticket-to-date"
+          >{{ formatDate(segment.flights_info[segment.flights_info.length - 1].arrival_local_timestamp, 1) }}</div>
         </div>
       </div>
       <template v-for="segment in ticket">
-        <easybooking-ticket-detail v-bind:taggle="ticketToggle" v-for="detail in segment.flights_info" :is_open="is_open" :formatDate="formatDate" :formatTime="formatTime" :key="detail.flight_number" :detail="detail" :baggage="ticket.baggage" :clas="ticket.class" :seats="ticket.seats"/>
+        <easybooking-ticket-detail
+          v-bind:taggle="ticketToggle"
+          v-for="detail in segment.flights_info"
+          :is_open="is_open"
+          :formatDate="formatDate"
+          :formatTime="formatTime"
+          :key="detail.flight_number"
+          :detail="detail"
+          :baggage="ticket.baggage"
+          :clas="ticket.class"
+          :seats="ticket.seats"
+        />
       </template>
       <div v-if="is_open" class="e-ticket-rules">
         <v-btn class="e-ticket-rules-btn" flat color="primary" v-on:click="showRules">Правила тарифа</v-btn>
@@ -51,7 +117,13 @@
         {{ formatPrice(ticket[ticket.length - 1].price) }} {{$etm.currency}}
       </div>
 
-      <v-btn class="e-ticket-buy-btn" @click="booking" color="primary" v-bind:loading="isLoading" v-bind:disabled="!isPossible">{{ isPossible ? 'Купить': 'Нет мест'}}</v-btn>
+      <v-btn
+        class="e-ticket-buy-btn"
+        @click="booking"
+        color="primary"
+        v-bind:loading="isLoading"
+        v-bind:disabled="!isPossible"
+      >{{ isPossible ? 'Купить': 'Нет мест'}}</v-btn>
     </div>
   </v-card>
 </template>
@@ -77,41 +149,51 @@ export default {
     ticketToggle() {
       this.is_open = !this.is_open;
     },
-    showRules(){
-      this.$etm.offersRules(this.ticket[this.ticket.length - 1].buy_id, (error, rules) => {
-        if(error){
-          this.$etm.alert('rules could not load')
+    showRules() {
+      this.$etm.offersRules(
+        this.ticket[this.ticket.length - 1].buy_id,
+        (error, rules) => {
+          if (error) {
+            this.$etm.alert("rules could not load");
+          } else {
+            this.rules.open(rules.routes);
+          }
         }
-        else{
-          this.rules.open(rules.routes)
-        }
-      })
+      );
     },
     booking() {
-      this.isLoading = true
-      if(this.ticket[this.ticket.length - 1].fare_family){
-        this.$etm.offersFireFamily(this.ticket[this.ticket.length - 1].buy_id, (_, fareFamily) => {
-          this.isLoading = false
-          this.ff.open(fareFamily.fare_family, this.ticket)
-        })
-      }
-      else{
-        this.isLoading = true
-        this.$etm.offersAvailability(this.ticket[this.ticket.length - 1].buy_id, (error, result) => {
-          this.isLoading = false
-          if(result.status != 'error'){
-            if(result.availability){
-              this.$store.commit('setTicket', this.ticket)
-              this.$router.push({
-                path: '/booking/' + this.$route.params.id + '/' + this.ticket[this.ticket.length - 1].buy_id
-              })
+      this.isLoading = true;
+      if (this.ticket[this.ticket.length - 1].fare_family) {
+        this.$etm.offersFireFamily(
+          this.ticket[this.ticket.length - 1].buy_id,
+          (_, fareFamily) => {
+            this.isLoading = false;
+            this.ff.open(fareFamily.fare_family, this.ticket);
+          }
+        );
+      } else {
+        this.isLoading = true;
+        this.$etm.offersAvailability(
+          this.ticket[this.ticket.length - 1].buy_id,
+          (error, result) => {
+            this.isLoading = false;
+            if (result.status != "error") {
+              if (result.availability) {
+                this.$store.commit("setTicket", this.ticket);
+                this.$router.push({
+                  path:
+                    "/booking/" +
+                    this.$route.params.id +
+                    "/" +
+                    this.ticket[this.ticket.length - 1].buy_id
+                });
+              }
+            } else {
+              this.isPossible = false;
+              this.$etm.alert(result.message);
             }
           }
-          else{
-            this.isPossible = false
-            this.$etm.alert(result.message)
-          }
-        })
+        );
       }
     },
 
@@ -192,6 +274,7 @@ export default {
   justify-content: space-between;
   overflow: hidden;
   box-shadow: 0px 5px 10px rgba(0, 8, 19, 0.15);
+
   &-caret {
     width: 20px;
     display: flex;
@@ -310,10 +393,9 @@ export default {
     padding: 20px 0px;
     text-align: left;
     padding-bottom: 0;
-    &:first-child{
-      border-top: 1px solid #DBDBDB;
+    &:first-child {
+      border-top: 1px solid #dbdbdb;
     }
-
   }
   &-duration {
     font-weight: 300;
@@ -328,75 +410,80 @@ export default {
     min-width: 130px;
     display: flex;
     justify-content: space-between;
-    span {
-      font-weight: 300;
-      font-size: 12px;
-      line-height: 14px;
-      text-align: center;
-      color: #4a4a4a;
-      margin-top: 10px;
-      position: relative;
-      cursor: pointer;
-      &:hover {
-        color: #0bd5f5;
-      }
+    .v-tooltip{
+      display: none;
+    }
+    .e-ticket-iata-circle{
+      &:first-child {
+      left: -17px;
       &::after {
         content: "";
         display: block;
-        width: 9px;
-        height: 9px;
-        background: #0fb8d3;
+        width: 11px;
+        height: 11px;
+        background: #ffffff;
         border: 1px solid #0fb8d3;
-        box-sizing: border-box;
-        border-radius: 9px;
-        position: absolute;
-        top: -15px;
-        left: 50%;
-        margin-left: -5.5px;
+        top: -16px;
       }
-      &:first-child {
-        left: -17px;
-        &::after {
-          content: "";
-          display: block;
-          width: 11px;
-          height: 11px;
-          background: #ffffff;
-          border: 1px solid #0fb8d3;
-          top: -16px;
-        }
+    }
+    &-last {
+      right: -17px;
+      &::after {
+        content: "";
+        display: block;
+        width: 11px;
+        height: 11px;
+        background: #ffffff;
+        border: 1px solid #0fb8d3;
+        top: -16px;
       }
-      &:last-child {
-        right: -17px;
-        &::after {
-          content: "";
-          display: block;
-          width: 11px;
-          height: 11px;
-          background: #ffffff;
-          border: 1px solid #0fb8d3;
-          top: -16px;
-        }
-      }
+    }
     }
   }
-
-  &-data{
-      font-size: 14px;
-      line-height: 2;
-      padding: 20px 0px;
-    &-left{
+  &-iata-circle {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #4a4a4a;
+    margin-top: 10px;
+    position: relative;
+    cursor: pointer;
+    &:hover {
+      color: #0bd5f5;
+    }
+    &::after {
+      content: "";
+      display: block;
+      width: 9px;
+      height: 9px;
+      background: #0fb8d3;
+      border: 1px solid #0fb8d3;
+      box-sizing: border-box;
+      border-radius: 9px;
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      margin-left: -5.5px;
+    }
+    
+  }
+  &-data {
+    font-size: 14px;
+    line-height: 2;
+    padding: 20px 0px;
+    &-left {
       text-align: left !important;
     }
-    &-right{
+    &-right {
       text-align: right !important;
     }
-    span{
+    span {
       color: #777777;
     }
   }
-  &-stoptime{
-    border: 1px solid #0FB8D3;
+  &-stoptime {
+    border: 1px solid #0fb8d3;
     box-sizing: border-box;
     border-radius: 4px;
     font-size: 14px;
@@ -407,26 +494,73 @@ export default {
     justify-content: center;
     padding: 8px;
     margin-bottom: 20px;
-    i{
-      color: #0FB8D3 !important;
+    i {
+      color: #0fb8d3 !important;
       margin-right: 10px;
       font-size: 20px;
     }
   }
-  &-rules{
+  &-rules {
     padding-bottom: 20px;
     text-align: left;
     padding-left: 20px;
-    &-btn{
+    &-btn {
       font-weight: 400;
       font-size: 14px;
       line-height: 16px;
-      text-transform:inherit;
+      text-transform: inherit;
       padding: 0;
       margin: 0;
-      &:hover{
+      &:hover {
         background-color: white !important;
       }
+    }
+  }
+  &-mobile {
+    display: none;
+  }
+  @media screen and (min-width: 959px) and (max-width: 1199px) {
+    &-logo {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    &-buy {
+      display: none;
+    }
+    &-logo {
+      display: none;
+    }
+    &-mobile {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 20px 0px;
+    }
+    &-info {
+      padding-top: 10px;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    flex-direction: column-reverse;
+    &-info {
+      flex-wrap: wrap;
+    }
+    &-from {
+      min-width: 90px;
+      order: 0;
+    }
+    &-to {
+      min-width: 90px;
+      order: 1;
+    }
+    &-timeline {
+      order: 2;
+      width: 100%;
+      margin-top: 15px;
+    }
+    &-caret {
+      width: 100%;
+      border-radius: 0px 0px 4px 4px !important;
     }
   }
 }

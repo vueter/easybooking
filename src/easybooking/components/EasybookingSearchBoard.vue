@@ -15,7 +15,12 @@
           <easybooking-date-range ref="dates" single />
         </v-flex>
 
-        <v-btn v-if="i === num_routes && i > 1" icon class="e-muti-form-remove" @click="num_routes--">
+        <v-btn
+          v-if="i === num_routes && i > 1"
+          icon
+          class="e-muti-form-remove"
+          @click="num_routes--"
+        >
           <v-icon>close</v-icon>
         </v-btn>
       </v-layout>
@@ -47,7 +52,7 @@
         </v-flex>
       </v-layout>
     </template>
-    <v-layout v-else row wrap class="easybooking-search-board-responsive">
+    <v-layout v-else row wrap class="easybooking-search-board-responsive pb-47">
       <slot>
         <v-flex md5 sm12>
           <easybooking-double-combobox ref="location" />
@@ -182,6 +187,10 @@ export default {
     display: none;
   }
 }
+@media screen and (max-width: 959px) {
+  .pb-47 {
+  }
+}
 .e-multi-form {
   margin-bottom: 15px !important;
   position: relative;
@@ -241,6 +250,7 @@ export default {
   }
 }
 .easybooking-search-board {
+  position: relative;
   &-responsive {
     margin-left: -5px;
     margin-right: -5px;
@@ -270,7 +280,9 @@ export default {
     margin-top: 47px;
   }
   .search-form-items {
-    margin-top: -100px;
+    position: absolute;
+    bottom: 53px;
+    width: 100%;
   }
 }
 @media screen and (max-width: 700px) {

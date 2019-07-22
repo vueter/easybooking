@@ -77,8 +77,8 @@
     <template v-for="(duration, index) in filterOptions.durationTime">
       <v-card-text :key="index">
         <span
-        class="e-filter-route mb-1"
-      >{{ $etm.directions[index].departure_name }} - {{ $etm.directions[index].arrival_name }}</span>
+          class="e-filter-route mb-1"
+        >{{ $etm.directions[index].departure_name }} - {{ $etm.directions[index].arrival_name }}</span>
         <v-layout row class="e-filter-range-label">
           <v-flex xs12>{{ formatTime(duration.value[0]) }}</v-flex>
           <v-flex xs12>{{ formatTime(duration.value[1]) }}</v-flex>
@@ -107,12 +107,19 @@
             v-bind:label="aviacompany.name.substr(0, 15)"
           />
         </v-list-tile-content>
-        <v-list-tile-action>{{ formatPrice(aviacompany.price) }} {{ $etm.currency }} </v-list-tile-action>
+        <v-list-tile-action>{{ formatPrice(aviacompany.price) }} {{ $etm.currency }}</v-list-tile-action>
       </v-list-tile>
     </v-list>
     <v-card-text>
-      <v-btn block class="btn-outline mb-4 mt-2" outline color="primary" type="button" v-on:click="reset">Сбросить фильтр</v-btn>
-      <br>
+      <v-btn
+        block
+        class="btn-outline mb-4 mt-2"
+        outline
+        color="primary"
+        type="button"
+        v-on:click="reset"
+      >Сбросить фильтр</v-btn>
+      <br />
     </v-card-text>
   </v-card>
 </template>
@@ -146,7 +153,7 @@ export default {
 
 
 <style lang="scss">
-.btn-outline{
+.btn-outline {
   box-sizing: border-box;
   border-radius: 4px;
   font-weight: 400 !important;
@@ -155,7 +162,7 @@ export default {
   height: 40px;
   box-shadow: none !important;
   margin-bottom: 0 !important;
-  .v-btn__content{
+  .v-btn__content {
     text-transform: initial;
   }
 }
@@ -173,6 +180,9 @@ export default {
   .v-card__text {
     padding-top: 0;
     padding-bottom: 0;
+  }
+  .v-list__tile__action {
+    align-items: flex-start;
   }
   &-sort {
     padding: 0;
@@ -217,7 +227,7 @@ export default {
     .v-input--selection-controls {
       margin-top: 0 !important;
     }
-    label{
+    label {
       font-size: 14px;
       line-height: 16px;
       overflow: hidden;
@@ -251,6 +261,10 @@ export default {
     display: block;
     color: #0fb8d3;
     text-align: left;
+  }
+
+  @media screen and (max-width: 959px) {
+    display: none;
   }
 }
 .text-left {

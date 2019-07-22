@@ -75,6 +75,14 @@ export default {
       color: #a2a2a2 !important;
     }
   }
+  @media screen and (max-width: 959px) {
+    .v-stepper__label{
+      display: block !important;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 }
 .v-stepper__step--inactive {
   .v-stepper__label {
