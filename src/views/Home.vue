@@ -10,21 +10,35 @@
         <easybooking-search-board ref="search-board" />
       </div>
     </v-container>
+      <EasybookingCarousel />
+      <EasybookingOffers />
+      <EasybookingSupportBlock />
+      <EasybookingReviewsBlock />
     <!--<v-container>
       <easybooking-stepper-card />
     </v-container>-->
-    <!--<easybooking-footer>
+    <easybooking-footer>
       {{languages}}
-    </easybooking-footer>-->
+    </easybooking-footer>
   </v-content>
 </template>
 
 <script>
 import Languagable from "../mixins/language";
+import EasybookingCarousel from '@/components/EasybookingCarousel'
+import EasybookingOffers from '@/components/EasybookingOffers'
+import EasybookingSupportBlock from '@/components/EasybookingSupportBlock'
+import EasybookingReviewsBlock from '@/components/EasybookingReviewsBlock'
 
 export default {
   name: "home",
-  mixins: [Languagable]
+  mixins: [Languagable],
+  components: {
+    EasybookingCarousel,
+    EasybookingOffers,
+    EasybookingSupportBlock,
+    EasybookingReviewsBlock
+  }
 };
 </script>
 <style lang="scss">

@@ -3,7 +3,8 @@
     <v-container>
       <h2>Популярные направления</h2>
       <v-layout row wrap style="margin-top: 25px">
-        <v-flex md6 pa-3 v-for="(offer, index) in offers" v-bind:key="index">
+        {{ data }}
+        <v-flex md6 v-for="(offer, index) in offers" v-bind:pl-2="index % 2 != 0" pb-3 v-bind:pr-2="index % 2 == 0" v-bind:key="index">
           <v-card>
             <v-layout row>
               <v-flex md7 xs12>
@@ -69,8 +70,15 @@ export default {
         { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' },
         { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' },
         { image: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png' }
-      ]
+      ],
+      data: []
     }
+  },
+  mounted(){
+    this.$http.get('http://api.easybooking.uz/popular ')
+      .then(response => {
+        this.data = response.data
+      })
   }
 }
 </script>

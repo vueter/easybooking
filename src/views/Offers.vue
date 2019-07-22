@@ -122,6 +122,11 @@ export default {
         this.tickets = this.$easybooking.match.search();
       },
       deep: true
+    },
+    '$route.params.id': {
+      handler(){
+        this.offers();
+      }
     }
   }
 };
